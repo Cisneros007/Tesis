@@ -1,0 +1,73 @@
+<app-header></app-header>
+
+<div class="page-container">
+  <app-sidebar></app-sidebar> <!-- Sidebar agregado -->
+
+  <div class="rutas-horarios-section">
+    <h2>Rutas y Horarios</h2>
+
+    <!-- Tabla de Rutas -->
+    <h3>Rutas Disponibles</h3>
+    <table class="rutas-table">
+      <thead>
+        <tr>
+          <th>Ruta</th>
+          <th>Hora de Salida</th>
+          <th>Hora de Llegada</th>
+          <th>Duración</th>
+          <th>Detalles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ruta of rutas">
+          <td>{{ ruta.nombreRuta }}</td>
+          <td>{{ ruta.horaSalida }}</td>
+          <td>{{ ruta.horaLlegada }}</td>
+          <td>{{ ruta.duracion }}</td>
+          <td>
+            <button class="details-button" (click)="verDetallesRuta(ruta)">
+              <i class="fas fa-info-circle"></i> Ver Detalles
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Tabla de Horarios -->
+    <h3>Horarios de Envío</h3>
+    <table class="envios-table">
+      <thead>
+        <tr>
+          <th>Envío</th>
+          <th>Fecha de Envío</th>
+          <th>Hora de Envío</th>
+          <th>Estado</th>
+          <th>Detalles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let envio of envios">
+          <td>{{ envio.nombreEnvio }}</td>
+          <td>{{ envio.fechaEnvio }}</td>
+          <td>{{ envio.horaEnvio }}</td>
+          <td>
+            <span [ngClass]="{'estado-pendiente': envio.estado === 'Pendiente', 'estado-completado': envio.estado === 'Completado'}">
+              {{ envio.estado }}
+            </span>
+          </td>
+          <td>
+            <button class="details-button" (click)="verDetallesEnvio(envio)">
+              <i class="fas fa-info-circle"></i> Ver Detalles
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Botones de Acción -->
+    <div class="action-buttons">
+      <button class="add-button" (click)="agregarRuta()">Agregar Ruta</button>
+      <button class="add-button" (click)="agregarEnvio()">Agregar Envío</button>
+    </div>
+  </div>
+</div>

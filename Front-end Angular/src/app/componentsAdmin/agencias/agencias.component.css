@@ -1,0 +1,55 @@
+.page-container {
+  display: flex;
+}
+
+.agencias-container {
+  padding: 20px;
+  width: 100%;
+}
+
+.search-map-container {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  background-color: #ffcccb; /* Match the red background */
+  padding: 20px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.search-box button {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.map {
+  flex-grow: 1;
+}
+
+.agencia-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.agencia-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}

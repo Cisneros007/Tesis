@@ -1,0 +1,44 @@
+<app-header></app-header>
+
+<div class="page-container">
+  <app-sidebar></app-sidebar> <!-- Sidebar agregado -->
+
+  <div class="fleet-info-container">
+    <h2 class="fleet-title">Información de la Flota</h2>
+
+    <!-- Vehículos en formato de tarjetas -->
+    <div class="fleet-grid">
+      <div *ngFor="let vehiculo of fleetInfo" class="vehiculo-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSih-22dgcm-zUsDQozMP8sBz7ws8MOE23HWQ&s" 
+             alt="Imagen del {{ vehiculo.nombre }}" 
+             class="vehiculo-image">
+        <div class="vehiculo-info">
+          <h3>{{ vehiculo.nombre }}</h3>
+          <p><strong>Marca:</strong> {{ vehiculo.marca }}</p>
+          <p><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
+          <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
+          <p><strong>Capacidad de carga:</strong> {{ vehiculo.capacidadCarga }} kg</p>
+          <button class="details-button" (click)="verDetalles(vehiculo)">Ver Detalles</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detalles del vehículo seleccionado -->
+    <div *ngIf="vehiculoSeleccionado" class="vehiculo-detalles-overlay">
+      <div class="vehiculo-detalles">
+        <h3>Detalles de {{ vehiculoSeleccionado.nombre }}</h3>
+        <p><strong>Marca:</strong> {{ vehiculoSeleccionado.marca }}</p>
+        <p><strong>Modelo:</strong> {{ vehiculoSeleccionado.modelo }}</p>
+        <p><strong>Año:</strong> {{ vehiculoSeleccionado.anio }}</p>
+        <p><strong>Capacidad de carga:</strong> {{ vehiculoSeleccionado.capacidadCarga }} kg</p>
+        <p><strong>Características:</strong></p>
+        <ul>
+          <li *ngFor="let feature of vehiculoSeleccionado.caracteristicas">{{ feature }}</li>
+        </ul>
+        <p><strong>Estado:</strong> {{ vehiculoSeleccionado.estado }}</p>
+        <p><strong>Fecha de última revisión:</strong> {{ vehiculoSeleccionado.fechaRevision }}</p>
+        <button class="close-button" (click)="cerrarDetalles()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

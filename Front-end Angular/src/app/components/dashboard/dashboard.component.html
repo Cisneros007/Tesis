@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnvíosFácil - Conectando empresas de transporte en Perú</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+
+    <app-header></app-header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Conectamos empresas de transporte y clientes en todo Perú</h2>
+            <p>Gestiona tus envíos de manera eficiente y segura</p>
+            <button routerLink="/envio-crear" class="cta-btn">Comienza ahora</button>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="feature">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Seguimiento en tiempo real</h3>
+            <p>Mantente informado sobre la ubicación de tus envíos en todo momento.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-route"></i>
+            <h3>Optimización de rutas</h3>
+            <p>Rutas inteligentes que ahorran tiempo y dinero.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-boxes"></i>
+            <h3>Gestión eficiente de pedidos e inventario</h3>
+            <p>Controla y gestiona tus envíos y productos desde una sola plataforma.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 EnvíosFácil. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

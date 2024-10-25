@@ -1,0 +1,60 @@
+/* General Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 10;
+  background-color: #f4f7fc;
+  color: #333;
+  
+}
+.page-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+
+}
+
+.company-info-container {
+  flex: 1;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px; /* Limitamos el ancho máximo del contenedor */
+  max-height: 500px;
+  margin: 0 auto; /* Centramos el contenido */
+}
+
+.company-card {
+  background-color: white;
+  padding: 15px; /* Reducimos el padding */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px; /* Reducimos el margen inferior */
+}
+
+.company-card h3 {
+  margin-top: 0;
+}
+
+.company-values {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.company-values li {
+  background-color: #e7f3fe;
+  padding: 8px; /* Reducimos el padding */
+  margin: 5px 0;
+  border-radius: 4px;
+  font-size: 14px; /* Reducimos el tamaño del texto */
+}
+
+.footer {
+  text-align: center;
+  margin-top: 15px; /* Reducimos el margen superior */
+  font-size: 12px; /* Hacemos el texto del footer más pequeño */
+  color: #777;
+}

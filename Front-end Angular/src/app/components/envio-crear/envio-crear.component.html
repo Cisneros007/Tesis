@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nueva Encomienda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Crear Nueva Encomienda</h2>
+
+        <div class="progress-bar">
+            <div class="progress-step active">
+                <div class="step-circle">1</div>
+                <div class="step-title">Remitente</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">2</div>
+                <div class="step-title">Destinatario</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">3</div>
+                <div class="step-title">Paquete</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">4</div>
+                <div class="step-title">Confirmación</div>
+            </div>
+        </div>
+
+        <form [formGroup]="encomiendaForm" (ngSubmit)="onSubmit()">
+            <!-- Paso 1: Datos del Remitente -->
+            <div *ngIf="currentStep === 1" class="form-step">
+                <h3>Paso 1: Datos del Remitente</h3>
+                <div class="form-group">
+                    <label for="remitenteNombre">Nombre del Remitente</label>
+                    <input type="text" id="remitenteNombre" formControlName="remitenteNombre" placeholder="Ingrese el nombre completo">
+                </div>
+                <div class="form-group">
+                    <label for="remitenteTelefono">Teléfono</label>
+                    <input type="tel" id="remitenteTelefono" formControlName="remitenteTelefono" placeholder="Ej. +51 999 888 777">
+                </div>
+                <div class="form-group">
+                    <label for="remitenteDireccion">Dirección de Recogida</label>
+                    <input type="text" id="remitenteDireccion" formControlName="remitenteDireccion" placeholder="Ingrese la dirección completa">
+                </div>
+                <div class="btn-group">
+                    <button type="button" (click)="nextStep()" class="btn btn-next">Siguiente</button>
+                    <button type="button" (click)="goToDashboard()" class="btn btn-home">Regresar a Inicio</button>
+
+                  </div>
+            </div>
+
+            <!-- Paso 2: Datos del Destinatario -->
+            <div *ngIf="currentStep === 2" class="form-step">
+                <h3>Paso 2: Datos del Destinatario</h3>
+                <div class="form-group">
+                    <label for="destinatarioNombre">Nombre del Destinatario</label>
+                    <input type="text" id="destinatarioNombre" formControlName="destinatarioNombre" placeholder="Ingrese el nombre completo">
+                </div>
+                <div class="form-group">
+                    <label for="destinatarioTelefono">Teléfono</label>
+                    <input type="tel" id="destinatarioTelefono" formControlName="destinatarioTelefono" placeholder="Ej. +51 999 888 777">
+                </div>
+                <div class="form-group">
+                    <label for="destinatarioDireccion">Dirección de Entrega</label>
+                    <input type="text" id="destinatarioDireccion" formControlName="destinatarioDireccion" placeholder="Ingrese la dirección completa">
+                </div>
+                <div class="btn-group">
+                    <button type="button" (click)="prevStep()" class="btn btn-prev">Anterior</button>
+                    <button type="button" (click)="nextStep()" class="btn btn-next">Siguiente</button>
+                </div>
+            </div>
+
+            <!-- Paso 3: Información del Paquete -->
+            <div *ngIf="currentStep === 3" class="form-step">
+                <h3>Paso 3: Información del Paquete</h3>
+                <div class="form-group">
+                    <label for="paqueteDescripcion">Descripción del Paquete</label>
+                    <input type="text" id="paqueteDescripcion" formControlName="paqueteDescripcion" placeholder="Breve descripción del contenido">
+                </div>
+                <div class="form-group">
+                    <label for="paquetePeso">Peso (kg)</label>
+                    <input type="number" id="paquetePeso" formControlName="paquetePeso" placeholder="Ej. 5.5">
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="manipulacionEspecial" formControlName="manipulacionEspecial">
+                    <label for="manipulacionEspecial">¿Requiere manipulación especial?</label>
+                </div>
+                <div class="btn-group">
+                    <button type="button" (click)="prevStep()" class="btn btn-prev">Anterior</button>
+                    <button type="button" (click)="nextStep()" class="btn btn-next">Siguiente</button>
+                </div>
+            </div>
+
+            <!-- Paso 4: Confirmación -->
+            <div *ngIf="currentStep === 4" class="form-step">
+                <h3>Paso 4: Confirmación y Pago</h3>
+                <div class="confirmation-details">
+                    <p><strong>Remitente:</strong> {{encomiendaForm.value.remitenteNombre}}</p>
+                    <p><strong>Destinatario:</strong> {{encomiendaForm.value.destinatarioNombre}}</p>
+                    <p><strong>Descripción del Paquete:</strong> {{encomiendaForm.value.paqueteDescripcion}}</p>
+                    <p><strong>Peso:</strong> {{encomiendaForm.value.paquetePeso}} kg</p>
+                    <p><strong>Manipulación Especial:</strong> {{encomiendaForm.value.manipulacionEspecial ? 'Sí' : 'No'}}</p>
+                </div>
+                <div class="btn-group">
+                    <button type="button" (click)="prevStep()" class="btn btn-prev">Anterior</button>
+                    <button type="submit" class="btn btn-submit">Confirmar y Enviar</button>
+                    <button type="button" (click)="goToDashboard()" class="btn btn-home">Regresar a Dashboard</button>
+                  </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

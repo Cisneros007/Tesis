@@ -1,0 +1,285 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Page Container */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Navbar */
+header {
+    background-color: #003366;
+    color: #fff;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.navbar .logo {
+    height: 50px;
+}
+
+.navbar .nav-menu {
+    display: flex;
+    list-style: none;
+}
+
+.navbar .nav-menu li {
+    margin: 0 10px;
+}
+
+.navbar .nav-menu li a {
+    color: #fff;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-menu li a:hover {
+    color: #ffcc00;
+}
+
+.navbar .user-options a {
+    color: #fff;
+    font-size: 20px;
+    margin-left: 15px;
+    transition: color 0.3s ease;
+}
+
+.navbar .user-options a:hover {
+    color: #ffcc00;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #004080;
+    padding: 20px;
+    width: 250px;
+    min-height: 100vh;
+    flex-shrink: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 15px;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: #003366;
+    border-radius: 4px;
+}
+
+.sidebar .submenu {
+    display: none;
+    padding-left: 20px;
+}
+
+.sidebar .submenu li a {
+    font-size: 16px;
+}
+
+.sidebar .social-icons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.sidebar .social-icons a {
+    color: #fff;
+    font-size: 20px;
+}
+
+/* Main Content */
+.content-wrap {
+    display: flex;
+    flex-grow: 1;
+}
+
+.main-content {
+    padding: 20px;
+    flex-grow: 1;
+    background-color: #f4f4f4;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.card img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Footer */
+footer {
+    background-color: #003366;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.footer-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.footer-menu li {
+    margin: 0 10px;
+}
+
+.footer-menu li a {
+    color: #fff;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-menu li a:hover {
+    color: #ffcc00;
+}
+
+/* Chat Button */
+.chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-button:hover {
+    background-color: #003366;
+}
+
+/* Angular Component Section */
+.enviofacil-section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.enviofacil-section h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.enviofacil-section h3 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #333;
+}
+
+.enviofacil-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.enviofacil-section ul li {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.enviofacil-section button {
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.enviofacil-section button:hover {
+    background-color: #003366;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .navbar .nav-menu {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .content-wrap {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .main-content {
+        padding: 10px;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+}

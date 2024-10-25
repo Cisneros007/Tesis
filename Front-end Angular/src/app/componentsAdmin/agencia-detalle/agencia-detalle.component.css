@@ -1,0 +1,20 @@
+.detalle-agencia-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  h1 {
+    font-size: 24px;
+    color: #003366;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    color: #003366;
+  }
+  
+  p {
+    margin: 5px 0;
+  }
+  

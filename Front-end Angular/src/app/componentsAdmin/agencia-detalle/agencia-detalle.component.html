@@ -1,0 +1,10 @@
+<div class="detalle-agencia-container">
+  <h1>Detalles de la Agencia</h1>
+  <div *ngIf="agencia">
+    <h2>{{ agencia.name }}</h2>
+    <p>Dirección: {{ agencia.address }}</p>
+    <p>Teléfono: {{ agencia.phone }}</p>
+    <p>Email: {{ agencia.email }}</p>
+    <!-- Aquí puedes agregar más detalles según lo necesites -->
+  </div>
+</div>

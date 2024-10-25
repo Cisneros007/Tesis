@@ -1,0 +1,17 @@
+<header id="header">
+  <nav class="navbar">
+      <a href="#" class="logo">EnvíosFácil</a>
+      <ul class="nav-links">
+        <li><a routerLink="/dashboard"><i class="fas fa-home"></i> Inicio</a></li>
+        <li><a routerLink="/pagalo"><i class="fas fa-dollar-sign"></i> Págalo</a></li>
+        <li><a routerLink="/rastrear"><i class="fas fa-dollar-sign"></i> rastrear</a></li>
+          <li><a href="#">Iniciar Sesión</a></li>
+      </ul>
+      <div class="user-options">
+        <a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
+        <a routerLink="/perfil" class="profile-icon"><i class="fas fa-user"></i></a>
+        <button class="logout-button" (click)="logOut()">Cerrar sesión</button>
+      </div>
+
+  </nav>
+</header>

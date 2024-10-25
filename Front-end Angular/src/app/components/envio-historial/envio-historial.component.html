@@ -1,0 +1,43 @@
+<app-header></app-header>
+
+<div class="page-container">
+  <app-sidebar></app-sidebar> <!-- Sidebar agregado -->
+
+  <div class="envio-historial-container">
+    <h2>Historial de Envíos</h2>
+
+    <!-- Tabla de historial de envíos -->
+    <table class="historial-table">
+      <thead>
+        <tr>
+          <th>Nombre del Envío</th>
+          <th>Fecha de Envío</th>
+          <th>Hora de Envío</th>
+          <th>Estado</th>
+          <th>Detalles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let envio of historialEnvios">
+          <td>{{ envio.nombreEnvio }}</td>
+          <td>{{ envio.fechaEnvio }}</td>
+          <td>{{ envio.horaEnvio }}</td>
+          <td>{{ envio.estado }}</td>
+          <td>
+            <button (click)="verDetallesEnvio(envio)">Ver Detalles</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Detalles del envío seleccionado -->
+    <div *ngIf="envioSeleccionado" class="detalle-envio">
+      <h3>Detalles de {{ envioSeleccionado.nombreEnvio }}</h3>
+      <p><strong>Fecha:</strong> {{ envioSeleccionado.fechaEnvio }}</p>
+      <p><strong>Hora:</strong> {{ envioSeleccionado.horaEnvio }}</p>
+      <p><strong>Estado:</strong> {{ envioSeleccionado.estado }}</p>
+      <p><strong>Descripción:</strong> {{ envioSeleccionado.descripcion }}</p>
+      <button (click)="cerrarDetalles()">Cerrar</button>
+    </div>
+  </div>
+</div>

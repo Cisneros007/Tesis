@@ -1,0 +1,80 @@
+/* Contenedor principal */
+.page-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f1f5f9;
+  width: 100%;
+  margin: auto;
+
+
+}
+
+
+
+/* Contenido principal de los servicios */
+.servicios-terrestre-container {
+  flex: 1;
+  margin-left: 60px; /* Desplazar el contenido para que no se superponga con el sidebar */
+  padding: 30px;
+
+}
+
+/* Sección hero */
+.hero-section {
+  background: linear-gradient(135deg, #003366, #0066cc);
+  padding: 60px 30px;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+/* Ajuste de las tarjetas en la cuadrícula */
+.servicio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Tarjeta de cada servicio */
+.servicio-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.servicio-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Detalles del servicio */
+.detalle-servicio {
+  background-color: #fff;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 30px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón agregar */
+.btn-agregar {
+  background-color: #38a169;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-agregar:hover {
+  background-color: #2f855a;
+}

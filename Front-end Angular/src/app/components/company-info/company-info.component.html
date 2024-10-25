@@ -1,0 +1,24 @@
+<app-header></app-header>
+
+<div class="page-container">
+  <app-sidebar></app-sidebar> <!-- Sidebar agregado -->
+
+  <div class="company-info-container">
+    <h2>Información de la Empresa</h2>
+
+    <div class="company-details">
+      <h3>{{ empresa.nombre }}</h3>
+      <p><strong>Descripción:</strong> {{ empresa.descripcion }}</p>
+      <p><strong>Dirección:</strong> {{ empresa.direccion }}</p>
+      <p><strong>Teléfono:</strong> {{ empresa.telefono }}</p>
+      <p><strong>Email:</strong> {{ empresa.email }}</p>
+      <p><strong>Fecha de Fundación:</strong> {{ empresa.fechaFundacion | date }}</p>
+    </div>
+
+    <h3>Valores de la Empresa</h3>
+    <ul class="company-values">
+      <li *ngFor="let valor of empresa.valores">{{ valor }}</li>
+    </ul>
+
+  </div>
+</div>

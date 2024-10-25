@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<div class="page-container">
+  <app-sidebar></app-sidebar> <!-- Sidebar correctamente posicionado -->
+
+  <div class="tarifas-container">
+    <div class="header-section">
+      <img src="/assets/path-to-your-image.png" alt="Image" class="header-image">
+      <h1 class="tarifas-title">Bienvenido a tarifas</h1>
+      <p>Calcula el monto de tus envíos, repartos y recojos.</p>
+    </div>
+
+    <div class="toggle-section">
+      <label>
+        <input type="radio" name="envio" value="terrestre" checked>
+        Terrestre
+      </label>
+      <label>
+        <input type="radio" name="envio" value="aereo">
+        Aéreo
+      </label>
+    </div>
+
+    <div class="input-section">
+      <input type="text" placeholder="Ingresa origen" class="input-origin" [(ngModel)]="origen">
+      <input type="text" placeholder="Ingresa destino" class="input-destination" [(ngModel)]="destino">
+      <button (click)="buscarTarifas()">Buscar Tarifas</button>
+    </div>
+
+    <div *ngIf="buscarRealizado">
+      <table>
+        <thead>
+          <tr>
+            <th>Servicio</th>
+            <th>Precio</th>
+            <th>Descripción</th>
+            <th>Entrega Estimada</th>
+            <th>Información Adicional</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        
+      </table>
+    </div>
+  </div>
+</div>
