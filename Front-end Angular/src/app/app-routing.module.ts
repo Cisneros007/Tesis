@@ -17,16 +17,21 @@ import { ServiciosAereoComponent } from './componentsAdmin/servicios-aereo/servi
 import { EnvioHistorialComponent } from './components/envio-historial/envio-historial.component';
 import { ComunicateComponent } from './components/comunicate/comunicate.component';
 import { CompanyInfoComponent } from './components/company-info/company-info.component';
+import { DashboardAdminComponent } from './componentsAdmin/dashboard-admin/dashboard-admin.component';
+import { HistorialClienteComponent } from './componentsAdmin/historial-cliente/historial-cliente.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
   {path: 'rastear', component: RastrearComponent, canActivate: [AuthGuard]},
+  {path: 'dashboard-admin', component: DashboardAdminComponent, canActivate: [AuthGuard]},
   { path: 'rutas-horarios', component: RutasHorariosComponent, canActivate: [AuthGuard] },
   { path: 'servicios-terrestre', component: ServiciosTerrestreComponent, canActivate: [AuthGuard] },
   { path: 'servicios-aereo', component: ServiciosAereoComponent, canActivate: [AuthGuard] },
   { path: 'envio-crear', component: EnvioCrearComponent, canActivate: [AuthGuard] },
   { path: 'envio-historial', component: EnvioHistorialComponent, canActivate: [AuthGuard] },
+  { path: 'historial-cliente', component: HistorialClienteComponent, canActivate: [AuthGuard] },
   { path: 'rastrear', component: RastrearComponent, canActivate: [AuthGuard] },
   { path: 'pagalo', component: PagaloComponent, canActivate: [AuthGuard] },
   { path: 'flota-info', component: FlotaInfoComponent, canActivate: [AuthGuard] },

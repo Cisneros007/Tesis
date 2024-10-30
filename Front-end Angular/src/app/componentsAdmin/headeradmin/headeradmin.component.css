@@ -1,0 +1,40 @@
+/* Reinicia márgenes y paddings, y establece el box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos para el header */
+header {
+    position: fixed; /* Mantiene el header fijo en la parte superior */
+    width: 100%; /* Ancho completo */
+    z-index: 1000; /* Asegura que esté encima de otros elementos */
+}
+
+/* Estilos para la barra de navegación */
+.navbar {
+    display: flex; /* Muestra los elementos en fila */
+    justify-content: space-between; /* Espacia entre los elementos */
+    align-items: center; /* Centra verticalmente los elementos */
+    max-width: 1200px; /* Ancho máximo del contenido */
+    margin: 0 auto; /* Centra el contenido */
+    height: 68px; /* Aumenta la altura del navbar */
+}
+
+/* Estilos para la lista de enlaces de navegación */
+.nav-links {
+    list-style-type: none; /* Elimina los puntos de la lista */
+    display: flex; /* Muestra los enlaces en fila */
+}
+
+/* Estilos para los elementos de la lista de navegación */
+.nav-links li {
+    margin: 0 20px; /* Aumenta el espaciado entre los enlaces */
+}
+
+/* Estilos para las opciones de usuario */
+.user-options {
+    display: flex; /* Muestra las opciones en fila */
+    align-items: center; /* Centra verticalmente las opciones */
+}

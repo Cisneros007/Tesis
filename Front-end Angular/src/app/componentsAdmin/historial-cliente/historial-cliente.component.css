@@ -1,0 +1,60 @@
+.page-container {
+    display: flex;
+  }
+  
+  .envio-historial-container {
+    flex: 1;
+    padding: 20px;
+    margin-left: 220px; /* Espacio para el sidebar */
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .historial-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .historial-table th, .historial-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .historial-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .detalle-envio {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .detalle-envio h3 {
+    margin-top: 0;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  

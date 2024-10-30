@@ -28,6 +28,9 @@ import { ComunicateComponent } from './components/comunicate/comunicate.componen
 import { CompanyInfoComponent } from './components/company-info/company-info.component';
 import { MapaComponent } from './mapa/mapa.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HeaderadminComponent } from './componentsAdmin/headeradmin/headeradmin.component';
+import { DashboardAdminComponent } from './componentsAdmin/dashboard-admin/dashboard-admin.component';
+import { HistorialClienteComponent } from './componentsAdmin/historial-cliente/historial-cliente.component';
 
 
 
@@ -43,6 +46,7 @@ import { HttpClientModule } from '@angular/common/http';
     RastrearComponent,
     PagaloComponent,
     AgenciasComponent,
+    HeaderComponent,
     TarifasComponent,
     AgenciaDetalleComponent,
     FlotaInfoComponent,
@@ -54,6 +58,9 @@ import { HttpClientModule } from '@angular/common/http';
     ComunicateComponent,
     CompanyInfoComponent,
     MapaComponent,
+    HeaderadminComponent,
+    DashboardAdminComponent,
+    HistorialClienteComponent,
   ],
   imports: [
     BrowserModule,

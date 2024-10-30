@@ -68,11 +68,14 @@ header {
 
 /* Sidebar */
 .sidebar {
+    position: fixed; /* Hace que el sidebar sea fijo */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
     background-color: #004080;
     padding: 20px;
     width: 250px;
-    min-height: 100vh;
-    flex-shrink: 0;
+    overflow-y: auto; /* Permite scroll en el sidebar si es necesario */
 }
 
 .sidebar ul {

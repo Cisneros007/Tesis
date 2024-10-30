@@ -1,0 +1,113 @@
+<div >
+  <app-headeradmin></app-headeradmin>
+  <div class="flex-grow p-4 ml-64">
+    <app-sidebar></app-sidebar>
+    <div class="fleet-info-container flex flex-col">
+      <h2 class="fleet-title text-2xl font-bold mb-4">Administración de Usuarios</h2>
+
+      <!-- Tabla Usuarios -->
+      <div class="crud-section mb-4 ">
+        <button
+          class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition transform hover:-translate-y-0.5"
+          (click)="crearUsuario()"
+        >
+          Agregar Usuario
+        </button>
+        <div class="table-responsive overflow-x-auto mt-4">
+          <table class="w-full border-collapse shadow-md">
+            <thead>
+              <tr class="bg-gray-200 text-left font-bold">
+                <th class="border p-3">Nombre</th>
+                <th class="border p-3">Apellido</th>
+                <th class="border p-3">DNI</th>
+                <th class="border p-3">Teléfono</th>
+                <th class="border p-3">Email</th>
+                <th class="border p-3">Dirección</th>
+                <th class="border p-3">Fecha de Registro</th>
+                <th class="border p-3">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of usuarios" class="hover:bg-blue-50">
+                <td class="border p-3">{{ usuario.nombre }}</td>
+                <td class="border p-3">{{ usuario.apellido }}</td>
+                <td class="border p-3">{{ usuario.dni }}</td>
+                <td class="border p-3">{{ usuario.telefono }}</td>
+                <td class="border p-3">{{ usuario.email }}</td>
+                <td class="border p-3">{{ usuario.direccion }}</td>
+                <td class="border p-3">{{ usuario.fechaRegistro | date }}</td>
+                <td class="border p-3 flex gap-2">
+                  <button
+                    class="bg-yellow-400 px-2 py-1 rounded-md hover:bg-yellow-500 transition"
+                    (click)="editarUsuario(usuario)"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 transition"
+                    (click)="eliminarUsuario(usuario.idusuario)"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h2 class="fleet-title text-2xl font-bold mb-4">Administración de Clientes</h2>
+
+      <!-- Tabla Clientes -->
+      <div class="crud-section mb-4">
+        <button
+          class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition transform hover:-translate-y-0.5"
+          (click)="crearCliente()"
+        >
+          Agregar Cliente
+        </button>
+        <div class="table-responsive overflow-x-auto mt-4">
+          <table class="w-full border-collapse shadow-md">
+            <thead>
+              <tr class="bg-gray-200 text-left font-bold">
+                <th class="border p-3">Nombre</th>
+                <th class="border p-3">Apellido</th>
+                <th class="border p-3">DNI</th>
+                <th class="border p-3">Teléfono</th>
+                <th class="border p-3">Email</th>
+                <th class="border p-3">Dirección</th>
+                <th class="border p-3">Fecha de Registro</th>
+                <th class="border p-3">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cliente of clientes" class="hover:bg-blue-50">
+                <td class="border p-3">{{ cliente.nombre }}</td>
+                <td class="border p-3">{{ cliente.apellido }}</td>
+                <td class="border p-3">{{ cliente.dni }}</td>
+                <td class="border p-3">{{ cliente.telefono }}</td>
+                <td class="border p-3">{{ cliente.email }}</td>
+                <td class="border p-3">{{ cliente.direccion }}</td>
+                <td class="border p-3">{{ cliente.fechaRegistro | date }}</td>
+                <td class="border p-3 flex gap-2">
+                  <button
+                    class="bg-yellow-400 px-2 py-1 rounded-md hover:bg-yellow-500 transition"
+                    (click)="editarCliente(cliente)"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 transition"
+                    (click)="eliminarCliente(cliente.idCliente)"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

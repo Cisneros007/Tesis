@@ -1,12 +1,13 @@
 import { Component, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-flota-info',
   templateUrl: './flota-info.component.html',
   styleUrls: ['./flota-info.component.css']
 })
 export class FlotaInfoComponent implements AfterViewInit {
-  // Array que contiene información sobre la flota de vehículos
+ 
   fleetInfo = [
     {
       nombre: 'Camión 1',
