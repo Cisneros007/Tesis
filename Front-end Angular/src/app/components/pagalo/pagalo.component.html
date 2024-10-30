@@ -1,5 +1,4 @@
 <app-header></app-header>
-
 <div class="page-layout">
   <div class="pagalo-container">
     <h1>Bienvenido a Págalo</h1>
@@ -10,7 +9,7 @@
       <div class="form-group">
         <label for="orderCode">Código de orden</label>
         <input
-          type="text"
+          type="number"
           id="orderCode"
           [(ngModel)]="paymentDetails.orderCode"
           name="orderCode"
@@ -29,20 +28,28 @@
         <h2>Método de Pago</h2>
         <div class="payment-icons">
           <div class="payment-icon" [ngClass]="{'selected': paymentDetails.method === 'bcp'}" (click)="selectPaymentMethod('bcp')">
-            <img src="assets/icons/bcp.png" alt="BCP" />
+            <img src="assets/images-pagalo/bcp.png" alt="BCP" />
             <span>BCP</span>
           </div>
           <div class="payment-icon" [ngClass]="{'selected': paymentDetails.method === 'yape'}" (click)="selectPaymentMethod('yape')">
-            <img src="assets/icons/yape.png" alt="Yape" />
+            <img src="assets/images-pagalo/yape.png" alt="Yape" />
             <span>Yape</span>
           </div>
           <div class="payment-icon" [ngClass]="{'selected': paymentDetails.method === 'plin'}" (click)="selectPaymentMethod('plin')">
-            <img src="assets/icons/plin.png" alt="Plin" />
+            <img src="assets/images-pagalo/plin.png" alt="Plin" />
             <span>Plin</span>
           </div>
         </div>
         <div *ngIf="paymentDetails.method" class="selected-method">
           Método de pago seleccionado: {{ paymentDetails.method | uppercase }}
+        </div>
+        
+        <!-- Imágenes para Yape y Plin -->
+        <div *ngIf="paymentDetails.method === 'yape'" class="image-center">
+          <img src="assets/images-pagalo/qr.png" alt="Información Yape" />
+        </div>
+        <div *ngIf="paymentDetails.method === 'plin'" class="image-center">
+          <img src="assets/images-pagalo/qr.png" alt="Información Plin" />
         </div>
       </div>
 
@@ -70,7 +77,7 @@
         <div class="form-group">
           <label for="cardNumber">Número de Tarjeta</label>
           <input
-            type="text"
+            type="number"
             id="cardNumber"
             [(ngModel)]="paymentDetails.cardNumber"
             name="cardNumber"
@@ -86,11 +93,10 @@
         <div class="form-group">
           <label for="cardExpiry">Fecha de Expiración (MM/AA)</label>
           <input
-            type="text"
+            type="month"
             id="cardExpiry"
             [(ngModel)]="paymentDetails.cardExpiry"
             name="cardExpiry"
-            placeholder="MM/AA"
             required
             #cardExpiry="ngModel"
             [ngClass]="{ 'is-invalid': cardExpiry.invalid && cardExpiry.touched }"
@@ -102,7 +108,7 @@
         <div class="form-group">
           <label for="cardCvv">CVV</label>
           <input
-            type="text"
+            type="number"
             id="cardCvv"
             [(ngModel)]="paymentDetails.cardCvv"
             name="cardCvv"

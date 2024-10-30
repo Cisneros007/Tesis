@@ -1,17 +1,23 @@
 <header id="header">
   <nav class="navbar">
-      <a href="#" class="logo">EnvíosFácil</a>
+      <a routerLink="/dashboard" class="logo">EnvíosFácil</a>
       <ul class="nav-links">
         <li><a routerLink="/dashboard"><i class="fas fa-home"></i> Inicio</a></li>
         <li><a routerLink="/pagalo"><i class="fas fa-dollar-sign"></i> Págalo</a></li>
-        <li><a routerLink="/rastrear"><i class="fas fa-dollar-sign"></i> rastrear</a></li>
-          <li><a href="#">Iniciar Sesión</a></li>
+        <li><a routerLink="/rastrear"><i class="fas fa-dollar-sign"></i> Rastrear</a></li>
+        <li><a routerLink="/agencias">agencias</a></li>
       </ul>
       <div class="user-options">
-        <a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
-        <a routerLink="/perfil" class="profile-icon"><i class="fas fa-user"></i></a>
-        <button class="logout-button" (click)="logOut()">Cerrar sesión</button>
+        <a routerLink="/user-profile">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6rKwDbEN_M9FCcve-ozbDkUUn6VkEZ7xfVw&s" alt="User" class="user-image">
+        </a>
       </div>
-
   </nav>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  integrity="sha384-dyB6yyQvs8lp6n/jk65Nyb40eAYsttMOPJXIC1KNx8sOE6FgWk7wTE1aMY3uP9St"
+  crossorigin="anonymous"
+/>
+
 </header>

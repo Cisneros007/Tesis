@@ -5,21 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnvíosFácil - Conectando empresas de transporte en Perú</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-
     <app-header></app-header>
 
-    <section class="hero">
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
         <div class="hero-content">
-            <h2>Conectamos empresas de transporte y clientes en todo Perú</h2>
+            <h1>Conectamos empresas de transporte y clientes en todo Perú</h1>
             <p>Gestiona tus envíos de manera eficiente y segura</p>
             <button routerLink="/envio-crear" class="cta-btn">Comienza ahora</button>
         </div>
     </section>
 
-    <section class="features">
+    <!-- Features Section -->
+    <section class="features" id="servicios">
         <div class="feature">
             <i class="fas fa-map-marker-alt"></i>
             <h3>Seguimiento en tiempo real</h3>
@@ -32,16 +33,147 @@
         </div>
         <div class="feature">
             <i class="fas fa-boxes"></i>
-            <h3>Gestión eficiente de pedidos e inventario</h3>
+            <h3>Gestión eficiente</h3>
             <p>Controla y gestiona tus envíos y productos desde una sola plataforma.</p>
         </div>
     </section>
 
+    <!-- Tarifas Section -->
+    <section class="tarifas-section" id="tarifas">
+        <div class="page-container">
+            <div class="tarifas-container">
+                <div class="header-section">
+                    <img src="/assets/images/tarifas-icon.png" alt="Tarifas" class="header-image">
+                    <h2 class="tarifas-title">Calcula tus Tarifas</h2>
+                    <p>Conoce el costo de tus envíos, repartos y recojos</p>
+                </div>
+
+                <div class="toggle-section">
+                    <label>
+                        <input type="radio" name="envio" value="terrestre" checked>
+                        Terrestre
+                    </label>
+                    <label>
+                        <input type="radio" name="envio" value="aereo">
+                        Aéreo
+                    </label>
+                </div>
+
+                <div class="input-section">
+                    <input type="text" placeholder="Ingresa origen" class="input-origin">
+                    <input type="text" placeholder="Ingresa destino" class="input-destination">
+                    <button class="cta-btn">Buscar Tarifas</button>
+                </div>
+
+                <div class="results-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Servicio</th>
+                                <th>Precio</th>
+                                <th>Descripción</th>
+                                <th>Entrega Estimada</th>
+                                <th>Información Adicional</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Resultados dinámicos irán aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Info Section -->
+    <section class="company-info" id="nosotros">
+        <div class="company-info-container">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h3>Información de Contacto</h3>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Av. Ejemplo 1234, Lima, Perú</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+51 987 654 321</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>contactote.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="social-media">
+                <h3>Redes Sociales</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-facebook"></i>
+                        Facebook
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                        Twitter
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                        Instagram
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+
+            <!-- Business Hours -->
+            <div class="business-hours">
+                <h3>Horario de Atención</h3>
+                <ul class="hours-list">
+                    <li class="hours-item">
+                        <span class="day">Lunes - Viernes</span>
+                        <span class="time">8:00 AM - 6:00 PM</span>
+                    </li>
+                    <li class="hours-item">
+                        <span class="day">Sábado</span>
+                        <span class="time">9:00 AM - 2:00 PM</span>
+                    </li>
+                    <li class="hours-item">
+                        <span class="day">Domingo</span>
+                        <span class="time">Cerrado</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section" id="contacto">
+        <div class="map-container">
+            <h3>Nuestra Ubicación</h3>
+            <iframe 
+                class="map-frame"
+                src="https://www.google.com/maps/embed?pb=your-map-embed-url"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 EnvíosFácil. Todos los derechos reservados.</p>
+        <div class="footer-content">
+            <p>&copy; 2024 EnvíosFácil. Todos los derechos reservados.</p>
+        </div>
     </footer>
 
+    <!-- Scripts -->
     <script>
+        // Header scroll effect
         window.addEventListener('scroll', function() {
             var header = document.getElementById('header');
             if (window.scrollY > 50) {
@@ -49,6 +181,16 @@
             } else {
                 header.classList.remove('scrolled');
             }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
     </script>
 </body>

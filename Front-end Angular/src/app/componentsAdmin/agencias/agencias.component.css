@@ -1,22 +1,36 @@
 .page-container {
   display: flex;
+  padding-top: 80px; /* Ajuste para evitar superposición con el header */
+  flex-direction: column;
 }
 
 .agencias-container {
   padding: 20px;
   width: 100%;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .search-map-container {
   display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   margin-bottom: 20px;
 }
 
 .search-box {
-  background-color: #ffcccb; /* Match the red background */
+  background-color: #f8d7da; /* Color rojo suave */
   padding: 20px;
-  border-radius: 10px;
-  margin-right: 20px;
+  border-radius: 8px;
+  max-width: 300px;
+  width: 100%;
+}
+
+.search-box label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  display: block;
 }
 
 .search-box input {
@@ -28,21 +42,31 @@
 }
 
 .search-box button {
-  background-color: red;
+  background-color: #c82333;
   color: white;
   padding: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 100%;
+}
+
+.search-box button:hover {
+  background-color: #a71d2a;
 }
 
 .map {
   flex-grow: 1;
+  min-width: 300px;
+  height: 450px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra para el mapa */
 }
 
 .agencia-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
 }
 
@@ -50,6 +74,73 @@
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.agencia-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Sombra más prominente al pasar el ratón */
+}
+
+.agencia-header h2 {
+  font-size: 1.5em;
+  color: #1e3a8a;
+  margin-bottom: 10px;
+}
+
+.agencia-body p {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.agencia-body button {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+.agencia-body button:hover {
+  background-color: #153e75;
+}
+
+/* Estilo para el mensaje de no resultados */
+.no-results {
+  color: #c82333;
+  font-weight: bold;
+  margin-top: 20px;
+}
+.title {
+  font-size: 2.5em; /* Tamaño más grande */
+  color: #1e3a8a; /* Color del texto */
+  text-align: center; /* Centrar el texto */
+  margin-bottom: 20px; /* Espacio debajo del título */
+  position: relative; /* Para el efecto de subrayado */
+  display: inline-block; /* Ajustar el ancho al contenido */
+}
+
+.title::after {
+  content: ""; /* Crear un pseudo-elemento */
+  display: block; /* Convertir en bloque */
+  width: 80%; /* Ancho del subrayado */
+  height: 4px; /* Altura del subrayado */
+  background: linear-gradient(90deg, #1e3a8a, #c82333); /* Degradado para el subrayado */
+  position: absolute; /* Posicionarlo */
+  left: 50%; /* Centrarse en el contenedor */
+  bottom: -5px; /* Espacio debajo del texto */
+  transform: translateX(-50%); /* Ajustar para centrar */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+.title:hover {
+  color: #c82333; /* Cambiar color al pasar el ratón */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra de texto */
+  transition: color 0.3s ease; /* Efecto de transición suave */
 }

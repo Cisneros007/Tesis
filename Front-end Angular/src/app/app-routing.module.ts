@@ -19,6 +19,8 @@ import { ComunicateComponent } from './components/comunicate/comunicate.componen
 import { CompanyInfoComponent } from './components/company-info/company-info.component';
 import { DashboardAdminComponent } from './componentsAdmin/dashboard-admin/dashboard-admin.component';
 import { HistorialClienteComponent } from './componentsAdmin/historial-cliente/historial-cliente.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -40,7 +42,8 @@ const routes: Routes = [
   { path: 'tarifas', component: TarifasComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'comunicate', component: ComunicateComponent, canActivate: [AuthGuard] },
-  { path: 'company-info', component: CompanyInfoComponent, canActivate: [AuthGuard] }
+  { path: 'company-info', component: CompanyInfoComponent, canActivate: [AuthGuard] },
+  { path: 'user-profile', component:  UserProfileComponent, canActivate: [AuthGuard] }
 
 
 ];
