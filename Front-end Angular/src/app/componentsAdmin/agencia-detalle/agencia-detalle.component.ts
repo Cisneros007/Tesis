@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-agencia-detalle',
@@ -9,13 +9,11 @@ import { ActivatedRoute } from '@angular/router';
 export class AgenciaDetalleComponent implements OnInit {
   agencia: any;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id')!;
-    // Aquí puedes hacer una llamada a un servicio para obtener los detalles de la agencia
     // Simulamos con datos estáticos
-    // En una aplicación real, necesitarías llamar a un servicio para obtener los datos de la agencia
     this.agencia = {
       id: id,
       name: 'Agencia Central',
@@ -23,5 +21,9 @@ export class AgenciaDetalleComponent implements OnInit {
       phone: '(01) 234-5678',
       email: 'central@agencias.com'
     };
+  }
+
+  goBack(): void {
+    this.router.navigate(['/agencias']); // Asegúrate de que esta ruta sea correcta
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router'; // Importa Router
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-envio-crear',
@@ -11,8 +11,12 @@ export class EnvioCrearComponent {
   encomiendaForm: FormGroup;
   currentStep = 1;
   stepsCompleted = [false, false, false, false];
+  showReceipt = false;
+  trackingCode = '';
+  password = '';
+  today = new Date(); // Añadimos la variable today
 
-  constructor(private fb: FormBuilder, private router: Router) { // Inyecta Router
+  constructor(private fb: FormBuilder, private router: Router) {
     this.encomiendaForm = this.fb.group({
       remitenteNombre: ['', Validators.required],
       remitenteTelefono: ['', Validators.required],
@@ -22,8 +26,19 @@ export class EnvioCrearComponent {
       destinatarioDireccion: ['', Validators.required],
       paqueteDescripcion: ['', Validators.required],
       paquetePeso: ['', Validators.required],
+      paqueteValor: ['', Validators.required],
+      servicioDomicilio: ['no', Validators.required],
+      costoServicioDomicilio: [''],
       manipulacionEspecial: [false]
     });
+  }
+
+  generateTrackingCode(): string {
+    return 'ENV' + Math.random().toString(36).substr(2, 8).toUpperCase();
+  }
+
+  generatePassword(): string {
+    return Math.random().toString(36).substr(2, 8).toUpperCase();
   }
 
   nextStep() {
@@ -44,15 +59,16 @@ export class EnvioCrearComponent {
     switch (this.currentStep) {
       case 1:
         return controls['remitenteNombre'].valid &&
-               controls['remitenteTelefono'].valid &&
-               controls['remitenteDireccion'].valid;
+          controls['remitenteTelefono'].valid &&
+          controls['remitenteDireccion'].valid;
       case 2:
         return controls['destinatarioNombre'].valid &&
-               controls['destinatarioTelefono'].valid &&
-               controls['destinatarioDireccion'].valid;
+          controls['destinatarioTelefono'].valid &&
+          controls['destinatarioDireccion'].valid;
       case 3:
         return controls['paqueteDescripcion'].valid &&
-               controls['paquetePeso'].valid;
+          controls['paquetePeso'].valid &&
+          controls['paqueteValor'].valid;
       default:
         return true;
     }
@@ -69,12 +85,18 @@ export class EnvioCrearComponent {
 
   onSubmit() {
     if (this.encomiendaForm.valid) {
-      console.log(this.encomiendaForm.value);
-      // Aquí puedes manejar el envío de los datos o realizar cualquier otra acción.
+      this.trackingCode = this.generateTrackingCode();
+      this.password = this.generatePassword();
+      this.today = new Date(); // Actualizamos la fecha al momento de generar la boleta
+      this.showReceipt = true;
     }
   }
 
   goToDashboard() {
-    this.router.navigate(['/dashboard']); // Navega al dashboard
+    this.router.navigate(['/dashboard']);
+  }
+
+  imprimirBoleta() {
+    window.print();
   }
 }

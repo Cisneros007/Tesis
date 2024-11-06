@@ -32,6 +32,7 @@ import { HeaderadminComponent } from './componentsAdmin/headeradmin/headeradmin.
 import { DashboardAdminComponent } from './componentsAdmin/dashboard-admin/dashboard-admin.component';
 import { HistorialClienteComponent } from './componentsAdmin/historial-cliente/historial-cliente.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { AgenciasAdminComponent } from './componentsAdmin/agencias-admin/agencias-admin.component';
 
 
 
@@ -62,6 +63,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     DashboardAdminComponent,
     HistorialClienteComponent,
     UserProfileComponent,
+    AgenciasAdminComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,19 @@
-<div class="detalle-agencia-container">
-  <h1>Detalles de la Agencia</h1>
-  <div *ngIf="agencia">
-    <h2>{{ agencia.name }}</h2>
-    <p>Dirección: {{ agencia.address }}</p>
-    <p>Teléfono: {{ agencia.phone }}</p>
-    <p>Email: {{ agencia.email }}</p>
-    <!-- Aquí puedes agregar más detalles según lo necesites -->
+<div class="detalle-agencia-container max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+  <h1 class="text-3xl font-bold mb-4 text-gray-800">Detalles de la Agencia</h1>
+  
+  <div *ngIf="agencia" class="bg-gray-100 p-4 rounded-md">
+    <h2 class="text-2xl font-semibold mb-2 text-gray-700">{{ agencia.name }}</h2>
+    <p class="text-gray-600">Dirección: {{ agencia.address }}</p>
+    <p class="text-gray-600">Teléfono: {{ agencia.phone }}</p>
+    <p class="text-gray-600">Email: {{ agencia.email }}</p>
+  </div>
+  
+  <div class="mt-6">
+    <button
+      (click)="goBack()"
+      class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200"
+    >
+      Regresar a las Agencias
+    </button>
   </div>
 </div>

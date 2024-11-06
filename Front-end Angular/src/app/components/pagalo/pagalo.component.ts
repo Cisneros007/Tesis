@@ -1,4 +1,5 @@
 import { Component, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-pagalo',
@@ -32,19 +33,33 @@ export class PagaloComponent implements AfterViewInit {
   onSubmit() {
     console.log('Procesando pago con detalles:', this.paymentDetails);
 
-    // Simulación de procesamiento de pago
     if (this.paymentDetails.method) {
       this.trackingNumber = this.generateTrackingNumber();
-      // Mostrar mensaje de éxito y número de seguimiento
-      this.paymentSuccess = true;
+      this.paymentSuccess = true; // El pago se realizó con éxito
       alert('Pago realizado con éxito! Tu número de seguimiento es: ' + this.trackingNumber);
     } else {
       alert('Por favor, selecciona un método de pago.');
     }
   }
 
+  downloadReceipt() {
+    if (!this.paymentSuccess) {
+      alert('Debes completar el pago antes de descargar el comprobante.');
+      return;
+    }
+
+    const doc = new jsPDF();
+    doc.text('Comprobante de Pago', 10, 10);
+    doc.text(`Código de Orden: ${this.paymentDetails.orderCode}`, 10, 20);
+    doc.text(`Método de Pago: ${this.paymentDetails.method}`, 10, 30);
+    doc.text(`Número de Seguimiento: ${this.trackingNumber}`, 10, 40);
+    doc.text('Gracias por tu compra.', 10, 50);
+
+    // Guardar el PDF
+    doc.save('comprobante_pago.pdf');
+  }
+
   private generateTrackingNumber(): string {
-    // Generar un número de seguimiento aleatorio como ejemplo
     return 'TRK-' + Math.floor(Math.random() * 1000000).toString();
   }
 

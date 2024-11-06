@@ -20,6 +20,7 @@ import { CompanyInfoComponent } from './components/company-info/company-info.com
 import { DashboardAdminComponent } from './componentsAdmin/dashboard-admin/dashboard-admin.component';
 import { HistorialClienteComponent } from './componentsAdmin/historial-cliente/historial-cliente.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { AgenciasAdminComponent } from './componentsAdmin/agencias-admin/agencias-admin.component';
 
 
 const routes: Routes = [
@@ -43,7 +44,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'comunicate', component: ComunicateComponent, canActivate: [AuthGuard] },
   { path: 'company-info', component: CompanyInfoComponent, canActivate: [AuthGuard] },
-  { path: 'user-profile', component:  UserProfileComponent, canActivate: [AuthGuard] }
+  { path: 'user-profile', component:  UserProfileComponent, canActivate: [AuthGuard] },
+  { path: 'agencias-admin', component: AgenciasAdminComponent, canActivate: [AuthGuard] },
 
 
 ];

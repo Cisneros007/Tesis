@@ -6,158 +6,155 @@
     <title>EnvíosFácil - Conectando empresas de transporte en Perú</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Personalización adicional, si es necesaria */
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800 font-poppins">
+
     <app-header></app-header>
 
     <!-- Hero Section -->
-    <section class="hero" id="inicio">
-        <div class="hero-content">
-            <h1>Conectamos empresas de transporte y clientes en todo Perú</h1>
-            <p>Gestiona tus envíos de manera eficiente y segura</p>
-            <button routerLink="/envio-crear" class="cta-btn">Comienza ahora</button>
+    <section class="bg-cover bg-center h-screen flex items-center justify-center text-center text-white" style="background-image: url('https://image.slidesdocs.com/responsive-images/background/streamlined-logistics-truck-and-smartphone-deliveries-with-online-tracking-and-ample-copy-space-3d-illustration-powerpoint-background_bf317fa2fd__960_540.jpg');">
+        <div class="max-w-3xl p-4">
+            <h1 class="text-5xl mb-4">Conectamos empresas de transporte y clientes en todo Perú</h1>
+            <p class="text-xl mb-6">Gestiona tus envíos de manera eficiente y segura</p>
+            <button routerLink="/envio-crear" class="bg-yellow-400 text-blue-900 py-2 px-4 rounded hover:bg-yellow-300 transition">Comienza ahora</button>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features" id="servicios">
-        <div class="feature">
-            <i class="fas fa-map-marker-alt"></i>
-            <h3>Seguimiento en tiempo real</h3>
+    <section class="flex flex-wrap justify-around p-8 bg-white max-w-5xl mx-auto">
+        <div class="text-center w-1/3 p-4 shadow-lg rounded-lg">
+            <i class="fas fa-map-marker-alt text-blue-900 text-5xl mb-4"></i>
+            <h3 class="text-2xl text-blue-900 mb-2">Seguimiento en tiempo real</h3>
             <p>Mantente informado sobre la ubicación de tus envíos en todo momento.</p>
         </div>
-        <div class="feature">
-            <i class="fas fa-route"></i>
-            <h3>Optimización de rutas</h3>
+        <div class="text-center w-1/3 p-4 shadow-lg rounded-lg">
+            <i class="fas fa-route text-blue-900 text-5xl mb-4"></i>
+            <h3 class="text-2xl text-blue-900 mb-2">Optimización de rutas</h3>
             <p>Rutas inteligentes que ahorran tiempo y dinero.</p>
         </div>
-        <div class="feature">
-            <i class="fas fa-boxes"></i>
-            <h3>Gestión eficiente</h3>
+        <div class="text-center w-1/3 p-4 shadow-lg rounded-lg">
+            <i class="fas fa-boxes text-blue-900 text-5xl mb-4"></i>
+            <h3 class="text-2xl text-blue-900 mb-2">Gestión eficiente</h3>
             <p>Controla y gestiona tus envíos y productos desde una sola plataforma.</p>
         </div>
     </section>
 
     <!-- Tarifas Section -->
-    <section class="tarifas-section" id="tarifas">
-        <div class="page-container">
-            <div class="tarifas-container">
-                <div class="header-section">
-                    <img src="/assets/images/tarifas-icon.png" alt="Tarifas" class="header-image">
-                    <h2 class="tarifas-title">Calcula tus Tarifas</h2>
-                    <p>Conoce el costo de tus envíos, repartos y recojos</p>
-                </div>
+    <section class="p-8 bg-gray-100" id="tarifas">
+        <div class="max-w-5xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <div class="flex flex-col items-center mb-6">
+                <img src="/assets/images/tarifas-icon.png" alt="Tarifas" class="w-36 mb-4">
+                <h2 class="text-2xl text-blue-900">Calcula tus Tarifas</h2>
+                <p>Conoce el costo de tus envíos, repartos y recojos</p>
+            </div>
 
-                <div class="toggle-section">
-                    <label>
-                        <input type="radio" name="envio" value="terrestre" checked>
-                        Terrestre
-                    </label>
-                    <label>
-                        <input type="radio" name="envio" value="aereo">
-                        Aéreo
-                    </label>
-                </div>
+            <div class="flex justify-center mb-4">
+                <label class="mr-4">
+                    <input type="radio" name="envio" value="terrestre" checked>
+                    Terrestre
+                </label>
+                <label>
+                    <input type="radio" name="envio" value="aereo">
+                    Aéreo
+                </label>
+            </div>
 
-                <div class="input-section">
-                    <input type="text" placeholder="Ingresa origen" class="input-origin">
-                    <input type="text" placeholder="Ingresa destino" class="input-destination">
-                    <button class="cta-btn">Buscar Tarifas</button>
-                </div>
+            <div class="flex justify-center mb-4 gap-2">
+                <input type="text" placeholder="Ingresa origen" class="border p-2 rounded">
+                <input type="text" placeholder="Ingresa destino" class="border p-2 rounded">
+                <button class="bg-yellow-400 text-blue-900 py-2 px-4 rounded hover:bg-yellow-300 transition">Buscar Tarifas</button>
+            </div>
 
-                <div class="results-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Servicio</th>
-                                <th>Precio</th>
-                                <th>Descripción</th>
-                                <th>Entrega Estimada</th>
-                                <th>Información Adicional</th>
-                                <th>Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Resultados dinámicos irán aquí -->
-                        </tbody>
-                    </table>
-                </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr>
+                            <th class="py-2 border-b">Servicio</th>
+                            <th class="py-2 border-b">Precio</th>
+                            <th class="py-2 border-b">Descripción</th>
+                            <th class="py-2 border-b">Entrega Estimada</th>
+                            <th class="py-2 border-b">Información Adicional</th>
+                            <th class="py-2 border-b">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Resultados dinámicos irán aquí -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
 
     <!-- Company Info Section -->
-    <section class="company-info" id="nosotros">
-        <div class="company-info-container">
+    <section class="p-8 bg-white" id="nosotros">
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- Contact Info -->
-            <div class="contact-info">
-                <h3>Información de Contacto</h3>
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
+            <div>
+                <h3 class="text-xl font-semibold mb-2">Información de Contacto</h3>
+                <div class="mb-4">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
                         <p>Av. Ejemplo 1234, Lima, Perú</p>
                     </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-phone mr-2"></i>
                         <p>+51 987 654 321</p>
                     </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <p>contactote.com</p>
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-envelope mr-2"></i>
+                        <p>contactox</p>
                     </div>
                 </div>
             </div>
 
             <!-- Social Media -->
-            <div class="social-media">
-                <h3>Redes Sociales</h3>
-                <div class="social-links">
-                    <a href="#" class="social-link">
-                        <i class="fab fa-facebook"></i>
+            <div>
+                <h3 class="text-xl font-semibold mb-2">Redes Sociales</h3>
+                <div class="flex flex-col">
+                    <a href="#" class="mb-2 flex items-center">
+                        <i class="fab fa-facebook mr-2"></i>
                         Facebook
                     </a>
-                    <a href="#" class="social-link">
-                        <i class="fab fa-twitter"></i>
+                    <a href="#" class="mb-2 flex items-center">
+                        <i class="fab fa-twitter mr-2"></i>
                         Twitter
                     </a>
-                    <a href="#" class="social-link">
-                        <i class="fab fa-instagram"></i>
+                    <a href="#" class="mb-2 flex items-center">
+                        <i class="fab fa-instagram mr-2"></i>
                         Instagram
                     </a>
-                    <a href="#" class="social-link">
-                        <i class="fab fa-linkedin"></i>
+                    <a href="#" class="mb-2 flex items-center">
+                        <i class="fab fa-linkedin mr-2"></i>
                         LinkedIn
                     </a>
                 </div>
             </div>
 
             <!-- Business Hours -->
-            <div class="business-hours">
-                <h3>Horario de Atención</h3>
-                <ul class="hours-list">
-                    <li class="hours-item">
-                        <span class="day">Lunes - Viernes</span>
-                        <span class="time">8:00 AM - 6:00 PM</span>
-                    </li>
-                    <li class="hours-item">
-                        <span class="day">Sábado</span>
-                        <span class="time">9:00 AM - 2:00 PM</span>
-                    </li>
-                    <li class="hours-item">
-                        <span class="day">Domingo</span>
-                        <span class="time">Cerrado</span>
-                    </li>
+            <div>
+                <h3 class="text-xl font-semibold mb-2">Horario de Atención</h3>
+                <ul class="list-disc pl-5">
+                    <li>Lunes - Viernes: 8:00 AM - 6:00 PM</li>
+                    <li>Sábado: 9:00 AM - 2:00 PM</li>
+                    <li>Domingo: Cerrado</li>
                 </ul>
             </div>
         </div>
     </section>
 
     <!-- Map Section -->
-    <section class="map-section" id="contacto">
-        <div class="map-container">
-            <h3>Nuestra Ubicación</h3>
+    <section class="p-8 bg-gray-100" id="contacto">
+        <div class="max-w-5xl mx-auto">
+            <h3 class="text-xl mb-4">Nuestra Ubicación</h3>
             <iframe 
-                class="map-frame"
+                class="w-full h-60 border-0"
                 src="https://www.google.com/maps/embed?pb=your-map-embed-url"
                 allowfullscreen>
             </iframe>
@@ -165,17 +162,15 @@
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2024 EnvíosFácil. Todos los derechos reservados.</p>
-        </div>
+    <footer class="bg-blue-900 text-white text-center p-6">
+        <p>&copy; 2024 EnvíosFácil. Todos los derechos reservados.</p>
     </footer>
 
     <!-- Scripts -->
     <script>
         // Header scroll effect
         window.addEventListener('scroll', function() {
-            var header = document.getElementById('header');
+            const header = document.getElementById('header');
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
             } else {

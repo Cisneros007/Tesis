@@ -1,94 +1,123 @@
 <app-header></app-header>
-<div class="page-layout">
-  <div class="rastrea-container">
-    <h1>Rastrear tu Envío</h1>
-    <div class="content-wrapper">
-      <div class="form-section">
-        <form (ngSubmit)="onSubmit()" #trackingForm="ngForm">
-          <app-mapa></app-mapa>
 
-          <div class="form-group">
-            <label for="orderCode">Código de Pedido</label>
-            <input 
-              type="text" 
-              id="orderCode" 
-              [(ngModel)]="trackingDetails.orderCode" 
-              name="orderCode" 
-              required
-              #orderCode="ngModel"
-              [ngClass]="{'is-invalid': orderCode.invalid && orderCode.touched}"
-              placeholder="Introduce el código de tu pedido"
-            >
-            <div *ngIf="orderCode.invalid && orderCode.touched" class="invalid-feedback">
-              Código de pedido requerido.
-            </div>
-          </div>
+<div class="flex justify-center items-start min-h-screen bg-gray-100 p-6">
+  <div class="mt-5 w-full">
+    <div class="bg-gradient-to-br p-12 rounded-lg shadow-lg w-full max-w-3xl mx-auto">
+      <h1 class="text-4xl text-teal-800 font-bold mb-6 text-center">Rastrear tu Envío</h1>
+      
+      <!-- Mapa arriba del formulario -->
+      <app-mapa class="mb-6"></app-mapa>
 
-          <div class="form-group">
-            <label for="password">Clave</label>
-            <input 
-              type="password" 
-              id="password" 
-              [(ngModel)]="trackingDetails.password" 
-              name="password" 
-              required
-              #password="ngModel"
-              [ngClass]="{'is-invalid': password.invalid && password.touched}"
-              placeholder="Introduce tu clave"
-            >
-            <div *ngIf="password.invalid && password.touched" class="invalid-feedback">
-              La clave es requerida.
-            </div>
-          </div>
+      <div class="flex flex-col gap-10">
+        <!-- Sección del formulario -->
+        <div class="flex-1" *ngIf="!showTrackingInfo">
+          <form (ngSubmit)="onSubmit()" #trackingForm="ngForm" class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl text-teal-800 font-bold mb-4">Ingresa tus Datos</h2>
 
-          <button type="submit" [disabled]="!trackingForm.form.valid">Rastrear Envío</button>
-        </form>
-      </div>
+            <div class="mb-5">
+              <label for="orderCode" class="block text-lg font-semibold text-teal-800 mb-2">Código de Pedido</label>
+              <input 
+                type="text" 
+                id="orderCode" 
+                [(ngModel)]="trackingDetails.orderCode" 
+                name="orderCode" 
+                required
+                #orderCode="ngModel"
+                [ngClass]="{'border-red-500': orderCode.invalid && orderCode.touched}" 
+                class="w-full p-4 border rounded-lg shadow-inner transition focus:border-teal-700 focus:ring focus:ring-teal-300" 
+                placeholder="Introduce el código de tu pedido"
+              >
+              <div *ngIf="orderCode.invalid && orderCode.touched" class="text-red-600 text-sm mt-1">
+                Código de pedido requerido.
+              </div>
+            </div>
 
-      <div class="results-section" *ngIf="trackingInfo">
-        <div class="tracking-info">
-          <h2>Detalles del Envío</h2>
-          <div class="encabezado">
-            <div class="item-encabezado">
-              <span>Fecha de Registro</span>
-              <strong>{{ informacionEnvio.fechaRegistro }}</strong>
+            <div class="mb-5">
+              <label for="password" class="block text-lg font-semibold text-teal-800 mb-2">Clave</label>
+              <input 
+                type="password" 
+                id="password" 
+                [(ngModel)]="trackingDetails.password" 
+                name="password" 
+                required
+                #password="ngModel"
+                [ngClass]="{'border-red-500': password.invalid && password.touched}" 
+                class="w-full p-4 border rounded-lg shadow-inner transition focus:border-teal-700 focus:ring focus:ring-teal-300" 
+                placeholder="Introduce tu clave"
+              >
+              <div *ngIf="password.invalid && password.touched" class="text-red-600 text-sm mt-1">
+                La clave es requerida.
+              </div>
             </div>
-            <div class="item-encabezado">
-              <span>Fecha de Entrega</span>
-              <strong>{{ informacionEnvio.fechaEntrega }}</strong>
-            </div>
-            <div class="item-encabezado">
-              <span>Origen</span>
-              <strong>{{ informacionEnvio.origen }}</strong>
-            </div>
-            <div class="item-encabezado">
-              <span>Destino</span>
-              <strong>{{ informacionEnvio.destino }}</strong>
-            </div>
-          </div>
-          
-          <div class="info-rastreo">
-            <div class="item-estado" [class.activo]="informacionEnvio.estado === 'registrado' || informacionEnvio.estado === 'en-ruta' || informacionEnvio.estado === 'entregado'">
-              <div class="icono">📦</div>
-              <div class="texto">Registrado</div>
-            </div>
-            <div class="item-estado" [class.activo]="informacionEnvio.estado === 'en-ruta' || informacionEnvio.estado === 'entregado'">
-              <div class="icono">🚚</div>
-              <div class="texto">En Ruta</div>
-            </div>
-            <div class="item-estado" [class.activo]="informacionEnvio.estado === 'entregado'">
-              <div class="icono">✅</div>
-              <div class="texto">Entregado</div>
-            </div>
-          </div>
 
-          <div class="detalles">
-            <strong>INFORMACIÓN DEL ENVÍO:</strong>
-            <p>N° de Tracking: {{ informacionEnvio.numeroRastreo }}</p>
-            <p><strong>Estado:</strong> {{ trackingInfo.status }}</p>
-            <p><strong>Fecha de Envío:</strong> {{ trackingInfo.shippedDate }}</p>
-            <p><strong>Fecha de Entrega Estimada:</strong> {{ trackingInfo.estimatedDelivery }}</p>
-            <p><strong>Ubicación Actual:</strong> {{ trackingInfo.currentLocation }}</p>
+            <button type="submit" [disabled]="!trackingForm.form.valid" class="bg-teal-600 text-white rounded-full py-4 text-lg hover:bg-teal-700 transition-transform transform hover:scale-105 w-full">
+              Rastrear Envío
+            </button>
+          </form>
+        </div>
+
+        <!-- Sección de detalles del envío -->
+        <div class="flex-1" *ngIf="showTrackingInfo">
+          <div class="bg-teal-50 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl text-teal-800 font-bold mb-4">Detalles del Envío</h2>
+
+            <div class="grid grid-cols-2 gap-4 mb-5">
+              <div class="bg-yellow-300 p-3 rounded-lg">
+                <span>Fecha de Registro</span>
+                <strong>{{ informacionEnvio.fechaRegistro }}</strong>
+              </div>
+              <div class="bg-yellow-300 p-3 rounded-lg">
+                <span>Fecha de Entrega</span>
+                <strong>{{ informacionEnvio.fechaEntrega }}</strong>
+              </div>
+              <div class="bg-yellow-300 p-3 rounded-lg">
+                <span>Origen</span>
+                <strong>{{ informacionEnvio.origen }}</strong>
+              </div>
+              <div class="bg-yellow-300 p-3 rounded-lg">
+                <span>Destino</span>
+                <strong>{{ informacionEnvio.destino }}</strong>
+              </div>
+            </div>
+
+            <!-- Estado del envío -->
+            <div class="flex justify-around mb-5">
+              <div class="flex flex-col items-center">
+                <div class="text-3xl">📦</div>
+                <div>Registrado</div>
+                <div class="opacity-50" [class.opacity-100]="informacionEnvio.estado === 'registrado'"></div>
+              </div>
+              <div class="flex flex-col items-center">
+                <div class="text-3xl">🚚</div>
+                <div>En Ruta</div>
+                <div class="opacity-50" [class.opacity-100]="informacionEnvio.estado === 'en-ruta'"></div>
+              </div>
+              <div class="flex flex-col items-center">
+                <div class="text-3xl">✅</div>
+                <div>Entregado</div>
+                <div class="opacity-50" [class.opacity-100]="informacionEnvio.estado === 'entregado'"></div>
+              </div>
+            </div>
+
+            <!-- Información adicional del envío -->
+            <div class="bg-white p-5 rounded-lg">
+              <strong>INFORMACIÓN DEL ENVÍO:</strong>
+              <p>N° de Tracking: {{ informacionEnvio.numeroRastreo }}</p>
+              <p><strong>Estado:</strong> {{ trackingInfo.status }}</p>
+              <p><strong>Fecha de Envío:</strong> {{ trackingInfo.shippedDate }}</p>
+              <p><strong>Fecha de Entrega Estimada:</strong> {{ trackingInfo.estimatedDelivery }}</p>
+              <p><strong>Ubicación Actual:</strong> {{ trackingInfo.currentLocation }}</p>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="flex justify-between mt-5">
+              <button (click)="irAInicio()" class="bg-teal-600 text-white rounded-full py-2 px-4 hover:bg-teal-700 transition-transform transform hover:scale-105">
+                Ir a Inicio
+              </button>
+              <button (click)="resetTracking()" class="bg-teal-600 text-white rounded-full py-2 px-4 hover:bg-teal-700 transition-transform transform hover:scale-105">
+                Rastrear de Nuevo
+              </button>
+            </div>
           </div>
         </div>
       </div>

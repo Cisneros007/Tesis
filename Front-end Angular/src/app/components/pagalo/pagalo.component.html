@@ -1,13 +1,13 @@
 <app-header></app-header>
-<div class="page-layout">
-  <div class="pagalo-container">
-    <h1>Bienvenido a Págalo</h1>
-    <p>Puedes pagar con cualquier método de pago disponible a continuación.</p>
+<div class="flex justify-center items-center min-h-screen bg-gray-200 p-5">
+  <div class="max-w-lg w-full p-5 rounded-lg bg-white shadow-lg">
+    <h1 class="text-center text-4xl font-bold text-gray-800 mb-5">Bienvenido a Págalo</h1>
+    <p class="text-center mb-5 text-gray-600">Puedes pagar con tu método de pago favorito a continuación.</p>
 
     <form (ngSubmit)="onSubmit()" #paymentForm="ngForm">
       <!-- Código del Pedido -->
-      <div class="form-group">
-        <label for="orderCode">Código de orden</label>
+      <div class="mb-4">
+        <label for="orderCode" class="block mb-1 font-semibold">Código de orden</label>
         <input
           type="number"
           id="orderCode"
@@ -16,46 +16,51 @@
           placeholder="Ingrese el código de orden"
           required
           #orderCode="ngModel"
-          [ngClass]="{ 'is-invalid': orderCode.invalid && orderCode.touched }"
+          class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 transition"
+          [ngClass]="{ 'border-red-500': orderCode.invalid && orderCode.touched }"
         />
-        <div *ngIf="orderCode.invalid && orderCode.touched" class="invalid-feedback">
+        <div *ngIf="orderCode.invalid && orderCode.touched" class="text-red-500 text-sm mt-1">
           El código del pedido es requerido.
         </div>
+        <p class="text-gray-500 text-sm mt-1">Por favor, ingrese el código proporcionado en su recibo.</p>
       </div>
 
       <!-- Métodos de Pago -->
-      <div class="payment-methods">
-        <h2>Método de Pago</h2>
-        <div class="payment-icons">
-          <div class="payment-icon" [ngClass]="{'selected': paymentDetails.method === 'bcp'}" (click)="selectPaymentMethod('bcp')">
-            <img src="assets/images-pagalo/bcp.png" alt="BCP" />
-            <span>BCP</span>
+      <div class="mb-5">
+        <h2 class="text-lg font-semibold">Método de Pago</h2>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="text-center p-4 border-2 border-transparent rounded-lg cursor-pointer transition duration-300 hover:shadow-lg"
+            [ngClass]="{'border-blue-500 bg-gray-100': paymentDetails.method === 'bcp'}" (click)="selectPaymentMethod('bcp')">
+            <img src="assets/images-pagalo/bcp.png" alt="BCP" class="w-12 h-auto mx-auto" />
+            <span class="block mt-1">BCP</span>
           </div>
-          <div class="payment-icon" [ngClass]="{'selected': paymentDetails.method === 'yape'}" (click)="selectPaymentMethod('yape')">
-            <img src="assets/images-pagalo/yape.png" alt="Yape" />
-            <span>Yape</span>
+          <div class="text-center p-4 border-2 border-transparent rounded-lg cursor-pointer transition duration-300 hover:shadow-lg"
+            [ngClass]="{'border-blue-500 bg-gray-100': paymentDetails.method === 'yape'}" (click)="selectPaymentMethod('yape')">
+            <img src="assets/images-pagalo/yape.png" alt="Yape" class="w-12 h-auto mx-auto" />
+            <span class="block mt-1">Yape</span>
           </div>
-          <div class="payment-icon" [ngClass]="{'selected': paymentDetails.method === 'plin'}" (click)="selectPaymentMethod('plin')">
-            <img src="assets/images-pagalo/plin.png" alt="Plin" />
-            <span>Plin</span>
+          <div class="text-center p-4 border-2 border-transparent rounded-lg cursor-pointer transition duration-300 hover:shadow-lg"
+            [ngClass]="{'border-blue-500 bg-gray-100': paymentDetails.method === 'plin'}" (click)="selectPaymentMethod('plin')">
+            <img src="assets/images-pagalo/plin.png" alt="Plin" class="w-12 h-auto mx-auto" />
+            <span class="block mt-1">Plin</span>
           </div>
         </div>
-        <div *ngIf="paymentDetails.method" class="selected-method">
+        <div *ngIf="paymentDetails.method" class="text-center mt-2 text-gray-600">
           Método de pago seleccionado: {{ paymentDetails.method | uppercase }}
         </div>
-        
+
         <!-- Imágenes para Yape y Plin -->
-        <div *ngIf="paymentDetails.method === 'yape'" class="image-center">
-          <img src="assets/images-pagalo/qr.png" alt="Información Yape" />
+        <div *ngIf="paymentDetails.method === 'yape'" class="flex justify-center my-5">
+          <img src="assets/images-pagalo/qr.png" alt="Información Yape" class="max-w-xs" />
         </div>
-        <div *ngIf="paymentDetails.method === 'plin'" class="image-center">
-          <img src="assets/images-pagalo/qr.png" alt="Información Plin" />
+        <div *ngIf="paymentDetails.method === 'plin'" class="flex justify-center my-5">
+          <img src="assets/images-pagalo/qr.png" alt="Información Plin" class="max-w-xs" />
         </div>
       </div>
 
       <!-- Clave -->
-      <div class="form-group">
-        <label for="password">Clave</label>
+      <div class="mb-4">
+        <label for="password" class="block mb-1 font-semibold">Clave</label>
         <input
           type="password"
           id="password"
@@ -64,18 +69,19 @@
           placeholder="Ingrese su clave"
           required
           #password="ngModel"
-          [ngClass]="{ 'is-invalid': password.invalid && password.touched }"
+          class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 transition"
+          [ngClass]="{ 'border-red-500': password.invalid && password.touched }"
         />
-        <div *ngIf="password.invalid && password.touched" class="invalid-feedback">
+        <div *ngIf="password.invalid && password.touched" class="text-red-500 text-sm mt-1">
           La clave es requerida.
         </div>
       </div>
 
       <!-- Datos de la Tarjeta (solo para BCP) -->
-      <div *ngIf="paymentDetails.method === 'bcp'" class="card-details">
-        <h3>Detalles de la Tarjeta</h3>
-        <div class="form-group">
-          <label for="cardNumber">Número de Tarjeta</label>
+      <div *ngIf="paymentDetails.method === 'bcp'" class="mb-5">
+        <h3 class="text-lg font-semibold">Detalles de la Tarjeta</h3>
+        <div class="mb-4">
+          <label for="cardNumber" class="block mb-1 font-semibold">Número de Tarjeta</label>
           <input
             type="number"
             id="cardNumber"
@@ -84,14 +90,15 @@
             placeholder="Ingrese el número de la tarjeta"
             required
             #cardNumber="ngModel"
-            [ngClass]="{ 'is-invalid': cardNumber.invalid && cardNumber.touched }"
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 transition"
+            [ngClass]="{ 'border-red-500': cardNumber.invalid && cardNumber.touched }"
           />
-          <div *ngIf="cardNumber.invalid && cardNumber.touched" class="invalid-feedback">
+          <div *ngIf="cardNumber.invalid && cardNumber.touched" class="text-red-500 text-sm mt-1">
             El número de tarjeta es requerido.
           </div>
         </div>
-        <div class="form-group">
-          <label for="cardExpiry">Fecha de Expiración (MM/AA)</label>
+        <div class="mb-4">
+          <label for="cardExpiry" class="block mb-1 font-semibold">Fecha de Expiración (MM/AA)</label>
           <input
             type="month"
             id="cardExpiry"
@@ -99,14 +106,15 @@
             name="cardExpiry"
             required
             #cardExpiry="ngModel"
-            [ngClass]="{ 'is-invalid': cardExpiry.invalid && cardExpiry.touched }"
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 transition"
+            [ngClass]="{ 'border-red-500': cardExpiry.invalid && cardExpiry.touched }"
           />
-          <div *ngIf="cardExpiry.invalid && cardExpiry.touched" class="invalid-feedback">
+          <div *ngIf="cardExpiry.invalid && cardExpiry.touched" class="text-red-500 text-sm mt-1">
             La fecha de expiración es requerida.
           </div>
         </div>
-        <div class="form-group">
-          <label for="cardCvv">CVV</label>
+        <div class="mb-4">
+          <label for="cardCvv" class="block mb-1 font-semibold">CVV</label>
           <input
             type="number"
             id="cardCvv"
@@ -115,16 +123,29 @@
             placeholder="Ingrese el CVV"
             required
             #cardCvv="ngModel"
-            [ngClass]="{ 'is-invalid': cardCvv.invalid && cardCvv.touched }"
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 transition"
+            [ngClass]="{ 'border-red-500': cardCvv.invalid && cardCvv.touched }"
           />
-          <div *ngIf="cardCvv.invalid && cardCvv.touched" class="invalid-feedback">
+          <div *ngIf="cardCvv.invalid && cardCvv.touched" class="text-red-500 text-sm mt-1">
             El CVV es requerido.
           </div>
         </div>
       </div>
 
+      <!-- Resumen de Pago -->
+      <div *ngIf="paymentForm.valid" class="mt-5 p-3 border rounded-md border-gray-300 bg-gray-50">
+        <h3 class="text-lg font-semibold">Resumen de Pago</h3>
+        <p><strong>Código de Orden:</strong> {{ paymentDetails.orderCode }}</p>
+        <p><strong>Método de Pago:</strong> {{ paymentDetails.method | uppercase }}</p>
+      </div>
+
       <!-- Botón de Pago -->
-      <button type="submit" [disabled]="!paymentForm.form.valid || !paymentDetails.method" class="submit-btn">Pagar Ahora</button>
+      <button type="submit" [disabled]="!paymentForm.form.valid || !paymentDetails.method" class="w-full p-3 bg-blue-600 text-white rounded-md cursor-pointer transition duration-300 hover:bg-blue-700 disabled:bg-gray-400">
+        Pagar Ahora
+      </button>
+      <button type="button" (click)="downloadReceipt()" class="w-full mt-3 p-3 bg-green-600 text-white rounded-md cursor-pointer transition duration-300 hover:bg-green-700">
+        Descargar Comprobante
+      </button>
     </form>
   </div>
 </div>

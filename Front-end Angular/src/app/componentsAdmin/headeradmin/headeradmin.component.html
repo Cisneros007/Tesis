@@ -1,16 +1,37 @@
-<header id="header" class="bg-gray-800 p-8 fixed w-full z-10 shadow-md">
-    <nav class="navbar container mx-auto flex items-center justify-between h-full">
-        <a href="#" class="logo text-white text-3xl font-bold">EnvíosFácil</a>
-        <ul class="nav-links flex space-x-8">
-            <li><a routerLink="/dashboard-admin" class="text-white hover:text-gray-400 text-xl"><i class="fas fa-home"></i> Inicio</a></li>
-            <li><a routerLink="/rutas-horarios" class="text-white hover:text-gray-400 text-xl"><i class="fas fa-clock"></i> Horarios</a></li>
-            <li><a routerLink="/agencias" class="text-white hover:text-gray-400 text-xl"><i class="fas fa-building"></i> Agencias</a></li>
-            
-        </ul>
-        <div class="user-options flex items-center space-x-6">
-            <a href="#" class="text-white hover:text-gray-400 text-xl"><i class="fas fa-shopping-cart"></i></a>
-            <a routerLink="/perfil" class="text-white hover:text-gray-400 text-xl"><i class="fas fa-user"></i></a>
-            <button class="bg-red-600 text-white px-6 py-3 rounded hover:bg-red-500 transition duration-200" (click)="logOut()">Cerrar sesión</button>
-        </div>
+<header id="header" class="bg-gray-800 p-6 fixed w-full z-20 shadow-lg">
+    <nav class="container mx-auto flex items-center justify-between">
+      <a href="#" class="text-white text-2xl font-semibold">EnvíosFácil</a>
+      <ul class="hidden md:flex space-x-6">
+        <li>
+          <a routerLink="/dashboard-admin" class="text-white hover:text-blue-400 transition duration-200">
+            <i class="fas fa-home mr-2"></i>Inicio
+          </a>
+        </li>
+        <li>
+          <a routerLink="/rutas-horarios" class="text-white hover:text-blue-400 transition duration-200">
+            <i class="fas fa-clock mr-2"></i>Horarios
+          </a>
+        </li>
+        <li>
+          <a routerLink="/agencias-admin" class="text-white hover:text-blue-400 transition duration-200">
+            <i class="fas fa-building mr-2"></i>Agencias
+          </a>
+        </li>
+      </ul>
+      <div class="flex items-center space-x-4">
+        <a href="#" class="text-white hover:text-blue-400 transition duration-200 text-lg">
+          <i class="fas fa-shopping-cart"></i>
+        </a>
+        <a routerLink="/perfil" class="text-white hover:text-blue-400 transition duration-200 text-lg">
+          <i class="fas fa-user"></i>
+        </a>
+        <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-500 transition duration-200" (click)="logOut()">
+          Cerrar sesión
+        </button>
+      </div>
+      <button class="text-white md:hidden text-2xl focus:outline-none">
+        <i class="fas fa-bars"></i>
+      </button>
     </nav>
-</header>
+  </header>
+  

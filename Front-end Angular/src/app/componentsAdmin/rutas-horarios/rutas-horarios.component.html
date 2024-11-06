@@ -1,31 +1,31 @@
-<app-headeradmin></app-headeradmin>
+<app-headeradmin class="w-full fixed top-0 left-0 z-50 bg-indigo-700 text-white"></app-headeradmin>
 
-<div class="page-container">
-  <app-sidebar></app-sidebar> <!-- Sidebar agregado -->
+<div class="flex h-screen pt-16 bg-gray-100">
+  <app-sidebar class="w-64 h-[calc(100vh-60px)] fixed top-16 left-0 bg-indigo-800 text-white p-5 overflow-y-auto"></app-sidebar> <!-- Sidebar agregado -->
 
-  <div class="rutas-horarios-section">
-    <h2>Rutas y Horarios</h2>
+  <div class="flex-grow ml-64 p-5 bg-white rounded-lg shadow-md rutas-horarios-section">
+    <h2 class="text-indigo-700 mb-5">Rutas y Horarios</h2>
 
     <!-- Tabla de Rutas -->
-    <h3>Rutas Disponibles</h3>
-    <table class="rutas-table">
-      <thead>
+    <h3 class="text-indigo-700 mb-5">Rutas Disponibles</h3>
+    <table class="w-full border-collapse mb-5 rutas-table">
+      <thead class="bg-indigo-700 text-white">
         <tr>
-          <th>Ruta</th>
-          <th>Hora de Salida</th>
-          <th>Hora de Llegada</th>
-          <th>Duración</th>
-          <th>Detalles</th>
+          <th class="px-3 py-3 border-b border-gray-300">Ruta</th>
+          <th class="px-3 py-3 border-b border-gray-300">Hora de Salida</th>
+          <th class="px-3 py-3 border-b border-gray-300">Hora de Llegada</th>
+          <th class="px-3 py-3 border-b border-gray-300">Duración</th>
+          <th class="px-3 py-3 border-b border-gray-300">Detalles</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let ruta of rutas">
-          <td>{{ ruta.nombreRuta }}</td>
-          <td>{{ ruta.horaSalida }}</td>
-          <td>{{ ruta.horaLlegada }}</td>
-          <td>{{ ruta.duracion }}</td>
-          <td>
-            <button class="details-button" (click)="verDetallesRuta(ruta)">
+        <tr *ngFor="let ruta of rutas" class="hover:bg-gray-100">
+          <td class="px-3 py-3 border-b border-gray-300">{{ ruta.nombreRuta }}</td>
+          <td class="px-3 py-3 border-b border-gray-300">{{ ruta.horaSalida }}</td>
+          <td class="px-3 py-3 border-b border-gray-300">{{ ruta.horaLlegada }}</td>
+          <td class="px-3 py-3 border-b border-gray-300">{{ ruta.duracion }}</td>
+          <td class="px-3 py-3 border-b border-gray-300">
+            <button class="details-button bg-yellow-400 text-black px-3 py-2 rounded flex items-center gap-2 transition duration-300 ease-in-out hover:bg-yellow-500" (click)="verDetallesRuta(ruta)">
               <i class="fas fa-info-circle"></i> Ver Detalles
             </button>
           </td>
@@ -34,29 +34,29 @@
     </table>
 
     <!-- Tabla de Horarios -->
-    <h3>Horarios de Envío</h3>
-    <table class="envios-table">
-      <thead>
+    <h3 class="text-indigo-700 mb-5">Horarios de Envío</h3>
+    <table class="w-full border-collapse envios-table mb-5">
+      <thead class="bg-indigo-700 text-white">
         <tr>
-          <th>Envío</th>
-          <th>Fecha de Envío</th>
-          <th>Hora de Envío</th>
-          <th>Estado</th>
-          <th>Detalles</th>
+          <th class="px-3 py-3 border-b border-gray-300">Envío</th>
+          <th class="px-3 py-3 border-b border-gray-300">Fecha de Envío</th>
+          <th class="px-3 py-3 border-b border-gray-300">Hora de Envío</th>
+          <th class="px-3 py-3 border-b border-gray-300">Estado</th>
+          <th class="px-3 py-3 border-b border-gray-300">Detalles</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let envio of envios">
-          <td>{{ envio.nombreEnvio }}</td>
-          <td>{{ envio.fechaEnvio }}</td>
-          <td>{{ envio.horaEnvio }}</td>
-          <td>
-            <span [ngClass]="{'estado-pendiente': envio.estado === 'Pendiente', 'estado-completado': envio.estado === 'Completado'}">
+        <tr *ngFor="let envio of envios" class="hover:bg-gray-100">
+          <td class="px-3 py-3 border-b border-gray-300">{{ envio.nombreEnvio }}</td>
+          <td class="px-3 py-3 border-b border-gray-300">{{ envio.fechaEnvio }}</td>
+          <td class="px-3 py-3 border-b border-gray-300">{{ envio.horaEnvio }}</td>
+          <td class="px-3 py-3 border-b border-gray-300">
+            <span [ngClass]="{'text-orange-500 font-bold': envio.estado === 'Pendiente', 'text-green-600 font-bold': envio.estado === 'Completado'}">
               {{ envio.estado }}
             </span>
           </td>
-          <td>
-            <button class="details-button" (click)="verDetallesEnvio(envio)">
+          <td class="px-3 py-3 border-b border-gray-300">
+            <button class="details-button bg-yellow-400 text-black px-3 py-2 rounded flex items-center gap-2 transition duration-300 ease-in-out hover:bg-yellow-500" (click)="verDetallesEnvio(envio)">
               <i class="fas fa-info-circle"></i> Ver Detalles
             </button>
           </td>
@@ -65,9 +65,9 @@
     </table>
 
     <!-- Botones de Acción -->
-    <div class="action-buttons">
-      <button class="add-button" (click)="agregarRuta()">Agregar Ruta</button>
-      <button class="add-button" (click)="agregarEnvio()">Agregar Envío</button>
+    <div class="flex gap-4 mt-5 action-buttons">
+      <button class="add-button bg-indigo-700 text-white px-4 py-2 rounded transition duration-300 ease-in-out hover:bg-indigo-800" (click)="agregarRuta()">Agregar Ruta</button>
+      <button class="add-button bg-indigo-700 text-white px-4 py-2 rounded transition duration-300 ease-in-out hover:bg-indigo-800" (click)="agregarEnvio()">Agregar Envío</button>
     </div>
   </div>
 </div>
