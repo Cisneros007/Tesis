@@ -18,11 +18,18 @@ const db = require('./db');
 // Importa las rutas
 const userRoutes = require('./routes/usuarios');
 const clienteRoutes = require('./routes/clientes');
+const rutaRoutes = require('./routes/rutas'); // Importa las rutas de Rutas
+const enviosRoutes = require('./routes/envios'); // Importa las rutas de Envíos
+const servicioTerrestreRoutes = require('./routes/serviciosTerrestres'); // Importa las rutas de Servicios Terrestres
+const servicioAereoRoutes = require('./routes/serviciosAereos'); // Importa las rutas de Servicios Aéreos
 
 // Usa las rutas
 app.use('/api/usuarios', userRoutes);
 app.use('/api/clientes', clienteRoutes);
-
+app.use('/api/rutas', rutaRoutes); // Usa las rutas de Rutas
+app.use('/api/envios', enviosRoutes); // Usa las rutas de Envíos
+app.use('/api/servicios-terrestres', servicioTerrestreRoutes); // Usa las rutas de Servicios Terrestres
+app.use('/api/servicios-aereos', servicioAereoRoutes); // Usa las rutas de Servicios Aéreos
 
 // Inicia el servidor
 app.listen(port, () => {

@@ -1,0 +1,68 @@
+<app-headeradmin></app-headeradmin>
+
+<div class="flex page-container ml-64">
+  <app-sidebar></app-sidebar> <!-- Sidebar agregado -->
+
+  <div class="flex-1 p-6">
+    <div class="hero-section bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 rounded-lg mb-6 shadow-lg">
+      <div class="hero-content">
+        <h1 class="text-3xl font-bold">Servicios de Transporte</h1>
+        <p class="mt-2">Transporte confiable y eficiente para todas tus necesidades logísticas.</p>
+        <button class="btn-hero bg-white text-blue-600 rounded-lg px-4 py-2 mt-4 transition duration-300 hover:bg-gray-200">Contáctanos</button>
+      </div>
+    </div>
+
+    <div class="service-section mb-6">
+      <h2 class="text-2xl font-semibold mb-4">Nuestros Servicios Terrestres</h2>
+
+      <!-- Iterar sobre los servicios terrestres -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="servicio-card border bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105" *ngFor="let servicio of serviciosTerrestres">
+          <div class="servicio-header flex items-center mb-2">
+            <img src="assets/img/servicio-icon.png" alt="Icono Servicio" class="w-12 h-12 mr-2">
+            <h3 class="text-lg font-medium">{{ servicio.nombre }}</h3>
+          </div>
+          <p class="text-gray-700">{{ servicio.descripcion }}</p>
+          <button (click)="verDetallesTerrestre(servicio)" class="btn-detalle bg-blue-500 text-white rounded-lg px-4 py-2 mt-4 transition duration-300 hover:bg-blue-400">Ver Detalles</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mostrar detalles del servicio terrestre seleccionado -->
+    <div *ngIf="servicioSeleccionadoTerrestre" class="detalle-servicio border bg-white p-4 rounded-lg shadow-md mb-6">
+      <h3 class="text-xl font-semibold">Detalles de {{ servicioSeleccionadoTerrestre.nombre }}</h3>
+      <p><strong>Descripción:</strong> {{ servicioSeleccionadoTerrestre.descripcion }}</p>
+      <button (click)="cerrarDetalles()" class="bg-red-500 text-white rounded-lg px-4 py-2 mt-2 transition duration-300 hover:bg-red-400">Cerrar</button>
+    </div>
+
+    <!-- Botón para agregar un nuevo servicio terrestre -->
+    <button (click)="agregarServicio()" class="btn-agregar bg-green-600 text-white rounded-lg px-4 py-2 mb-6">Agregar Servicio Terrestre</button>
+
+    <!-- Sección de Servicios Aéreos -->
+    <div class="servicios-aereo-container mt-6">
+      <h2 class="text-2xl font-semibold mb-4">Nuestros Servicios Aéreos</h2>
+
+      <!-- Lista de servicios aéreos -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="servicio-card border bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105" *ngFor="let servicio of serviciosAereos">
+          <div class="servicio-header flex items-center mb-2">
+            <img src="assets/img/servicio-icon.png" alt="Icono Servicio" class="w-12 h-12 mr-2">
+            <h3 class="text-lg font-medium">{{ servicio.nombre }}</h3>
+          </div>
+          <p class="text-gray-700">{{ servicio.descripcion }}</p>
+          <button (click)="verDetallesAereo(servicio)" class="btn-detalle bg-blue-500 text-white rounded-lg px-4 py-2 mt-4 transition duration-300 hover:bg-blue-400">Ver Detalles</button>
+        </div>
+      </div>
+
+      <!-- Detalles del servicio aéreo seleccionado -->
+      <div *ngIf="servicioSeleccionadoAereo" class="detalle-servicio border bg-white p-4 rounded-lg shadow-md mb-6">
+        <h3 class="text-xl font-semibold">Detalles de {{ servicioSeleccionadoAereo.nombre }}</h3>
+        <p><strong>Descripción:</strong> {{ servicioSeleccionadoAereo.descripcion }}</p>
+        <button (click)="cerrarDetalles()" class="bg-red-500 text-white rounded-lg px-4 py-2 mt-2 transition duration-300 hover:bg-red-400">Cerrar</button>
+      </div>
+
+      <!-- Botón para agregar un servicio aéreo -->
+      <button (click)="agregarServicio()" class="btn-agregar bg-green-600 text-white rounded-lg px-4 py-2">Agregar Servicio Aéreo</button>
+    </div>
+  </div>
+</div>

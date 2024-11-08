@@ -1,4 +1,4 @@
-<div class="flex">
+<div >
   <app-headeradmin></app-headeradmin>
   <div class="flex-grow p-4 ml-64">
     <app-sidebar></app-sidebar>
@@ -6,15 +6,15 @@
       <h2 class="fleet-title text-2xl font-bold mb-4">Administración de Usuarios</h2>
 
       <!-- Tabla Usuarios -->
-      <div class="crud-section mb-4">
+      <div class="crud-section mb-4 ">
         <button
-          class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-transform hover:-translate-y-0.5"
+          class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition transform hover:-translate-y-0.5"
           (click)="crearUsuario()"
         >
           Agregar Usuario
         </button>
-        <div class="overflow-x-auto mt-4">
-          <table class="min-w-full border-collapse shadow-md">
+        <div class="table-responsive overflow-x-auto mt-4">
+          <table class="w-full border-collapse shadow-md">
             <thead>
               <tr class="bg-gray-200 text-left font-bold">
                 <th class="border p-3">Nombre</th>
@@ -61,13 +61,13 @@
       <!-- Tabla Clientes -->
       <div class="crud-section mb-4">
         <button
-          class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-transform hover:-translate-y-0.5"
+          class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition transform hover:-translate-y-0.5"
           (click)="crearCliente()"
         >
           Agregar Cliente
         </button>
-        <div class="overflow-x-auto mt-4">
-          <table class="min-w-full border-collapse shadow-md">
+        <div class="table-responsive overflow-x-auto mt-4">
+          <table class="w-full border-collapse shadow-md">
             <thead>
               <tr class="bg-gray-200 text-left font-bold">
                 <th class="border p-3">Nombre</th>

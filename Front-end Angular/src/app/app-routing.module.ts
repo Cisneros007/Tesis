@@ -12,15 +12,14 @@ import { AgenciaDetalleComponent } from './componentsAdmin/agencia-detalle/agenc
 import { FlotaInfoComponent } from './componentsAdmin/flota-info/flota-info.component';
 import { EnvioCrearComponent } from './components/envio-crear/envio-crear.component';
 import { RutasHorariosComponent } from './componentsAdmin/rutas-horarios/rutas-horarios.component';
-import { ServiciosTerrestreComponent } from './componentsAdmin/servicios-terrestre/servicios-terrestre.component';
-import { ServiciosAereoComponent } from './componentsAdmin/servicios-aereo/servicios-aereo.component';
 import { EnvioHistorialComponent } from './components/envio-historial/envio-historial.component';
 import { ComunicateComponent } from './components/comunicate/comunicate.component';
 import { CompanyInfoComponent } from './components/company-info/company-info.component';
 import { DashboardAdminComponent } from './componentsAdmin/dashboard-admin/dashboard-admin.component';
-import { HistorialClienteComponent } from './componentsAdmin/historial-cliente/historial-cliente.component';
+
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AgenciasAdminComponent } from './componentsAdmin/agencias-admin/agencias-admin.component';
+import { ServiciosComponent } from './componentsAdmin/servicios/servicios.component';
 
 
 const routes: Routes = [
@@ -30,11 +29,8 @@ const routes: Routes = [
   {path: 'rastear', component: RastrearComponent, canActivate: [AuthGuard]},
   {path: 'dashboard-admin', component: DashboardAdminComponent, canActivate: [AuthGuard]},
   { path: 'rutas-horarios', component: RutasHorariosComponent, canActivate: [AuthGuard] },
-  { path: 'servicios-terrestre', component: ServiciosTerrestreComponent, canActivate: [AuthGuard] },
-  { path: 'servicios-aereo', component: ServiciosAereoComponent, canActivate: [AuthGuard] },
   { path: 'envio-crear', component: EnvioCrearComponent, canActivate: [AuthGuard] },
   { path: 'envio-historial', component: EnvioHistorialComponent, canActivate: [AuthGuard] },
-  { path: 'historial-cliente', component: HistorialClienteComponent, canActivate: [AuthGuard] },
   { path: 'rastrear', component: RastrearComponent, canActivate: [AuthGuard] },
   { path: 'pagalo', component: PagaloComponent, canActivate: [AuthGuard] },
   { path: 'flota-info', component: FlotaInfoComponent, canActivate: [AuthGuard] },
@@ -46,6 +42,7 @@ const routes: Routes = [
   { path: 'company-info', component: CompanyInfoComponent, canActivate: [AuthGuard] },
   { path: 'user-profile', component:  UserProfileComponent, canActivate: [AuthGuard] },
   { path: 'agencias-admin', component: AgenciasAdminComponent, canActivate: [AuthGuard] },
+  { path: 'servicios', component: ServiciosComponent, canActivate: [AuthGuard] },
 
 
 ];

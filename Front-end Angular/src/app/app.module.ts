@@ -20,8 +20,6 @@ import { AgenciaDetalleComponent } from './componentsAdmin/agencia-detalle/agenc
 import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
 import { FlotaInfoComponent } from './componentsAdmin/flota-info/flota-info.component';
 import { RutasHorariosComponent } from './componentsAdmin/rutas-horarios/rutas-horarios.component';
-import { ServiciosTerrestreComponent } from './componentsAdmin/servicios-terrestre/servicios-terrestre.component';
-import { ServiciosAereoComponent } from './componentsAdmin/servicios-aereo/servicios-aereo.component';
 import { EnvioCrearComponent } from './components/envio-crear/envio-crear.component';
 import { EnvioHistorialComponent } from './components/envio-historial/envio-historial.component';
 import { ComunicateComponent } from './components/comunicate/comunicate.component';
@@ -30,9 +28,10 @@ import { MapaComponent } from './mapa/mapa.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderadminComponent } from './componentsAdmin/headeradmin/headeradmin.component';
 import { DashboardAdminComponent } from './componentsAdmin/dashboard-admin/dashboard-admin.component';
-import { HistorialClienteComponent } from './componentsAdmin/historial-cliente/historial-cliente.component';
+
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AgenciasAdminComponent } from './componentsAdmin/agencias-admin/agencias-admin.component';
+import { ServiciosComponent } from './componentsAdmin/servicios/servicios.component';
 
 
 
@@ -52,8 +51,6 @@ import { AgenciasAdminComponent } from './componentsAdmin/agencias-admin/agencia
     AgenciaDetalleComponent,
     FlotaInfoComponent,
     RutasHorariosComponent,
-    ServiciosTerrestreComponent,
-    ServiciosAereoComponent,
     EnvioCrearComponent,
     EnvioHistorialComponent,
     ComunicateComponent,
@@ -61,9 +58,10 @@ import { AgenciasAdminComponent } from './componentsAdmin/agencias-admin/agencia
     MapaComponent,
     HeaderadminComponent,
     DashboardAdminComponent,
-    HistorialClienteComponent,
+
     UserProfileComponent,
     AgenciasAdminComponent,
+    ServiciosComponent
   ],
   imports: [
     BrowserModule,

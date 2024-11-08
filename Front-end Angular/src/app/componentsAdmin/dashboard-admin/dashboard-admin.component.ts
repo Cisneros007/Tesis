@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
-import { ClienteService } from 'src/app/services-admin/cliente.service';
-import { UsuarioService } from 'src/app/services-admin/usuario.service';
+import { ClienteService } from 'src/app/services-admin/Dashboard-admin-services/cliente.service';
+import { UsuarioService } from 'src/app/services-admin/Dashboard-admin-services/usuario.service';
 
 @Component({
   selector: 'app-dashboard-admin',
