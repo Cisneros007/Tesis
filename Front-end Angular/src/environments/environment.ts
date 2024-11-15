@@ -7,6 +7,8 @@ export const environment = {
   storageBucket: "tesis-5bff5.appspot.com",
   messagingSenderId: "395673213126",
   appId: "1:395673213126:web:32e8ef11d53bfbdd691fc7",
-  measurementId: "G-ZH2YFVVBD0"
+  measurementId: "G-ZH2YFVVBD0",
+  googleMapsApiKey: 'AIzaSyCil-d3QM2Pmu15hiZ7FdwwLxjxgzFVH8sI'
+
   }
 };

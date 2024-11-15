@@ -20,7 +20,7 @@ import { DashboardAdminComponent } from './componentsAdmin/dashboard-admin/dashb
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AgenciasAdminComponent } from './componentsAdmin/agencias-admin/agencias-admin.component';
 import { ServiciosComponent } from './componentsAdmin/servicios/servicios.component';
-
+import { TrackingComponent } from './components/tracking/tracking.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -43,6 +43,7 @@ const routes: Routes = [
   { path: 'user-profile', component:  UserProfileComponent, canActivate: [AuthGuard] },
   { path: 'agencias-admin', component: AgenciasAdminComponent, canActivate: [AuthGuard] },
   { path: 'servicios', component: ServiciosComponent, canActivate: [AuthGuard] },
+  { path: 'traking', component: TrackingComponent, canActivate: [AuthGuard] },
 
 
 ];

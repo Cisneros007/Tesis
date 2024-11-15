@@ -10,6 +10,7 @@ export class EnviosService {
 
   constructor(private http: HttpClient) { }
 
+  // Método para obtener todos los envíos
   getEnvios(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
   }

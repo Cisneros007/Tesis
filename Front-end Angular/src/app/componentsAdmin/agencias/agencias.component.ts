@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import * as L from 'leaflet';
 
 // Define la interfaz para las agencias
 interface Agencia {
   name: string;
   address: string;
-  phone: string;
-  email: string;
+  latitude: number;
+  longitude: number;
+  image: string;  // Nueva propiedad para la imagen
 }
 
 @Component({
@@ -19,24 +20,50 @@ export class AgenciasComponent implements OnInit {
   selectedAgencia: string = '';
   agencias: Agencia[] = [];
   filteredAgencias: Agencia[] = [];
+  map: any;
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {
-    // Inicializar la lista de agencias
+    // Inicializar la lista de agencias con coordenadas y una imagen para cada agencia
     this.agencias = [
-      { name: 'Miraflores', address: 'Av. Pardo y Aliaga 123', phone: '987654321', email: 'miraflores@example.com' },
-      { name: 'San Isidro', address: 'Calle Los Conquistadores 456', phone: '987654322', email: 'sanisidro@example.com' },
-      { name: 'Surco', address: 'Av. La Encalada 789', phone: '987654323', email: 'surco@example.com' },
-      { name: 'Agencia 1', address: 'Dirección 1', phone: '123456789', email: 'email1@agencia.com' },
-      { name: 'Agencia 2', address: 'Dirección 2', phone: '987654321', email: 'email2@agencia.com' },
+      { name: 'Miraflores', address: 'Av. Pardo y Aliaga 123', latitude: -12.1194, longitude: -77.0345, image: '/assets/iconos/icono.png' },
+      { name: 'San Isidro', address: 'Calle Los Conquistadores 456', latitude: -12.0924, longitude: -77.0465, image: '/assets/iconos/icono.png' },
+      { name: 'Surco', address: 'Av. La Encalada 789', latitude: -12.1085, longitude: -76.9643, image: '/assets/iconos/icono.png' },
+      { name: 'Agencia 1', address: 'Dirección 1', latitude: -12.0464, longitude: -77.0428, image: '/assets/iconos/icono.png' },
+      { name: 'Callao', address: 'AV callao ', latitude: -12.0455, longitude: -77.0315, image: '/assets/iconos/icono.png' },
     ];
 
-    // Inicializar las agencias filtradas con todas las agencias
     this.filteredAgencias = [...this.agencias];
+    this.initMap();
+    this.addMarkersToMap();
   }
 
-  // Método para filtrar las agencias basadas en la consulta de búsqueda
+  // Inicializar el mapa de Leaflet
+  initMap(): void {
+    this.map = L.map('map').setView([-12.0464, -77.0428], 12); // Centro inicial en Lima
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.map);
+  }
+
+  // Añadir marcadores para todas las agencias en el mapa con imágenes personalizadas
+  addMarkersToMap(): void {
+    this.filteredAgencias.forEach(agencia => {
+      // Crear un icono personalizado para el marcador con una imagen
+      const customIcon = L.icon({
+        iconUrl: agencia.image,
+        iconSize: [30, 30], // Ajusta el tamaño de la imagen
+        iconAnchor: [20, 40], // Ajusta el punto de anclaje del icono
+        popupAnchor: [0, -40] // Ajusta la posición del popup
+      });
+
+      const marker = L.marker([agencia.latitude, agencia.longitude], { icon: customIcon }).addTo(this.map);
+      marker.bindPopup(`<b>${agencia.name}</b><br>${agencia.address}`);
+    });
+  }
+
+  // Método para filtrar las agencias
   searchLocation(): void {
     const queryLowerCase = this.searchQuery.trim().toLowerCase();
     this.filteredAgencias = queryLowerCase
@@ -44,27 +71,28 @@ export class AgenciasComponent implements OnInit {
           agencia.name.toLowerCase().includes(queryLowerCase) ||
           agencia.address.toLowerCase().includes(queryLowerCase)
         )
-      : [...this.agencias]; // Si la búsqueda está vacía, mostrar todas las agencias
-  }
+      : [...this.agencias];
 
-  // Manejar la selección de la agencia desde el menú desplegable
-  selectAgencia(agenciaName: string): void {
-    if (agenciaName) {
-      const selectedAgencia = this.filteredAgencias.find(agencia => agencia.name === agenciaName);
-      if (selectedAgencia) {
-        this.viewDetails(selectedAgencia);
-      }
+    // Si hay resultados, actualizar los marcadores y hacer zoom en la primera agencia encontrada
+    if (this.filteredAgencias.length > 0) {
+      const firstAgencia = this.filteredAgencias[0];
+      this.updateMapMarkers();
+      this.map.setView([firstAgencia.latitude, firstAgencia.longitude], 18); // Centra el mapa y hace zoom en la primera agencia
+    } else {
+      this.updateMapMarkers(); // Solo actualiza los marcadores si no hay resultados
     }
   }
 
-  // Navegar a la página de detalles de la agencia
-  viewDetails(agencia: Agencia): void {
-    this.router.navigate(['/agencia-detalle', agencia.name]); // Redirigir usando el nombre de la agencia
-  }
+  // Actualizar marcadores en el mapa basados en la búsqueda filtrada
+  updateMapMarkers(): void {
+    // Eliminar los marcadores previos
+    this.map.eachLayer((layer: any) => {
+      if (layer instanceof L.Marker) {
+        this.map.removeLayer(layer);
+      }
+    });
 
-  // Mostrar la ubicación de la agencia seleccionada en el mapa
-  showLocation(agencia: Agencia): void {
-    const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(agencia.address)}`;
-    window.open(mapUrl, '_blank'); // Abrir la ubicación en una nueva pestaña
+    // Añadir marcadores de las agencias filtradas
+    this.addMarkersToMap();
   }
 }

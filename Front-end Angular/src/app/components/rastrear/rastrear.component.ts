@@ -50,5 +50,5 @@ export class RastrearComponent {
     this.trackingInfo = null;
     this.informacionEnvio = null;
     this.showTrackingInfo = false; // Ocultar el formulario nuevamente
-  }
+  }
 }

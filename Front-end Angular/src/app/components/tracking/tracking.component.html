@@ -1,0 +1,22 @@
+<!-- tracking.component.html -->
+<div *ngIf="loading" class="loading">
+  <p>Loading tracking details...</p>
+</div>
+
+<div *ngIf="errorMessage" class="error">
+  <p>{{ errorMessage }}</p>
+</div>
+
+<div *ngIf="!loading && trackingInfo" class="tracking-details">
+  <h2>Tracking Information</h2>
+
+  <p><strong>ID:</strong> {{ trackingInfo.idTracking }}</p>
+  <p><strong>Order ID:</strong> {{ trackingInfo.idEncomienda }}</p>
+  <p><strong>Current Location:</strong> {{ trackingInfo.ubicacionActual }}</p>
+  <p><strong>Latitude:</strong> {{ trackingInfo.latitud }}</p>
+  <p><strong>Longitude:</strong> {{ trackingInfo.longitud }}</p>
+  <p><strong>Status:</strong> {{ trackingInfo.estado }}</p>
+  <p><strong>Timestamp:</strong> {{ trackingInfo.fechaHora | date:'medium' }}</p>
+
+  <p><strong>Tracking Code:</strong> {{ trackingInfo.codigo }}</p>
+</div>

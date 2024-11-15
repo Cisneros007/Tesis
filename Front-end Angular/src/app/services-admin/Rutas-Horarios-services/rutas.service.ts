@@ -10,6 +10,7 @@ export class RutasService {
 
   constructor(private http: HttpClient) { }
 
+  // Método para obtener todas las rutas
   getRutas(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
   }
