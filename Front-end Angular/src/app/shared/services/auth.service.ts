@@ -8,76 +8,108 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  userData: any;
-
+  userData: any; 
+  private loggedIn: boolean = false;
+  private roles: string[] = [];
   constructor(
     private firebaseAuthenticationService: AngularFireAuth,
     private router: Router,
     private ngZone: NgZone
   ) {
-    // OBSERVER save user in localStorage (log-in) and setting up null when log-out
+    // OBSERVER: guarda al usuario en localStorage al iniciar sesión y establece null al cerrar sesión
     this.firebaseAuthenticationService.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
+        // Si el usuario está logueado, obtiene el rol para la redirección
+        if (user.email) {
+          this.getUserRoles(user.email); // Obtener el rol del usuario
+        }
       } else {
-        localStorage.setItem('user', 'null');
+        this.userData = null;
+        localStorage.removeItem('user'); // Mejor usar removeItem en lugar de 'null'
       }
-    })
-
+    });
   }
 
-  // log-in with email and password
+  // Iniciar sesión con correo y contraseña
   logInWithEmailAndPassword(email: string, password: string) {
     return this.firebaseAuthenticationService.signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        this.userData = userCredential.user
-        this.observeUserState()
+        this.userData = userCredential.user;
+        this.observeUserState();
       })
       .catch((error) => {
-        alert(error.message);
-      })
+        alert(error.message);  // Mostrar mensaje de error
+      });
   }
 
-  // log-in with google
+  // Iniciar sesión con Google
   logInWithGoogleProvider() {
     return this.firebaseAuthenticationService.signInWithPopup(new GoogleAuthProvider())
       .then(() => this.observeUserState())
       .catch((error: Error) => {
-        alert(error.message);
-      })
+        alert(error.message);  // Mostrar mensaje de error
+      });
   }
 
-  // sign-up with email and password
+  // Registrar un nuevo usuario con correo y contraseña
   signUpWithEmailAndPassword(email: string, password: string) {
     return this.firebaseAuthenticationService.createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        this.userData = userCredential.user
-        this.observeUserState()
+        this.userData = userCredential.user;
+        this.observeUserState();
       })
       .catch((error) => {
-        alert(error.message);
-      })
+        alert(error.message);  // Mostrar mensaje de error
+      });
   }
 
+  // Método que observa el estado del usuario y redirige a la ruta correspondiente según su rol
   observeUserState() {
     this.firebaseAuthenticationService.authState.subscribe((userState) => {
-      userState && this.ngZone.run(() => this.router.navigate(['dashboard']))
-    })
+      if (userState) {
+        // Redirige según el rol del usuario
+        this.router.navigate([this.getRoleRedirect(userState.email ?? '')]);
+      }
+    });
   }
 
-  // return true when user is logged in
+  // Obtener el rol del usuario según su correo
+  getUserRoles(email: string): string {
+    const userRoles: { [key: string]: string } = {
+      'admin@example.com': 'admin',
+      'user@example.com': 'user',
+      'empleado@example.com': 'empleado'  ,
+      'cisneros@example.com': 'empleado' ,
+    };
+    return userRoles[email] || 'user';  // Retorna el rol por defecto
+  }
+
+  // Obtener la ruta de redirección basada en el rol del usuario
+  getRoleRedirect(email: string): string {
+    const role = this.getUserRoles(email);
+    switch (role) {
+      case 'admin':
+        return 'admin-dashboard';  // Redirige al dashboard de administrador
+      case 'empleado':
+        return 'empleado-dashboard';  // Redirige al dashboard de empleado
+      default:
+        return 'dashboard';  // Redirige al dashboard de usuario (antes 'cliente-dashboard')
+    }
+  }
+
+  // Verificar si el usuario está logueado
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null;
+    return this.userData !== null;  // Usa la propiedad 'userData' en lugar de localStorage
   }
 
-  // logOut
+  // Cerrar sesión
   logOut() {
     return this.firebaseAuthenticationService.signOut().then(() => {
+      this.userData = null;
       localStorage.removeItem('user');
       this.router.navigate(['login']);
-    })
+    });
   }
-
 }

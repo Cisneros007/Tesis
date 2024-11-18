@@ -7,66 +7,28 @@
       <span class="absolute bottom-[-5px] left-1/2 transform -translate-x-1/2 w-4 h-1 bg-gradient-to-r from-blue-800 to-red-700 rounded-lg"></span>
     </h1>
 
-    <!-- Sección de Búsqueda y Mapa -->
-    <div class="search-map-container flex flex-wrap gap-5 mb-5">
-      <!-- Caja de Búsqueda -->
-      <div class="search-box bg-red-100 p-5 rounded-lg max-w-xs w-full">
-        <label for="search-location" class="font-bold text-gray-800 mb-2 block">Ingresa el lugar</label>
-        <input type="text" id="search-location" placeholder="Lugar" [(ngModel)]="searchQuery" 
-               class="w-full p-2 mb-2 rounded border border-gray-300">
-        <button (click)="searchLocation()" 
-                class="bg-red-600 text-white py-2 rounded w-full hover:bg-red-700 transition-colors">Buscar</button>
-
-        <!-- Menú Desplegable de Agencias -->
-        <select [(ngModel)]="selectedAgencia" (ngModelChange)="selectAgencia($event)" class="w-full p-2 mt-2 rounded border border-gray-300" 
-                *ngIf="filteredAgencias.length > 0">
-          <option value="">Selecciona una Agencia</option>
-          <option *ngFor="let agencia of filteredAgencias" [value]="agencia.name">{{ agencia.name }}</option>
-        </select>
-      </div>
-
-      <!-- Mapa -->
-      <div class="map flex-grow min-w-[300px] h-[450px] rounded-lg overflow-hidden shadow-lg">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3826.4966712380316!2d-71.5374512!3d-13.5209785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDMxJzEwLjMiUyA3McKwMzEnMjUuMyJX!5e0!3m2!1sen!2s!4v1603627853137!5m2!1sen!2s" 
-          width="600" 
-          height="450" 
-          style="border:0;" 
-          allowfullscreen="" 
-          aria-hidden="false" 
-          tabindex="0">
-        </iframe>
-      </div>
+    <!-- Sección de Búsqueda -->
+    <div class="search-box bg-red-100 p-5 rounded-lg max-w-xs w-full mb-5">
+      <label for="search-location" class="font-bold text-gray-800 mb-2 block">Ingresa el lugar</label>
+      <input type="text" id="search-location" placeholder="Lugar" [(ngModel)]="searchQuery" 
+             class="w-full p-2 mb-2 rounded border border-gray-300">
+      <button (click)="searchLocation()" 
+              class="bg-red-600 text-white py-2 rounded w-full hover:bg-red-700 transition-colors">Buscar</button>
     </div>
 
-    <!-- Sección de Lista de Agencias -->
-    <div class="agencia-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" *ngIf="filteredAgencias.length > 0">
+    <!-- Mapa -->
+    <div id="map" class="map-container min-w-[300px] h-[450px] rounded-lg overflow-hidden shadow-lg"></div>
+
+    <!-- Lista de Agencias -->
+    <div class="agencia-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5" *ngIf="filteredAgencias.length > 0">
       <div class="agencia-card bg-white border border-gray-300 rounded-lg shadow-md p-5 transition-transform transform hover:scale-105 hover:shadow-xl"
            *ngFor="let agencia of filteredAgencias">
-
-        <!-- Encabezado de Agencia -->
-        <div class="agencia-header">
-          <h2 class="text-2xl text-blue-800 mb-2">{{ agencia.name }}</h2>
-        </div>
-
-        <!-- Cuerpo de Agencia -->
-        <div class="agencia-body">
-          <p class="text-gray-600">{{ agencia.address }}</p>
-          <p class="text-gray-700"><strong>Teléfono:</strong> {{ agencia.phone }}</p>
-          <p class="text-gray-700"><strong>Email:</strong> {{ agencia.email }}</p>
-          <button (click)="viewDetails(agencia)" 
-                  class="bg-blue-800 text-white py-2 rounded w-full mt-2 transition-colors hover:bg-blue-700">Ver Detalles</button>
-          <button (click)="showLocation(agencia)" 
-                  class="bg-green-600 text-white py-2 rounded w-full mt-2 transition-colors hover:bg-green-700">Ver en el Mapa</button>
-        </div>
+        <h2 class="text-2xl text-blue-800 mb-2">{{ agencia.name }}</h2>
+        <p class="text-gray-600">{{ agencia.address }}</p>
       </div>
     </div>
 
     <!-- Mensaje si no se encuentran resultados -->
     <p *ngIf="filteredAgencias.length === 0 && searchQuery" class="no-results text-red-600 font-bold mt-5">No se encontraron agencias para "{{ searchQuery }}"</p>
-
   </div>
-
-  <!-- API de Google Maps -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap"></script>
 </div>

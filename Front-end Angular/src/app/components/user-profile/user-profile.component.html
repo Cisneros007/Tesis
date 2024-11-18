@@ -2,7 +2,7 @@
 
 <div class="h-[60px]"></div>
 
-<div class="max-w-3xl mx-auto my-5 p-5 bg-gray-100 rounded-lg shadow-md transform transition-transform duration-300 relative overflow-hidden hover:scale-105">
+<div class="max-w-3xl mx-auto my-5 p-5 bg-gray-100 rounded-lg ">
   <!-- User Header Section -->
   <div class="flex items-center mb-5 pb-4 border-b-2 border-gray-300">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6rKwDbEN_M9FCcve-ozbDkUUn6VkEZ7xfVw&s" alt="User" class="w-24 h-24 rounded-full object-cover mr-5 transition-transform duration-300 border-4 border-blue-900 hover:scale-110">
@@ -53,7 +53,7 @@
     <p class="my-2"><strong>Descripción:</strong> {{ envioSeleccionado.descripcion }}</p>
     <button (click)="cerrarDetalles()" class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-500 transition duration-300">Cerrar</button>
   </div>
-
+  
   <!-- Edit User Modal -->
   <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" *ngIf="mostrarModalEditarUsuario" aria-modal="true" role="dialog">
     <div class="bg-white p-5 rounded-lg max-w-md w-full shadow-md relative">

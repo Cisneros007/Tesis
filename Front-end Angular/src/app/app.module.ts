@@ -32,6 +32,7 @@ import { DashboardAdminComponent } from './componentsAdmin/dashboard-admin/dashb
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AgenciasAdminComponent } from './componentsAdmin/agencias-admin/agencias-admin.component';
 import { ServiciosComponent } from './componentsAdmin/servicios/servicios.component';
+import { EmpleadoDashboardComponent } from './componentsEmpleado/empleado-dashboard/empleado-dashboard.component';
 
 
 
@@ -61,7 +62,8 @@ import { ServiciosComponent } from './componentsAdmin/servicios/servicios.compon
 
     UserProfileComponent,
     AgenciasAdminComponent,
-    ServiciosComponent
+    ServiciosComponent,
+    EmpleadoDashboardComponent
   ],
   imports: [
     BrowserModule,

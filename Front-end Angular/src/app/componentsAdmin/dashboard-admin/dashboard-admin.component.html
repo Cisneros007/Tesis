@@ -1,18 +1,110 @@
-<div >
-  <app-headeradmin></app-headeradmin>
-  <div class="flex-grow p-4 ml-64">
-    <app-sidebar></app-sidebar>
-    <div class="fleet-info-container flex flex-col">
-      <h2 class="fleet-title text-2xl font-bold mb-4">Administración de Usuarios</h2>
+  <div>
+    <app-headeradmin></app-headeradmin>
 
-      <!-- Tabla Usuarios -->
-      <div class="crud-section mb-4 ">
-        <button
+    <div class="flex h-screen pt-16 bg-gray-100">
+      <!-- Sidebar -->
+      <app-sidebar></app-sidebar>
+
+      <!-- Contenido principal -->
+      <div class="flex-grow ml-64 p-8 bg-white rounded-lg shadow-lg">
+        <h2 class="text-2xl font-semibold text-indigo-600 mb-6">Administración de Empleados</h2>
+
+        <!-- Botón para abrir el modal de Crear Empleado -->
+        <button 
           class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition transform hover:-translate-y-0.5"
-          (click)="crearUsuario()"
-        >
-          Agregar Usuario
+          (click)="abrirModalCrearEmpleado()">
+          Agregar empleado
         </button>
+
+        <!-- Modal para Crear Empleado -->
+        <div *ngIf="isModalCrearEmpleado" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+          <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 class="text-xl font-semibold">Agregar Empleado</h3>
+            <form (ngSubmit)="crearEmpleado()">
+              <!-- Campos de formulario -->
+              <div class="mt-4">
+                <label for="nombre" class="block">Nombre</label>
+                <input id="nombre" [(ngModel)]="nuevoEmpleado.nombre" name="nombre" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="apellido" class="block">Apellido</label>
+                <input id="apellido" [(ngModel)]="nuevoEmpleado.apellido" name="apellido" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="dni" class="block">DNI</label>
+                <input id="dni" [(ngModel)]="nuevoEmpleado.dni" name="dni" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="telefono" class="block">Teléfono</label>
+                <input id="telefono" [(ngModel)]="nuevoEmpleado.telefono" name="telefono" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="email" class="block">Email</label>
+                <input id="email" [(ngModel)]="nuevoEmpleado.email" name="email" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="direccion" class="block">Dirección</label>
+                <input id="direccion" [(ngModel)]="nuevoEmpleado.direccion" name="direccion" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4 flex justify-between">
+                <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800">Guardar</button>
+                <button type="button" (click)="cerrarModalCrearEmpleado()" class="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Modal para Editar Empleado -->
+        <div *ngIf="isModalEditarEmpleado" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+          <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 class="text-xl font-semibold">Editar Empleado</h3>
+            <form (ngSubmit)="editarEmpleado()">
+              <!-- Campos de formulario -->
+              <div class="mt-4">
+                <label for="nombreEditar" class="block">Nombre</label>
+                <input id="nombreEditar" [(ngModel)]="empleadoEditar.nombre" name="nombre" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="apellidoEditar" class="block">Apellido</label>
+                <input id="apellidoEditar" [(ngModel)]="empleadoEditar.apellido" name="apellido" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="dniEditar" class="block">DNI</label>
+                <input id="dniEditar" [(ngModel)]="empleadoEditar.dni" name="dni" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="telefonoEditar" class="block">Teléfono</label>
+                <input id="telefonoEditar" [(ngModel)]="empleadoEditar.telefono" name="telefono" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="emailEditar" class="block">Email</label>
+                <input id="emailEditar" [(ngModel)]="empleadoEditar.email" name="email" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="direccionEditar" class="block">Dirección</label>
+                <input id="direccionEditar" [(ngModel)]="empleadoEditar.direccion" name="direccion" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4 flex justify-between">
+                <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800">Guardar</button>
+                <button type="button" (click)="cerrarModalEditarEmpleado()" class="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Modal para Eliminar Empleado -->
+        <div *ngIf="isModalEliminarEmpleado && empleadoEliminar" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+          <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 class="text-xl font-semibold text-red-600">Eliminar Empleado</h3>
+            <p>¿Estás seguro de que deseas eliminar al empleado <strong>{{ empleadoEliminar?.nombre }}</strong>?</p>
+            <div class="mt-4 flex justify-between">
+              <button (click)="eliminarEmpleado(empleadoEliminar.idEmpleado)" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Eliminar</button>
+              <button type="button" (click)="cerrarModalEliminarEmpleado()" class="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500">Cancelar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla de Empleados -->
         <div class="table-responsive overflow-x-auto mt-4">
           <table class="w-full border-collapse shadow-md">
             <thead>
@@ -28,25 +120,19 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let usuario of usuarios" class="hover:bg-blue-50">
-                <td class="border p-3">{{ usuario.nombre }}</td>
-                <td class="border p-3">{{ usuario.apellido }}</td>
-                <td class="border p-3">{{ usuario.dni }}</td>
-                <td class="border p-3">{{ usuario.telefono }}</td>
-                <td class="border p-3">{{ usuario.email }}</td>
-                <td class="border p-3">{{ usuario.direccion }}</td>
-                <td class="border p-3">{{ usuario.fechaRegistro | date }}</td>
+              <tr *ngFor="let empleado of empleados" class="hover:bg-blue-50">
+                <td class="border p-3">{{ empleado.nombre }}</td>
+                <td class="border p-3">{{ empleado.apellido }}</td>
+                <td class="border p-3">{{ empleado.dni }}</td>
+                <td class="border p-3">{{ empleado.telefono }}</td>
+                <td class="border p-3">{{ empleado.email }}</td>
+                <td class="border p-3">{{ empleado.direccion }}</td>
+                <td class="border p-3">{{ empleado.fechaRegistro | date }}</td>
                 <td class="border p-3 flex gap-2">
-                  <button
-                    class="bg-yellow-400 px-2 py-1 rounded-md hover:bg-yellow-500 transition"
-                    (click)="editarUsuario(usuario)"
-                  >
+                  <button class="bg-yellow-400 px-2 py-1 rounded-md hover:bg-yellow-500" (click)="abrirModalEditarEmpleado(empleado)">
                     Editar
                   </button>
-                  <button
-                    class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 transition"
-                    (click)="eliminarUsuario(usuario.idusuario)"
-                  >
+                  <button class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600" (click)="abrirModalEliminarEmpleado(empleado.idEmpleado)">
                     Eliminar
                   </button>
                 </td>
@@ -54,18 +140,108 @@
             </tbody>
           </table>
         </div>
-      </div>
 
-      <h2 class="fleet-title text-2xl font-bold mb-4">Administración de Clientes</h2>
+        <!-- Administración de Clientes -->
+        <h2 class="text-2xl font-semibold text-indigo-600 mb-6 mt-12">Administración de Clientes</h2>
 
-      <!-- Tabla Clientes -->
-      <div class="crud-section mb-4">
-        <button
+        <!-- Botón para abrir el modal de Crear Cliente -->
+        <button 
           class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition transform hover:-translate-y-0.5"
-          (click)="crearCliente()"
-        >
+          (click)="abrirModalCrearCliente()">
           Agregar Cliente
         </button>
+
+        <!-- Modal para Crear Cliente -->
+        <div *ngIf="isModalCrearCliente" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+          <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 class="text-xl font-semibold">Agregar Cliente</h3>
+            <form (ngSubmit)="crearCliente()">
+              <!-- Campos de formulario para cliente -->
+              <div class="mt-4">
+                <label for="nombreCliente" class="block">Nombre</label>
+                <input id="nombreCliente" [(ngModel)]="nuevoCliente.nombre" name="nombre" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="apellidoCliente" class="block">Apellido</label>
+                <input id="apellidoCliente" [(ngModel)]="nuevoCliente.apellido" name="apellido" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="dniCliente" class="block">DNI</label>
+                <input id="dniCliente" [(ngModel)]="nuevoCliente.dni" name="dni" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="telefonoCliente" class="block">Teléfono</label>
+                <input id="telefonoCliente" [(ngModel)]="nuevoCliente.telefono" name="telefono" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="emailCliente" class="block">Email</label>
+                <input id="emailCliente" [(ngModel)]="nuevoCliente.email" name="email" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="direccionCliente" class="block">Dirección</label>
+                <input id="direccionCliente" [(ngModel)]="nuevoCliente.direccion" name="direccion" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4 flex justify-between">
+                <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800">Guardar</button>
+                <button type="button" (click)="cerrarModalCrearCliente()" class="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Modal para Editar Cliente -->
+        <div *ngIf="isModalEditarCliente" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+          <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 class="text-xl font-semibold">Editar Cliente</h3>
+            <form (ngSubmit)="editarCliente()">
+              <!-- Campos de formulario -->
+              <div class="mt-4">
+                <label for="nombreEditarCliente" class="block">Nombre</label>
+                <input id="nombreEditarCliente" [(ngModel)]="clienteEditar.nombre" name="nombre" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="apellidoEditarCliente" class="block">Apellido</label>
+                <input id="apellidoEditarCliente" [(ngModel)]="clienteEditar.apellido" name="apellido" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="dniEditarCliente" class="block">DNI</label>
+                <input id="dniEditarCliente" [(ngModel)]="clienteEditar.dni" name="dni" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="telefonoEditarCliente" class="block">Teléfono</label>
+                <input id="telefonoEditarCliente" [(ngModel)]="clienteEditar.telefono" name="telefono" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="emailEditarCliente" class="block">Email</label>
+                <input id="emailEditarCliente" [(ngModel)]="clienteEditar.email" name="email" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4">
+                <label for="direccionEditarCliente" class="block">Dirección</label>
+                <input id="direccionEditarCliente" [(ngModel)]="clienteEditar.direccion" name="direccion" class="w-full p-2 border rounded" required />
+              </div>
+              <div class="mt-4 flex justify-between">
+                <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800">Guardar</button>
+                <button type="button" (click)="cerrarModalEditarCliente()" class="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Modal para Eliminar Cliente -->
+        <div *ngIf="isModalEliminarCliente && clienteEliminar" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+          <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 class="text-xl font-semibold text-red-600">Eliminar Cliente</h3>
+            <p>¿Estás seguro de que deseas eliminar al cliente <strong>{{ clienteEliminar?.nombre }}</strong>?</p>
+            <div class="mt-4 flex justify-between">
+              <button (click)="eliminarCliente(clienteEliminar.idCliente)" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Eliminar</button>
+              <button type="button" (click)="cerrarModalEliminarCliente()" class="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500">Cancelar</button>
+            </div>
+          </div>
+        </div>
+
+      
+
+        <!-- Tabla de Clientes -->
         <div class="table-responsive overflow-x-auto mt-4">
           <table class="w-full border-collapse shadow-md">
             <thead>
@@ -90,16 +266,10 @@
                 <td class="border p-3">{{ cliente.direccion }}</td>
                 <td class="border p-3">{{ cliente.fechaRegistro | date }}</td>
                 <td class="border p-3 flex gap-2">
-                  <button
-                    class="bg-yellow-400 px-2 py-1 rounded-md hover:bg-yellow-500 transition"
-                    (click)="editarCliente(cliente)"
-                  >
+                  <button class="bg-yellow-400 px-2 py-1 rounded-md hover:bg-yellow-500" (click)="abrirModalEditarCliente(cliente)">
                     Editar
                   </button>
-                  <button
-                    class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 transition"
-                    (click)="eliminarCliente(cliente.idCliente)"
-                  >
+                  <button class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600" (click)="abrirModalEliminarCliente(cliente.idCliente)">
                     Eliminar
                   </button>
                 </td>
@@ -110,4 +280,3 @@
       </div>
     </div>
   </div>
-</div>

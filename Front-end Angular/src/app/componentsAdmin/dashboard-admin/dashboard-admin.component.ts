@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 import { ClienteService } from 'src/app/services-admin/Dashboard-admin-services/cliente.service';
-import { UsuarioService } from 'src/app/services-admin/Dashboard-admin-services/usuario.service';
+import { EmpleadoService } from 'src/app/services-admin/Dashboard-admin-services/empleado.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -8,30 +9,46 @@ import { UsuarioService } from 'src/app/services-admin/Dashboard-admin-services/
   styleUrls: ['./dashboard-admin.component.css']
 })
 export class DashboardAdminComponent implements OnInit, AfterViewInit {
-  usuarios: any[] = [];
+  empleados: any[] = [];
   clientes: any[] = [];
-  nuevoUsuario: any = {}; // Objeto para el nuevo usuario
+  nuevoEmpleado: any = {}; // Objeto para el nuevo empleado
   nuevoCliente: any = {}; // Objeto para el nuevo cliente
+
+  // Variables para controlar los modales
+  isModalVisible: boolean = false;
+  isModalCrearEmpleado: boolean = false;
+  isModalEditarEmpleado: boolean = false;
+  isModalEliminarEmpleado: boolean = false;
+  isModalCrearCliente: boolean = false;
+  isModalEditarCliente: boolean = false;
+  isModalEliminarCliente: boolean = false;
+
+  // Variables para editar y eliminar
+  empleadoEditar: any = null;
+  empleadoEliminar: any = null;
+  clienteEditar: any = null;
+  clienteEliminar: any = null;
 
   constructor(
     private elRef: ElementRef,
     private renderer: Renderer2,
-    private usuarioService: UsuarioService,
-    private clienteService: ClienteService
+    private empleadoService: EmpleadoService,
+    private clienteService: ClienteService,
+    private http: HttpClient,
   ) {}
 
   ngOnInit(): void {
-    this.cargarUsuarios();
+    this.cargarEmpleados();
     this.cargarClientes();
   }
 
-  cargarUsuarios() {
-    this.usuarioService.getUsuarios().subscribe(
+  cargarEmpleados() {
+    this.empleadoService.getEmpleados().subscribe(
       (data) => {
-        this.usuarios = data;
+        this.empleados = data;
       },
       (error) => {
-        console.error('Error al cargar usuarios', error);
+        console.error('Error al cargar empleados', error);
       }
     );
   }
@@ -46,26 +63,101 @@ export class DashboardAdminComponent implements OnInit, AfterViewInit {
       }
     );
   }
+// Métodos para Empleados
+crearEmpleado() {
+  this.empleadoService.crearEmpleado(this.nuevoEmpleado).subscribe(
+    (response) => {
+      this.empleados.push(response); // Agrega el nuevo empleado a la lista
+      console.log('Empleado creado', response);
+      this.nuevoEmpleado = {}; // Reinicia el objeto del nuevo empleado
+      this.cerrarModalCrearEmpleado(); // Cierra el modal
+    },
+    (error) => {
+      console.error('Error al crear empleado', error);
+    }
+  );
+}
 
-  crearUsuario() {
-    this.usuarioService.crearUsuario(this.nuevoUsuario).subscribe(
-      (response) => {
-        this.usuarios.push(response); // Agrega el nuevo usuario a la lista
-        console.log('Usuario creado', response);
-        this.nuevoUsuario = {}; // Reinicia el objeto del nuevo usuario
-      },
-      (error) => {
-        console.error('Error al crear usuario', error);
-      }
-    );
+abrirModalCrearEmpleado() {
+  this.isModalCrearEmpleado = true;
+  this.nuevoEmpleado = {}; // Resetea los datos del nuevo empleado
+}
+
+cerrarModalCrearEmpleado() {
+  this.isModalCrearEmpleado = false;
+}
+
+abrirModalEditarEmpleado(empleado: any) {
+  this.empleadoEditar = { ...empleado };
+  this.isModalEditarEmpleado = true;
+}
+
+cerrarModalEditarEmpleado() {
+  this.isModalEditarEmpleado = false;
+  this.empleadoEditar = null;
+}
+
+abrirModalEliminarEmpleado(idEmpleado: number) {
+  const empleado = this.empleados.find(e => e.idEmpleado === idEmpleado);
+  if (empleado) {
+    this.empleadoEliminar = empleado;
+    this.isModalEliminarEmpleado = true;
+  } else {
+    console.error('Empleado no encontrado para eliminar.');
+  }
+}
+
+cerrarModalEliminarEmpleado() {
+  this.isModalEliminarEmpleado = false;
+  this.empleadoEliminar = null;
+}
+
+editarEmpleado() {
+  console.log('Empleado a editar (antes de validar):', this.empleadoEditar);
+
+  if (!this.empleadoEditar || !this.empleadoEditar.idEmpleado) {
+    console.error('Empleado a editar no está definido correctamente.');
+    return;
   }
 
+  this.empleadoService.editarEmpleado(this.empleadoEditar).subscribe(
+    (response) => {
+      console.log('Empleado editado', response);
+      this.cerrarModalEditarEmpleado(); // Cierra el modal
+      this.cargarEmpleados(); // Recarga la lista de empleados
+    },
+    (error) => {
+      console.error('Error al editar empleado', error);
+    }
+  );
+}
+
+eliminarEmpleado(idEmpleado: number) {
+  if (!idEmpleado) {
+    console.error('ID de empleado no válido.');
+    return;
+  }
+
+  this.empleadoService.eliminarEmpleado(idEmpleado).subscribe(
+    (response) => {
+      this.empleados = this.empleados.filter((emp) => emp.idEmpleado !== idEmpleado);
+      console.log('Empleado eliminado', response);
+      this.cerrarModalEliminarEmpleado(); // Cierra el modal
+    },
+    (error) => {
+      console.error('Error al eliminar empleado', error);
+    }
+  );
+}
+
+  // Métodos para Clientes
   crearCliente() {
     this.clienteService.crearCliente(this.nuevoCliente).subscribe(
       (response) => {
-        this.clientes.push(response); // Agrega el nuevo cliente a la lista
+        this.clientes.push(response); 
         console.log('Cliente creado', response);
-        this.nuevoCliente = {}; // Reinicia el objeto del nuevo cliente
+        this.nuevoCliente = {};
+        this.cerrarModalCrearCliente(); 
       },
       (error) => {
         console.error('Error al crear cliente', error);
@@ -73,20 +165,74 @@ export class DashboardAdminComponent implements OnInit, AfterViewInit {
     );
   }
 
-  editarUsuario(usuario: any) {
-    console.log('Editar Usuario', usuario);
+  abrirModalCrearCliente() {
+    this.isModalCrearCliente = true;
+    this.nuevoCliente = {}; // Resetea los datos del nuevo cliente
   }
 
-  eliminarUsuario(idusuario: number) {
-    console.log('Eliminar Usuario', idusuario);
+  cerrarModalCrearCliente() {
+    this.isModalCrearCliente = false;
   }
 
-  editarCliente(cliente: any) {
-    console.log('Editar Cliente', cliente);
+  abrirModalEditarCliente(cliente: any) {
+    this.clienteEditar = { ...cliente };
+    this.isModalEditarCliente = true;
+  }
+
+  cerrarModalEditarCliente() {
+    this.isModalEditarCliente = false;
+    this.clienteEditar = null;
+  }
+
+  abrirModalEliminarCliente(idCliente: number) {
+    const cliente = this.clientes.find(c => c.idCliente === idCliente);
+    if (cliente) {
+      this.clienteEliminar = cliente;
+      this.isModalEliminarCliente = true;
+    } else {
+      console.error('Cliente no encontrado para eliminar.');
+    }
+  }
+
+  cerrarModalEliminarCliente() {
+    this.isModalEliminarCliente = false;
+    this.clienteEliminar = null;
+  }
+
+  editarCliente() {
+    if (!this.clienteEditar || !this.clienteEditar.idCliente) {
+      console.error('Cliente a editar no está definido correctamente.');
+      return;
+    }
+
+    this.clienteService.editarCliente(this.clienteEditar).subscribe(
+      (response) => {
+        console.log('Cliente editado', response);
+        this.cerrarModalEditarCliente(); // Cierra el modal
+        this.cargarClientes(); // Recarga la lista de clientes
+      },
+      (error) => {
+        console.error('Error al editar cliente', error);
+      }
+    );
   }
 
   eliminarCliente(idCliente: number) {
-    console.log('Eliminar Cliente', idCliente);
+    if (!idCliente) {
+      console.error('ID de cliente no válido.');
+      return;
+    }
+
+    this.clienteService.eliminarCliente(idCliente).subscribe(
+      (response) => {
+        this.clientes = this.clientes.filter((cli) => cli.idCliente !== idCliente);
+        console.log('Cliente eliminado', response);
+        this.cerrarModalEliminarCliente(); // Cierra el modal
+      },
+      (error) => {
+        console.error('Error al eliminar cliente', error);
+      }
+    );
   }
 
   ngAfterViewInit(): void {
