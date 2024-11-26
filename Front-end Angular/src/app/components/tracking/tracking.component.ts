@@ -1,58 +1,39 @@
-// tracking.component.ts
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { TrackingService } from 'src/app/services-cliente/tracking.service';
+import { Tracking } from 'src/app/models-cliente/tracking.model'
 
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.component.html',
-  styleUrls: ['./tracking.component.css']
+  styleUrls: ['./tracking.component.css'],
 })
 export class TrackingComponent implements OnInit {
+  tracking: Tracking | null = null; // Objeto para un tracking específico
+  codigo: string = ''; // Código ingresado por el usuario
+  clave: string = ''; // Contraseña ingresada por el usuario
+  errorMessage: string = ''; // Mensaje de error en caso de que no se encuentre el tracking
 
-  trackingInfo: any;
-  loading: boolean = true;
-  errorMessage: string = '';
+  constructor(private trackingService: TrackingService) {}
 
-  constructor(
-    private trackingService: TrackingService,
-    private route: ActivatedRoute
-  ) { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    const trackingId = this.route.snapshot.paramMap.get('id');
-    if (trackingId) {
-      this.fetchTrackingDetails(trackingId);
+  buscarTracking(): void {
+    if (!this.codigo || !this.clave) {
+      this.errorMessage = 'Por favor ingresa el código y la clave.';
+      return;
     }
-  }
 
-  fetchTrackingDetails(id: string): void {
-    // Assuming you are using tracking ID to fetch tracking data
-    this.trackingService.getTrackingById(id)
-      .subscribe(
-        data => {
-          this.trackingInfo = data;
-          this.loading = false;
-        },
-        error => {
-          this.errorMessage = 'Error fetching tracking data';
-          this.loading = false;
-        }
-      );
-  }
-
-  // You can also fetch data by CodigoPedido and Password here if needed
-  fetchTrackingByCodigo(codigoPedido: string, codigo: string, password: string): void {
-    this.trackingService.getTrackingByCodigo(codigoPedido, codigo, password)
-      .subscribe(
-        data => {
-          this.trackingInfo = data;
-          this.loading = false;
-        },
-        error => {
-          this.errorMessage = 'Error fetching tracking data';
-          this.loading = false;
-        }
-      );
+    this.trackingService.getTrackingByCodigoYClave(this.codigo, this.clave).subscribe({
+      next: (data) => {
+        this.tracking = data; // Asigna el tracking recibido
+        this.errorMessage = ''; // Limpia el mensaje de error
+        console.log('Tracking encontrado:', data);
+      },
+      error: (err) => {
+        console.error('Error al buscar tracking:', err);
+        this.tracking = null; // Limpia el tracking si ocurre un error
+        this.errorMessage = 'No se encontró el tracking con ese código y clave.';
+      },
+    });
   }
 }

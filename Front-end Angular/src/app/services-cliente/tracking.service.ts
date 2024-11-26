@@ -1,39 +1,22 @@
 // tracking.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrackingService {
+  private apiUrl = 'http://localhost:3000/api/tracking'; // Cambia esto con la URL de tu API
 
-  private apiUrl = 'http://localhost:3000/api/rutas'; // URL of your API
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  // Get all tracking data
-  getAllTrackings(): Observable<any> {
-    return this.http.get(`${this.apiUrl}`);
+  // Método para obtener el tracking por código y contraseña
+  getTracking(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
-
-  // Get tracking by ID
-  getTrackingById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
-  }
-
-  // Get tracking info by Codigo and Password
-  getTrackingByCodigo(codigoPedido: string, codigo: string, password: string): Observable<any> {
-    const params = {
-      codigoPedido,
-      codigo,
-      password
-    };
-    return this.http.get<any>(this.apiUrl, { params });
-  }
-
-  // Validate tracking info
-  validateTracking(codigo: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/validate`, { codigo, password });
+  getTrackingByCodigoYClave(codigo: string, clave: string): Observable<any> {
+    const params = new HttpParams().set('codigo', codigo).set('contraseña', clave);
+    return this.http.get<any>(`${this.apiUrl}/buscar`, { params });
   }
 }

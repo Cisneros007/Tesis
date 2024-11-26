@@ -4,11 +4,15 @@
   <div class="mt-5 w-full">
     <div class="bg-gradient-to-br p-12 rounded-lg shadow-lg w-full max-w-3xl mx-auto">
       <h1 class="text-4xl text-teal-800 font-bold mb-6 text-center">Rastrear tu Envío</h1>
-      
-      <!-- Mapa arriba del formulario -->
-      <app-mapa class="mb-6"></app-mapa>
 
-      <div class="flex flex-col gap-10">
+      <!-- Mapa arriba del formulario -->
+      <app-mapa 
+        [origin]="origin" 
+        [destination]="destination" 
+        [currentLocation]="currentLocation">
+      </app-mapa>
+
+      <div class="flex flex-col gap-10 mt-10">
         <!-- Sección del formulario -->
         <div class="flex-1" *ngIf="!showTrackingInfo">
           <form (ngSubmit)="onSubmit()" #trackingForm="ngForm" class="bg-white p-6 rounded-lg shadow-md">
@@ -122,5 +126,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>
 </div>
