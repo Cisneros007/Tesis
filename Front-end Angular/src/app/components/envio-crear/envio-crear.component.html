@@ -1,28 +1,60 @@
 <div class="flex flex-col items-center p-12">
     <div class="mx-auto bg-white rounded-lg shadow-lg p-12 w-full max-w-4xl">
-        <div class="flex justify-between mb-12">
-            <div class="flex-1 text-center relative">
-                <div class="bg-gray-300 h-1 absolute top-4 left-0 right-0 z-0 transition-all duration-300" [ngClass]="{'bg-blue-600': stepsCompleted[0], 'bg-gray-300': !stepsCompleted[1]}"></div>
-
-                <div [ngClass]="{'bg-blue-600': stepsCompleted[0], 'bg-gray-300': !stepsCompleted[0]}" class="h-10 w-10 rounded-full mx-auto relative z-10 transition duration-300 transform hover:scale-110 flex items-center justify-center text-white font-bold">1</div>
-                <div class="text-gray-600 text-sm mt-2 font-semibold">Remitente</div>
+        <div class="flex items-center justify-between mb-12">
+            <div class="relative flex items-center">
+              <!-- Paso 1 -->
+              <div class="relative flex items-center">
+                <div class="h-10 w-10 rounded-full flex items-center justify-center border-2 transition-all duration-300"
+                  [ngClass]="{'bg-blue-600 border-blue-600 text-white': currentStep >= 1, 'bg-white border-gray-300 text-gray-700': currentStep < 1}">
+                  1
+                </div>
+                <div class="absolute left-1/2 -translate-x-1/2 top-12 text-sm font-medium text-gray-700">Remitente</div>
+              </div>
+              <div class="h-1 flex-1 bg-gray-300 transition-all duration-300"
+                [ngClass]="{'bg-blue-600': currentStep > 1}">
+              </div>
             </div>
-            <div class="flex-1 text-center relative">
-                <div class="bg-gray-300 h-1 absolute top-4 left-0 right-0 z-0 transition-all duration-300" [ngClass]="{'bg-blue-600': stepsCompleted[1], 'bg-gray-300': !stepsCompleted[1]}"></div>
-                <div [ngClass]="{'bg-blue-600': stepsCompleted[1], 'bg-gray-300': !stepsCompleted[1]}" class="h-10 w-10 rounded-full mx-auto relative z-10 transition duration-300 transform hover:scale-110 flex items-center justify-center text-white font-bold">2</div>
-                <div class="text-gray-600 text-sm mt-2 font-semibold">Destinatario</div>
+          
+            <!-- Paso 2 -->
+            <div class="relative flex items-center">
+              <div class="relative flex items-center">
+                <div class="h-10 w-10 rounded-full flex items-center justify-center border-2 transition-all duration-300"
+                  [ngClass]="{'bg-blue-600 border-blue-600 text-white': currentStep >= 2, 'bg-white border-gray-300 text-gray-700': currentStep < 2}">
+                  2
+                </div>
+                <div class="absolute left-1/2 -translate-x-1/2 top-12 text-sm font-medium text-gray-700">Destinatario</div>
+              </div>
+              <div class="h-1 flex-1 bg-gray-300 transition-all duration-300"
+                [ngClass]="{'bg-blue-600': currentStep > 2}">
+              </div>
             </div>
-            <div class="flex-1 text-center relative">
-                <div class="bg-gray-300 h-1 absolute top-4 left-0 right-0 z-0 transition-all duration-300" [ngClass]="{'bg-blue-600': stepsCompleted[2], 'bg-gray-300': !stepsCompleted[2]}"></div>
-                <div [ngClass]="{'bg-blue-600': stepsCompleted[2], 'bg-gray-300': !stepsCompleted[2]}" class="h-10 w-10 rounded-full mx-auto relative z-10 transition duration-300 transform hover:scale-110 flex items-center justify-center text-white font-bold">3</div>
-                <div class="text-gray-600 text-sm mt-2 font-semibold">Paquete</div>
+          
+            <!-- Paso 3 -->
+            <div class="relative flex items-center">
+              <div class="relative flex items-center">
+                <div class="h-10 w-10 rounded-full flex items-center justify-center border-2 transition-all duration-300"
+                  [ngClass]="{'bg-blue-600 border-blue-600 text-white': currentStep >= 3, 'bg-white border-gray-300 text-gray-700': currentStep < 3}">
+                  3
+                </div>
+                <div class="absolute left-1/2 -translate-x-1/2 top-12 text-sm font-medium text-gray-700">Paquete</div>
+              </div>
+              <div class="h-1 flex-1 bg-gray-300 transition-all duration-300"
+                [ngClass]="{'bg-blue-600': currentStep > 3}">
+              </div>
             </div>
-            <div class="flex-1 text-center relative">
-                <div class="bg-gray-300 h-1 absolute top-4 left-0 right-0 z-0 transition-all duration-300" [ngClass]="{'bg-blue-600': stepsCompleted[3], 'bg-gray-300': !stepsCompleted[3]}"></div>
-                <div [ngClass]="{'bg-blue-600': stepsCompleted[3], 'bg-gray-300': !stepsCompleted[3]}" class="h-10 w-10 rounded-full mx-auto relative z-10 transition duration-300 transform hover:scale-110 flex items-center justify-center text-white font-bold">4</div>
-                <div class="text-gray-600 text-sm mt-2 font-semibold">Confirmación</div>
+          
+            <!-- Paso 4 -->
+            <div class="relative flex items-center">
+              <div class="relative flex items-center">
+                <div class="h-10 w-10 rounded-full flex items-center justify-center border-2 transition-all duration-300"
+                  [ngClass]="{'bg-blue-600 border-blue-600 text-white': currentStep >= 4, 'bg-white border-gray-300 text-gray-700': currentStep < 4}">
+                  4
+                </div>
+                <div class="absolute left-1/2 -translate-x-1/2 top-12 text-sm font-medium text-gray-700">Confirmación</div>
+              </div>
             </div>
-        </div>
+          </div>
+          
 
         <form [formGroup]="encomiendaForm" (ngSubmit)="onSubmit()">
             <div *ngIf="currentStep === 1" class="bg-white rounded-lg  p-6 mb-8 transition-transform duration-500 ease-in-out transform" [ngClass]="{'scale-100': currentStep === 1, 'scale-75 opacity-0': currentStep !== 1}">
@@ -37,11 +69,14 @@
                 </div>
                 <div class="mb-4">
                     <label for="remitenteDireccion" class="block mb-2 font-medium text-gray-700">Dirección de Recogida</label>
-                    <input type="text" id="remitenteDireccion" formControlName="remitenteDireccion" placeholder="Ingrese la dirección completa" class="w-full p-3 border border-gray-300 rounded-md focus:border-blue-600 focus:ring-2 focus:ring-blue-600 transition-all duration-300 ease-in-out hover:shadow-lg">
+                    <select id="remitenteDireccion" formControlName="remitenteDireccion" class="w-full p-3 border border-gray-300 rounded-md focus:border-blue-600 focus:ring-2 focus:ring-blue-600 transition-all duration-300 ease-in-out hover:shadow-lg">
+                        <option value="" disabled selected>Seleccione un Distrito</option>
+                        <option *ngFor="let distrito of distritos" [value]="distrito">{{distrito}}</option>
+                    </select>
                 </div>
                 <div class="flex justify-between mt-6">
-                    <button type="button" (click)="nextStep()" class="bg-blue-600 text-white py-2 px-4 rounded-md shadow-lg hover:bg-blue-700 transition-transform duration-300 ease-in-out transform hover:scale-105">Siguiente</button>
                     <button type="button" (click)="goToDashboard()" class="bg-gray-600 text-white py-2 px-4 rounded-md shadow-lg hover:bg-gray-700 transition-transform duration-300 ease-in-out transform hover:scale-105">Regresar a Inicio</button>
+                    <button type="button" (click)="nextStep()" class="bg-blue-600 text-white py-2 px-4 rounded-md shadow-lg hover:bg-blue-700 transition-transform duration-300 ease-in-out transform hover:scale-105">Siguiente</button>
                 </div>
             </div>
 
@@ -57,7 +92,10 @@
                 </div>
                 <div class="mb-4">
                     <label for="destinatarioDireccion" class="block mb-2 font-medium text-gray-700">Dirección de Entrega</label>
-                    <input type="text" id="destinatarioDireccion" formControlName="destinatarioDireccion" placeholder="Ingrese la dirección completa" class="w-full p-3 border border-gray-300 rounded-md focus:border-blue-600 focus:ring-2 focus:ring-blue-600 transition-all duration-300 ease-in-out hover:shadow-lg">
+                    <select id="destinatarioDireccion" formControlName="destinatarioDireccion" class="w-full p-3 border border-gray-300 rounded-md focus:border-blue-600 focus:ring-2 focus:ring-blue-600 transition-all duration-300 ease-in-out hover:shadow-lg">
+                        <option value="" disabled selected>Seleccione un Distrito</option>
+                        <option *ngFor="let distrito of distritos" [value]="distrito">{{distrito}}</option>
+                    </select>
                 </div>
                 <div class="flex justify-between mt-6">
                     <button type="button" (click)="prevStep()" class="bg-gray-600 text-white py-2 px-4 rounded-md hover:bg-gray-700 transition-transform duration-300 ease-in-out transform hover:scale-105">Anterior</button>
@@ -225,12 +263,12 @@
         </div>
 
         <div class="flex justify-center space-x-4">
-            <button (click)="imprimirBoleta()" class="bg-blue-600 text-white py-2 px-4 rounded-md shadow-lg hover:bg-blue-700 transition-transform duration-300 ease-in-out transform hover:scale-105">
-                Imprimir Boleta
+            <button (click)="imprimirBoleta(); showReceipt = false" class="bg-blue-600 text-white py-2 px-4 rounded-md shadow-lg hover:bg-blue-700 transition-transform duration-300 ease-in-out transform hover:scale-105">
+              Imprimir Boleta
             </button>
             <button (click)="goToDashboard()" class="bg-gray-600 text-white py-2 px-4 rounded-md shadow-lg hover:bg-gray-700 transition-transform duration-300 ease-in-out transform hover:scale-105">
                 Volver al Inicio
-            </button>
+              </button>
         </div>
 
         <div class="text-center text-sm text-gray-500 mt-6">

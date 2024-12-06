@@ -34,6 +34,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { AgenciasAdminComponent } from './componentsAdmin/agencias-admin/agencias-admin.component';
 import { ServiciosComponent } from './componentsAdmin/servicios/servicios.component';
 import { TrackingComponent } from './components/tracking/tracking.component';
+import { EmpleadoDashboardComponent } from './componentsEmpleado/empleado-dashboard/empleado-dashboard.component';
 
 
 
@@ -64,7 +65,8 @@ import { TrackingComponent } from './components/tracking/tracking.component';
     UserProfileComponent,
     AgenciasAdminComponent,
     ServiciosComponent,
-    TrackingComponent
+    TrackingComponent,
+    EmpleadoDashboardComponent
   ],
   imports: [
     BrowserModule,

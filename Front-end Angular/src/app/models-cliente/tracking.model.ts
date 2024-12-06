@@ -7,4 +7,4 @@ fechaHora: string|number|Date;
   latitud: number; // Coordenada de latitud
   longitud: number; // Coordenada de longitud
   estado: 'recogido' | 'en tránsito' | 'en almacén' | 'entregado'; // Estado de la encomienda
-}
+  }

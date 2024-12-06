@@ -15,6 +15,11 @@ export class EnvioCrearComponent {
   trackingCode = '';
   password = '';
   today = new Date(); // Añadimos la variable today
+  distritos = [
+    'Miraflores', 'San Isidro', 'Surco', 'Lima Centro', 'Barranco', 'Callao', 'San Borja', 'San Miguel', 
+    'La Molina', 'Chorrillos', 'Villa El Salvador', 'La Victoria', 'Ate', 'Comas', 'San Juan de Lurigancho'
+  ];
+  preciosDistritos: any;
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.encomiendaForm = this.fb.group({
@@ -91,7 +96,15 @@ export class EnvioCrearComponent {
       this.showReceipt = true;
     }
   }
-
+  
+ // Método para actualizar el costo del servicio a domicilio
+ actualizarCostoServicioDomicilio(distrito: string) {
+  if (this.encomiendaForm.value.servicioDomicilio === 'si' && distrito) {
+    this.encomiendaForm.patchValue({
+      costoServicioDomicilio: this.preciosDistritos[distrito] || 0
+    });
+  }
+}
   goToDashboard() {
     this.router.navigate(['/dashboard']);
   }

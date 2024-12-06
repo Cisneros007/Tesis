@@ -47,50 +47,107 @@
     </section>
 
     <!-- Tarifas Section -->
-    <section class="p-8 bg-gray-100" id="tarifas">
-        <div class="max-w-5xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-            <div class="flex flex-col items-center mb-6">
-                <img src="/assets/images/tarifas-icon.png" alt="Tarifas" class="w-36 mb-4">
-                <h2 class="text-2xl text-blue-900">Calcula tus Tarifas</h2>
-                <p>Conoce el costo de tus envíos, repartos y recojos</p>
+    <div class="container mx-auto p-6">
+        <div class="bg-white shadow-md rounded-lg p-6">
+          <h2 class="text-2xl font-bold text-blue-900 mb-6">Cotizador de Envíos en Lima</h2>
+      
+          <form [formGroup]="cotizacionForm" (ngSubmit)="calcularTarifas()" class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Distrito de Origen</label>
+                <select 
+                  formControlName="origen" 
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200"
+                >
+                  <option value="">Seleccione distrito de origen</option>
+                  <option *ngFor="let distrito of limaDistricts" [value]="distrito.name">
+                    {{ distrito.name }} ({{ distrito.zone }})
+                  </option>
+                </select>
+              </div>
+      
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Distrito de Destino</label>
+                <select 
+                  formControlName="destino" 
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200"
+                >
+                  <option value="">Seleccione distrito de destino</option>
+                  <option *ngFor="let distrito of limaDistricts" [value]="distrito.name">
+                    {{ distrito.name }} ({{ distrito.zone }})
+                  </option>
+                </select>
+              </div>
             </div>
+      
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Peso del Paquete (kg)</label>
+                <input 
+                  type="number" 
+                  formControlName="peso" 
+                  min="0.1" 
+                  step="0.1" 
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200"
+                >
+              </div>
+      
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Tipo de Envío</label>
+                <select 
+                  formControlName="tipoEnvio" 
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200"
+                >
+                  <option value="Económico">Económico</option>
+                  <option value="Estándar">Estándar</option>
+                  <option value="Express">Express</option>
+                </select>
+              </div>
+            </div>
+      
+            <div class="text-center">
+              <button 
+                type="submit" 
+                class="bg-blue-900 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300"
+              >
+                Calcular Tarifa
+              </button>
+            </div>
+          </form>
+      
+          <!-- Resultados de Cotización -->
+          <div *ngIf="busquedaRealizada" class="mt-6">
+            <h3 class="text-xl font-semibold text-blue-900 mb-4">Resultados de Cotización</h3>
+            
+            <table class="w-full border-collapse">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="border p-3 text-left">Origen</th>
+                  <th class="border p-3 text-left">Destino</th>
+                  <th class="border p-3 text-left">Tipo de Envío</th>
+                  <th class="border p-3 text-left">Precio</th>
+                  <th class="border p-3 text-left">Tiempo de Entrega</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tarifa of tarifasResultado" class="hover:bg-gray-50">
+                  <td class="border p-3">{{ tarifa.origen }}</td>
+                  <td class="border p-3">{{ tarifa.destino }}</td>
+                  <td class="border p-3">{{ tarifa.tipoEnvio }}</td>
+                  <td class="border p-3">S/. {{ tarifa.precio }}</td>
+                  <td class="border p-3">{{ tarifa.tiempoEntrega }}</td>
 
-            <div class="flex justify-center mb-4">
-                <label class="mr-4">
-                    <input type="radio" name="envio" value="terrestre" checked>
-                    Terrestre
-                </label>
-                <label>
-                    <input type="radio" name="envio" value="aereo">
-                    Aéreo
-                </label>
-            </div>
-
-            <div class="flex justify-center mb-4 gap-2">
-                <input type="text" placeholder="Ingresa origen" class="border p-2 rounded">
-                <input type="text" placeholder="Ingresa destino" class="border p-2 rounded">
-                <button class="bg-yellow-400 text-blue-900 py-2 px-4 rounded hover:bg-yellow-300 transition">Buscar Tarifas</button>
-            </div>
-
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white border border-gray-300">
-                    <thead>
-                        <tr>
-                            <th class="py-2 border-b">Servicio</th>
-                            <th class="py-2 border-b">Precio</th>
-                            <th class="py-2 border-b">Descripción</th>
-                            <th class="py-2 border-b">Entrega Estimada</th>
-                            <th class="py-2 border-b">Información Adicional</th>
-                            <th class="py-2 border-b">Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Resultados dinámicos irán aquí -->
-                    </tbody>
-                </table>
-            </div>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      
+          <!-- Mensaje si no hay resultados -->
+          <div *ngIf="busquedaRealizada && tarifasResultado.length === 0" class="mt-6 text-center text-gray-600">
+            No se encontraron tarifas para la búsqueda realizada.
+          </div>
         </div>
-    </section>
+      </div>
 
     <!-- Company Info Section -->
     <section class="p-8 bg-white" id="nosotros">
