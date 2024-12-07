@@ -7,7 +7,7 @@ import { ServiciosTerrestresService } from 'src/app/services-admin/servicios-tra
   templateUrl: './servicios.component.html',
   styleUrls: ['./servicios.component.css']
 })
-export class ServiciosComponent implements OnInit, AfterViewInit { // Agregar AfterViewInit aquí
+export class ServiciosComponent implements OnInit, AfterViewInit { 
   serviciosTerrestres: any[] = [];
   serviciosAereos: any[] = [];
   
@@ -16,7 +16,7 @@ export class ServiciosComponent implements OnInit, AfterViewInit { // Agregar Af
 
   constructor(
     private serviciosTerrestresService: ServiciosTerrestresService,
-    private serviciosAereosService: ServiciosAereosService, // Agregar coma aquí
+    private serviciosAereosService: ServiciosAereosService, 
     private elRef: ElementRef,
     private renderer: Renderer2
   ) {}

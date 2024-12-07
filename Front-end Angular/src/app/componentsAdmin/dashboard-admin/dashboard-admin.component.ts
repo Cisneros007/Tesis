@@ -15,7 +15,7 @@ export class DashboardAdminComponent implements OnInit, AfterViewInit {
   nuevoCliente: any = {}; // Objeto para el nuevo cliente
 
   // Variables para controlar los modales
-  isModalVisible: boolean = false;
+
   isModalCrearEmpleado: boolean = false;
   isModalEditarEmpleado: boolean = false;
   isModalEliminarEmpleado: boolean = false;
@@ -37,21 +37,12 @@ export class DashboardAdminComponent implements OnInit, AfterViewInit {
     private http: HttpClient,
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {2
     this.cargarEmpleados();
     this.cargarClientes();
   }
 
-  cargarEmpleados() {
-    this.empleadoService.getEmpleados().subscribe(
-      (data) => {
-        this.empleados = data;
-      },
-      (error) => {
-        console.error('Error al cargar empleados', error);
-      }
-    );
-  }
+
 
   cargarClientes() {
     this.clienteService.getClientes().subscribe(
@@ -69,8 +60,8 @@ crearEmpleado() {
     (response) => {
       this.empleados.push(response); // Agrega el nuevo empleado a la lista
       console.log('Empleado creado', response);
-      this.nuevoEmpleado = {}; // Reinicia el objeto del nuevo empleado
-      this.cerrarModalCrearEmpleado(); // Cierra el modal
+      this.nuevoEmpleado = {}; 
+      this.cerrarModalCrearEmpleado(); 
     },
     (error) => {
       console.error('Error al crear empleado', error);
@@ -88,9 +79,16 @@ cerrarModalCrearEmpleado() {
 }
 
 abrirModalEditarEmpleado(empleado: any) {
+  console.log('Empleado recibido para editar:', empleado);
+  if (!empleado || !empleado.idempleado) { // Nota: usamos `idempleado`
+    console.error('Empleado inválido:', empleado);
+    return;
+  }
   this.empleadoEditar = { ...empleado };
   this.isModalEditarEmpleado = true;
 }
+
+
 
 cerrarModalEditarEmpleado() {
   this.isModalEditarEmpleado = false;
@@ -113,9 +111,7 @@ cerrarModalEliminarEmpleado() {
 }
 
 editarEmpleado() {
-  console.log('Empleado a editar (antes de validar):', this.empleadoEditar);
-
-  if (!this.empleadoEditar || !this.empleadoEditar.idEmpleado) {
+  if (!this.empleadoEditar || !this.empleadoEditar.idempleado) {
     console.error('Empleado a editar no está definido correctamente.');
     return;
   }
@@ -123,14 +119,29 @@ editarEmpleado() {
   this.empleadoService.editarEmpleado(this.empleadoEditar).subscribe(
     (response) => {
       console.log('Empleado editado', response);
-      this.cerrarModalEditarEmpleado(); // Cierra el modal
-      this.cargarEmpleados(); // Recarga la lista de empleados
+      this.cerrarModalEditarEmpleado();
+      this.cargarEmpleados();
     },
     (error) => {
       console.error('Error al editar empleado', error);
     }
   );
 }
+cargarEmpleados() {
+  this.empleadoService.getEmpleados().subscribe(
+    (data) => {
+      // Normaliza las claves para que sean consistentes
+      this.empleados = data.map((empleado: any) => ({
+        ...empleado,
+        idEmpleado: empleado.idempleado, // Renombra a idEmpleado
+      }));
+    },
+    (error) => {
+      console.error('Error al cargar empleados', error);
+    }
+  );
+}
+
 
 eliminarEmpleado(idEmpleado: number) {
   if (!idEmpleado) {

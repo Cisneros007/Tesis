@@ -4,7 +4,7 @@ const cors = require('cors');  // Importar CORS
 
 // Crea la aplicación Express
 const app = express();
-const port = process.env.PORT || 3000;  // Usar el puerto de la variable de entorno o el 3000 por defecto
+const port = process.env.PORT || 3000;  
 
 // Middleware para habilitar CORS
 app.use(cors());
@@ -32,6 +32,7 @@ app.use('/api/envios', enviosRoutes);  // Rutas de envíos
 app.use('/api/servicios-terrestres', servicioTerrestreRoutes);  // Rutas de servicios terrestres
 app.use('/api/servicios-aereos', servicioAereoRoutes);  // Rutas de servicios aéreos
 app.use('/api/tracking', trackingRoutes);
+app.use('/api/agencias', agenciasRoutes);
 
 
 // Inicia el servidor en el puerto configurado
