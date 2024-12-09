@@ -34,11 +34,13 @@ export class RastrearComponent {
     currentLocation: 'Ruta entre Surco y Villa El Salvador',
   };
 
+  // Enviar formulario
   onSubmit() {
     this.startTruckAnimation();
     this.showTrackingInfo = true;
   }
 
+  // Iniciar animación del camión
   startTruckAnimation() {
     if (this.animationInterval) {
       clearInterval(this.animationInterval);
@@ -57,6 +59,7 @@ export class RastrearComponent {
     }, 100);
   }
 
+  // Actualizar la posición del camión
   updateTruckPosition() {
     const lat = this.origin[0] + (this.destination[0] - this.origin[0]) * (this.routeProgress / 100);
     const lng = this.origin[1] + (this.destination[1] - this.origin[1]) * (this.routeProgress / 100);
@@ -65,6 +68,7 @@ export class RastrearComponent {
     this.updateLocationDescription();
   }
 
+  // Actualizar la descripción de la ubicación
   updateLocationDescription() {
     if (this.routeProgress < 33) {
       this.trackingInfo.currentLocation = 'Saliendo de Surco';
@@ -75,6 +79,7 @@ export class RastrearComponent {
     }
   }
 
+  // Reiniciar rastreo
   resetTracking() {
     if (this.animationInterval) {
       clearInterval(this.animationInterval);
@@ -88,10 +93,12 @@ export class RastrearComponent {
     this.routeProgress = 0;
   }
 
+  // Volver a inicio
   irAInicio() {
     this.resetTracking();
   }
 
+  // Limpiar intervalo al destruir el componente
   ngOnDestroy() {
     if (this.animationInterval) {
       clearInterval(this.animationInterval);

@@ -3,12 +3,10 @@
 <div class="flex justify-center items-start min-h-screen bg-gradient-to-b from-teal-50 to-gray-100 p-8">
   <div class="mt-8 w-full">
     <div class="p-12 rounded-xl shadow-xl w-full max-w-4xl mx-auto bg-white relative">
-      <!-- Título principal -->
       <h1 class="text-4xl text-teal-800 font-extrabold mb-6 text-center uppercase tracking-wider">
         🌐 Rastrear tu Envío
       </h1>
 
-      <!-- Mapa interactivo -->
       <div class="mb-8">
         <app-mapa 
           [origin]="origin" 
@@ -109,17 +107,6 @@
               </div>
             </div>
 
-            <!-- Información adicional -->
-            <div class="bg-teal-50 p-6 rounded-lg shadow-md">
-              <strong>🔍 INFORMACIÓN ADICIONAL:</strong>
-              <p class="text-teal-800 mt-2">Tracking N°: {{ informacionEnvio.numeroRastreo }}</p>
-              <p class="text-teal-800"><strong>Estado:</strong> {{ trackingInfo.status }}</p>
-              <p class="text-teal-800"><strong>Fecha de Envío:</strong> {{ trackingInfo.shippedDate }}</p>
-              <p class="text-teal-800"><strong>Entrega Estimada:</strong> {{ trackingInfo.estimatedDelivery }}</p>
-              <p class="text-teal-800"><strong>Ubicación Actual:</strong> {{ trackingInfo.currentLocation }}</p>
-            </div>
-
-            <!-- Botones -->
             <div class="flex justify-between mt-6">
               <button (click)="irAInicio()" class="bg-teal-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-teal-800">
                 Inicio

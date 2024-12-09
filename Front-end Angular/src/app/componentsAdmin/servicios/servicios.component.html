@@ -1,6 +1,6 @@
-<app-header></app-header>
+<app-header class="fixed top-0 left-0 w-full z-50 shadow-lg bg-white"></app-header>
 
-<div class="container mx-auto px-10 py-8 bg-gray-100">
+<div class="container mx-auto px-10 py-8 bg-gray-100 mt-10">
   <div class="max-w-7xl mx-auto">
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-lg shadow-lg mb-8 overflow-hidden mt-4">
@@ -14,6 +14,7 @@
     </section>
 
     <!-- Servicios Terrestres -->
+        <!-- Servicios Terrestres -->
     <section class="mb-12">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-3xl font-semibold text-gray-800">Servicios Terrestres</h2>
@@ -25,9 +26,7 @@
           class="bg-white rounded-lg shadow-md p-6 transform transition hover:scale-105 hover:shadow-xl">
           <div class="flex items-center mb-4">
             <div class="bg-blue-100 p-3 rounded-full mr-4">
-              <svg class="w-8 h-8" [ngClass]="servicio.iconClass" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20 8l-6-6H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-              </svg>
+              <i class="fas fa-truck text-blue-600 text-2xl"></i>
             </div>
             <h3 class="text-xl font-bold text-gray-800">{{ servicio.nombre }}</h3>
           </div>
@@ -44,6 +43,7 @@
       </div>
     </section>
 
+
     <!-- Servicios Aéreos -->
     <section>
       <div class="flex justify-between items-center mb-6">
@@ -56,9 +56,7 @@
           class="bg-white rounded-lg shadow-md p-6 transform transition hover:scale-105 hover:shadow-xl">
           <div class="flex items-center mb-4">
             <div class="bg-green-100 p-3 rounded-full mr-4">
-              <svg class="w-8 h-8" [ngClass]="servicio.iconClass" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
-              </svg>
+              <i class="fas fa-plane text-green-600 text-2xl"></i>
             </div>
             <h3 class="text-xl font-bold text-gray-800">{{ servicio.nombre }}</h3>
           </div>
@@ -112,3 +110,4 @@
     </div>
   </div>
 </div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
