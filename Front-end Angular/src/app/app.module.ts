@@ -28,10 +28,12 @@ import { MapaComponent } from './mapa/mapa.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderadminComponent } from './componentsAdmin/headeradmin/headeradmin.component';
 import { DashboardAdminComponent } from './componentsAdmin/dashboard-admin/dashboard-admin.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AgenciasAdminComponent } from './componentsAdmin/agencias-admin/agencias-admin.component';
 import { ServiciosComponent } from './componentsAdmin/servicios/servicios.component';
+import { TrackingComponent } from './components/tracking/tracking.component';
 import { EmpleadoDashboardComponent } from './componentsEmpleado/empleado-dashboard/empleado-dashboard.component';
 
 
@@ -63,6 +65,7 @@ import { EmpleadoDashboardComponent } from './componentsEmpleado/empleado-dashbo
     UserProfileComponent,
     AgenciasAdminComponent,
     ServiciosComponent,
+    TrackingComponent,
     EmpleadoDashboardComponent
   ],
   imports: [
@@ -71,6 +74,7 @@ import { EmpleadoDashboardComponent } from './componentsEmpleado/empleado-dashbo
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    GoogleMapsModule,
 
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

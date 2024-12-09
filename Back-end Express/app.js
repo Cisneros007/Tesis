@@ -15,24 +15,27 @@ app.use(express.json());
 // Importa la conexión a la base de datos
 const db = require('./db');
 
+const clienteRoutes = require('./routes/clientes');
+const rutaRoutes = require('./routes/rutas'); // Importa las rutas de Rutas
+const enviosRoutes = require('./routes/envios'); // Importa las rutas de Envíos
+const servicioTerrestreRoutes = require('./routes/serviciosTerrestres'); // Importa las rutas de Servicios Terrestres
+const servicioAereoRoutes = require('./routes/serviciosAereos'); // Importa las rutas de Servicios Aéreos
 // Importa las rutas de diferentes módulos
 const empleadoRoutes = require('./routes/empleados');  // Rutas de empleados
-const clienteRoutes = require('./routes/clientes');  // Rutas de clientes
-const rutaRoutes = require('./routes/rutas');  // Rutas de rutas
-const enviosRoutes = require('./routes/envios');  // Rutas de envíos
-const servicioTerrestreRoutes = require('./routes/serviciosTerrestres');  // Rutas de servicios terrestres
-const servicioAereoRoutes = require('./routes/serviciosAereos');  // Rutas de servicios aéreos
-const trackingRoutes = require('./routes/TrackingRoutes');
+const agenciasRoutes = require('./routes/agencias');
+const encomiendasRoutes= require('./routes/encomiendas')
+const tracking = require('./routes/tracking'); // Asegúrate de que la ruta sea correcta
 
 // Usar las rutas definidas
 app.use('/api/empleados', empleadoRoutes);
 app.use('/api/clientes', clienteRoutes);
-app.use('/api/rutas', rutaRoutes);  // Rutas de rutas
+app.use('/api/rutas', rutaRoutes); // Usa las rutas de Rutas
+app.use('/api/tracking', tracking);
 app.use('/api/envios', enviosRoutes);  // Rutas de envíos
 app.use('/api/servicios-terrestres', servicioTerrestreRoutes);  // Rutas de servicios terrestres
-app.use('/api/servicios-aereos', servicioAereoRoutes);  // Rutas de servicios aéreos
-app.use('/api/tracking', trackingRoutes);
+app.use('/api/servicios-aereos', servicioAereoRoutes);  
 app.use('/api/agencias', agenciasRoutes);
+app.use('/api/encomiendas', encomiendasRoutes);
 
 
 // Inicia el servidor en el puerto configurado

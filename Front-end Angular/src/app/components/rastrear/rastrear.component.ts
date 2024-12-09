@@ -110,6 +110,6 @@ export class RastrearComponent {
     // Limpiar el intervalo cuando el componente se destruye
     if (this.animationInterval) {
       clearInterval(this.animationInterval);
-    }
-  }
+    }
+  }
 }

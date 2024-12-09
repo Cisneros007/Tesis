@@ -1,0 +1,56 @@
+<div class="tracking-container">
+  <h2>Búsqueda de Tracking</h2>
+
+  <!-- Formulario para buscar tracking -->
+  <div class="search-form">
+    <label for="codigo">Código:</label>
+    <input
+      id="codigo"
+      type="text"
+      [(ngModel)]="codigo"
+      placeholder="Ingresa el código"
+      class="border rounded py-2 px-4"
+    />
+    <label for="clave">Clave:</label>
+    <input
+      id="clave"
+      type="password"
+      [(ngModel)]="clave"
+      placeholder="Ingresa la clave"
+      class="border rounded py-2 px-4"
+    />
+    <button (click)="buscarTracking()" class="bg-indigo-600 text-white py-2 px-4 rounded">
+      Buscar
+    </button>
+  </div>
+
+  <!-- Mensaje de error -->
+  <p *ngIf="errorMessage" class="text-red-500 mt-4">{{ errorMessage }}</p>
+
+  <!-- Tabla para mostrar tracking -->
+  <div *ngIf="tracking" class="tracking-details mt-6">
+    <h3>Detalle del Tracking</h3>
+    <table class="min-w-full bg-white rounded-lg shadow-sm border-collapse">
+      <thead class="bg-indigo-600 text-white">
+        <tr>
+          <th class="py-3 px-4">ID Tracking</th>
+          <th class="py-3 px-4">ID Encomienda</th>
+          <th class="py-3 px-4">Ubicación Actual</th>
+          <th class="py-3 px-4">Fecha y Hora</th>
+          <th class="py-3 px-4">Estado</th>
+          <th class="py-3 px-4">Código</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b hover:bg-gray-50">
+          <td class="py-3 px-4">{{ tracking.idTracking }}</td>
+          <td class="py-3 px-4">{{ tracking.idEncomienda }}</td>
+          <td class="py-3 px-4">{{ tracking.ubicacionActual }}</td>
+          <td class="py-3 px-4">{{ tracking.fechaHora | date: 'short' }}</td>
+          <td class="py-3 px-4">{{ tracking.estado }}</td>
+          <td class="py-3 px-4">{{ tracking.codigo }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

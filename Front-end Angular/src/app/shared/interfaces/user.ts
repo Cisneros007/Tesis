@@ -5,8 +5,9 @@ empleado?:boolean
 }
 
 export interface User {
-  id: string;
+  id?: string;
   email: string;
   userName: string;
+  telefono: string;
   roles : Roles;
 }

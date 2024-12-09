@@ -19,6 +19,7 @@ import { DashboardAdminComponent } from './componentsAdmin/dashboard-admin/dashb
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AgenciasAdminComponent } from './componentsAdmin/agencias-admin/agencias-admin.component';
 import { ServiciosComponent } from './componentsAdmin/servicios/servicios.component';
+import { TrackingComponent } from './components/tracking/tracking.component';
 import { EmpleadoDashboardComponent } from './componentsEmpleado/empleado-dashboard/empleado-dashboard.component';
 
 const routes: Routes = [
@@ -42,6 +43,10 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]}, 
   { path: 'comunicate', component: ComunicateComponent, canActivate: [AuthGuard] },
   { path: 'company-info', component: CompanyInfoComponent, canActivate: [AuthGuard] },
+  { path: 'user-profile', component:  UserProfileComponent, canActivate: [AuthGuard] },
+  { path: 'agencias-admin', component: AgenciasAdminComponent, canActivate: [AuthGuard] },
+  { path: 'servicios', component: ServiciosComponent, canActivate: [AuthGuard] },
+  { path: 'traking', component: TrackingComponent, canActivate: [AuthGuard] },
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
 
 

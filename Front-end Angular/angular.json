@@ -32,7 +32,8 @@
               "node_modules/leaflet/dist/leaflet.css"
 
             ],
-            "scripts": []
+            "scripts": [  
+          ]
           },
           "configurations": {
             "production": {
