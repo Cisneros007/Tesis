@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'admin-dashboard', component: DashboardAdminComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
   { path: 'rutas-horarios', component: RutasHorariosComponent, canActivate: [AuthGuard], data: { roles: ['admin'] }  },
-  { path: 'servicios', component: ServiciosComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
+  { path: 'servicios', component: ServiciosComponent, canActivate: [AuthGuard],   },
   { path: 'agencias-admin', component: AgenciasAdminComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
   { path: 'envio-historial', component: EnvioHistorialComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
   { path: 'flota-info', component: FlotaInfoComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
@@ -45,7 +45,6 @@ const routes: Routes = [
   { path: 'company-info', component: CompanyInfoComponent, canActivate: [AuthGuard] },
   { path: 'user-profile', component:  UserProfileComponent, canActivate: [AuthGuard] },
   { path: 'agencias-admin', component: AgenciasAdminComponent, canActivate: [AuthGuard] },
-  { path: 'servicios', component: ServiciosComponent, canActivate: [AuthGuard] },
   { path: 'traking', component: TrackingComponent, canActivate: [AuthGuard] },
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
 

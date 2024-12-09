@@ -1,72 +1,114 @@
-<app-headeradmin></app-headeradmin>
+<app-header></app-header>
 
-<div class="flex h-screen pt-16 bg-gray-100">
-  <!-- Sidebar -->
-  <app-sidebar></app-sidebar>
-
-  <!-- Contenido principal -->
-  <div class="flex-grow ml-64 p-8 bg-white rounded-lg shadow-lg">
-
-  <div class="flex-1 p-6">
-    <div class="hero-section bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 rounded-lg mb-6 shadow-lg">
-      <div class="hero-content">
-        <h1 class="text-3xl font-zbold">Servicios de Transporte</h1>
-        <p class="mt-2">Transporte confiable y eficiente para todas tus necesidades logísticas.</p>
-        <button class="btn-hero bg-white text-blue-600 rounded-lg px-4 py-2 mt-4 transition duration-300 hover:bg-gray-200">Contáctanos</button>
+<div class="container mx-auto px-10 py-8 bg-gray-100">
+  <div class="max-w-7xl mx-auto">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-lg shadow-lg mb-8 overflow-hidden mt-4">
+      <div class="px-6 py-8 text-center">
+        <h1 class="text-4xl font-bold mb-4">Servicios de Transporte Integral</h1>
+        <p class="text-xl mb-6">Soluciones logísticas personalizadas para cada necesidad</p>
+        <button class="bg-white text-blue-600 px-6 py-2 rounded-full hover:bg-blue-50 transition duration-300">
+          Cotizar Servicio
+        </button>
       </div>
-    </div>
+    </section>
 
-    <div class="service-section mb-6">
-      <h2 class="text-2xl font-semibold mb-4">Nuestros Servicios Terrestres</h2>
+    <!-- Servicios Terrestres -->
+    <section class="mb-12">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-semibold text-gray-800">Servicios Terrestres</h2>
+      </div>
 
-      <!-- Iterar sobre los servicios terrestres -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="servicio-card border bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105" *ngFor="let servicio of serviciosTerrestres">
-          <div class="servicio-header flex items-center mb-2">
-            <img src="assets/img/servicio-icon.png" alt="Icono Servicio" class="w-12 h-12 mr-2">
-            <h3 class="text-lg font-medium">{{ servicio.nombre }}</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div 
+          *ngFor="let servicio of serviciosTerrestres" 
+          class="bg-white rounded-lg shadow-md p-6 transform transition hover:scale-105 hover:shadow-xl">
+          <div class="flex items-center mb-4">
+            <div class="bg-blue-100 p-3 rounded-full mr-4">
+              <svg class="w-8 h-8" [ngClass]="servicio.iconClass" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 8l-6-6H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">{{ servicio.nombre }}</h3>
           </div>
-          <p class="text-gray-700">{{ servicio.descripcion }}</p>
-          <button (click)="verDetallesTerrestre(servicio)" class="btn-detalle bg-blue-500 text-white rounded-lg px-4 py-2 mt-4 transition duration-300 hover:bg-blue-400">Ver Detalles</button>
+          <p class="text-gray-600 mb-4">{{ servicio.descripcion }}</p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-500">Capacidad: {{ servicio.capacidad }}</span>
+            <button 
+              (click)="verDetallesTerrestre(servicio)"
+              class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600 transition">
+              Detalles
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Servicios Aéreos -->
+    <section>
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-semibold text-gray-800">Servicios Aéreos</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div 
+          *ngFor="let servicio of serviciosAereos" 
+          class="bg-white rounded-lg shadow-md p-6 transform transition hover:scale-105 hover:shadow-xl">
+          <div class="flex items-center mb-4">
+            <div class="bg-green-100 p-3 rounded-full mr-4">
+              <svg class="w-8 h-8" [ngClass]="servicio.iconClass" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">{{ servicio.nombre }}</h3>
+          </div>
+          <p class="text-gray-600 mb-4">{{ servicio.descripcion }}</p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-500">Tarifa Base: ${{ servicio.tarifaBase }}</span>
+            <button 
+              (click)="verDetallesAereo(servicio)"
+              class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600 transition">
+              Detalles
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal de Detalles (Terrestre) -->
+    <div 
+      *ngIf="servicioSeleccionadoTerrestre" 
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-lg p-8 max-w-md w-full">
+        <h3 class="text-2xl font-bold mb-4">{{ servicioSeleccionadoTerrestre.nombre }}</h3>
+        <p class="text-gray-700 mb-4">{{ servicioSeleccionadoTerrestre.descripcion }}</p>
+        <div class="flex justify-between">
+          <span class="text-sm text-gray-500">Capacidad: {{ servicioSeleccionadoTerrestre.capacidad }}</span>
+          <button 
+            (click)="cerrarDetalles()"
+            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+            Cerrar
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Mostrar detalles del servicio terrestre seleccionado -->
-    <div *ngIf="servicioSeleccionadoTerrestre" class="detalle-servicio border bg-white p-4 rounded-lg shadow-md mb-6">
-      <h3 class="text-xl font-semibold">Detalles de {{ servicioSeleccionadoTerrestre.nombre }}</h3>
-      <p><strong>Descripción:</strong> {{ servicioSeleccionadoTerrestre.descripcion }}</p>
-      <button (click)="cerrarDetalles()" class="bg-red-500 text-white rounded-lg px-4 py-2 mt-2 transition duration-300 hover:bg-red-400">Cerrar</button>
-    </div>
-
-    <!-- Botón para agregar un nuevo servicio terrestre -->
-    <button (click)="agregarServicio()" class="btn-agregar bg-green-600 text-white rounded-lg px-4 py-2 mb-6">Agregar Servicio Terrestre</button>
-
-    <!-- Sección de Servicios Aéreos -->
-    <div class="servicios-aereo-container mt-6">
-      <h2 class="text-2xl font-semibold mb-4">Nuestros Servicios Aéreos</h2>
-
-      <!-- Lista de servicios aéreos -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="servicio-card border bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105" *ngFor="let servicio of serviciosAereos">
-          <div class="servicio-header flex items-center mb-2">
-            <img src="assets/img/servicio-icon.png" alt="Icono Servicio" class="w-12 h-12 mr-2">
-            <h3 class="text-lg font-medium">{{ servicio.nombre }}</h3>
-          </div>
-          <p class="text-gray-700">{{ servicio.descripcion }}</p>
-          <button (click)="verDetallesAereo(servicio)" class="btn-detalle bg-blue-500 text-white rounded-lg px-4 py-2 mt-4 transition duration-300 hover:bg-blue-400">Ver Detalles</button>
+    <!-- Modal de Detalles (Aéreo) -->
+    <div 
+      *ngIf="servicioSeleccionadoAereo" 
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-lg p-8 max-w-md w-full">
+        <h3 class="text-2xl font-bold mb-4">{{ servicioSeleccionadoAereo.nombre }}</h3>
+        <p class="text-gray-700 mb-4">{{ servicioSeleccionadoAereo.descripcion }}</p>
+        <div class="flex justify-between">
+          <span class="text-sm text-gray-500">Tarifa Base: ${{ servicioSeleccionadoAereo.tarifaBase }}</span>
+          <button 
+            (click)="cerrarDetalles()"
+            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+            Cerrar
+          </button>
         </div>
       </div>
-
-      <!-- Detalles del servicio aéreo seleccionado -->
-      <div *ngIf="servicioSeleccionadoAereo" class="detalle-servicio border bg-white p-4 rounded-lg shadow-md mb-6">
-        <h3 class="text-xl font-semibold">Detalles de {{ servicioSeleccionadoAereo.nombre }}</h3>
-        <p><strong>Descripción:</strong> {{ servicioSeleccionadoAereo.descripcion }}</p>
-        <button (click)="cerrarDetalles()" class="bg-red-500 text-white rounded-lg px-4 py-2 mt-2 transition duration-300 hover:bg-red-400">Cerrar</button>
-      </div>
-
-      <!-- Botón para agregar un servicio aéreo -->
-      <button (click)="agregarServicio()" class="btn-agregar bg-green-600 text-white rounded-lg px-4 py-2">Agregar Servicio Aéreo</button>
     </div>
   </div>
 </div>

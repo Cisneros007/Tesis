@@ -1,110 +1,91 @@
-import { Component, OnInit, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
-import { ServiciosAereosService } from 'src/app/services-admin/servicios-transporte/servicios-aereos.service';
-import { ServiciosTerrestresService } from 'src/app/services-admin/servicios-transporte/servicios-terrestres.service';
+import { Component, OnInit } from '@angular/core';
+
+interface TransportService {
+  id?: number;
+  nombre: string;
+  descripcion: string;
+  tipo: 'terrestre' | 'aereo';
+  capacidad?: string;
+  tarifaBase?: number;
+  iconClass?: string;
+}
 
 @Component({
   selector: 'app-servicios',
   templateUrl: './servicios.component.html',
   styleUrls: ['./servicios.component.css']
 })
-export class ServiciosComponent implements OnInit, AfterViewInit { // Agregar AfterViewInit aquí
-  serviciosTerrestres: any[] = [];
-  serviciosAereos: any[] = [];
-  
-  servicioSeleccionadoTerrestre: any = null;
-  servicioSeleccionadoAereo: any = null;
+export class ServiciosComponent implements OnInit {
+  serviciosTerrestres: TransportService[] = [
+    {
+      id: 1,
+      nombre: 'Transporte Terrestre Local',
+      descripcion: 'Servicio de transporte terrestre dentro de la ciudad.',
+      tipo: 'terrestre',
+      capacidad: 'Hasta 2 toneladas',
+      iconClass: 'text-blue-600'
+    },
+    {
+      id: 2,
+      nombre: 'Transporte Terrestre Nacional',
+      descripcion: 'Servicio de transporte terrestre entre ciudades del país.',
+      tipo: 'terrestre',
+      capacidad: 'Hasta 10 toneladas',
+      iconClass: 'text-blue-600'
+    },
+    {
+      id: 3,
+      nombre: 'Transporte de Carga Pesada',
+      descripcion: 'Transporte de cargas de gran volumen y peso.',
+      tipo: 'terrestre',
+      capacidad: 'Más de 10 toneladas',
+      iconClass: 'text-blue-600'
+    }
+  ];
 
-  constructor(
-    private serviciosTerrestresService: ServiciosTerrestresService,
-    private serviciosAereosService: ServiciosAereosService, // Agregar coma aquí
-    private elRef: ElementRef,
-    private renderer: Renderer2
-  ) {}
+  serviciosAereos: TransportService[] = [
+    {
+      id: 4,
+      nombre: 'Envío Aéreo Nacional',
+      descripcion: 'Transporte aéreo dentro del país para envíos rápidos.',
+      tipo: 'aereo',
+      tarifaBase: 500,
+      iconClass: 'text-green-600'
+    },
+    {
+      id: 5,
+      nombre: 'Envío Aéreo Internacional',
+      descripcion: 'Servicio de envío aéreo a nivel internacional.',
+      tipo: 'aereo',
+      tarifaBase: 1200,
+      iconClass: 'text-green-600'
+    },
+    {
+      id: 6,
+      nombre: 'Transporte Aéreo de Carga',
+      descripcion: 'Servicio especializado para transporte aéreo de mercancías.',
+      tipo: 'aereo',
+      tarifaBase: 800,
+      iconClass: 'text-green-600'
+    }
+  ];
 
-  ngOnInit(): void {
-    this.cargarServiciosTerrestres();
-    this.cargarServiciosAereos();
-  }
+  servicioSeleccionadoTerrestre: TransportService | null = null;
+  servicioSeleccionadoAereo: TransportService | null = null;
 
-  cargarServiciosTerrestres(): void {
-    this.serviciosTerrestresService.obtenerServicios().subscribe(
-      (servicios) => {
-        this.serviciosTerrestres = servicios;
-      },
-      (error) => {
-        console.error('Error al cargar servicios terrestres:', error);
-      }
-    );
-  }
 
-  cargarServiciosAereos(): void {
-    this.serviciosAereosService.obtenerServicios().subscribe(
-      (servicios) => {
-        this.serviciosAereos = servicios;
-      },
-      (error) => {
-        console.error('Error al cargar servicios aéreos:', error);
-      }
-    );
-  }
+  ngOnInit(): void {}
 
-  verDetallesTerrestre(servicio: any): void {
+  verDetallesTerrestre(servicio: TransportService): void {
     this.servicioSeleccionadoTerrestre = servicio;
-    this.servicioSeleccionadoAereo = null; // Cierra los detalles aéreos si están abiertos
   }
 
-  verDetallesAereo(servicio: any): void {
+  verDetallesAereo(servicio: TransportService): void {
     this.servicioSeleccionadoAereo = servicio;
-    this.servicioSeleccionadoTerrestre = null; // Cierra los detalles terrestres si están abiertos
   }
 
   cerrarDetalles(): void {
     this.servicioSeleccionadoTerrestre = null;
     this.servicioSeleccionadoAereo = null;
-  }
-
-  agregarServicio(): void {
-    console.log('Agregar servicio');
-    // Aquí puedes implementar la lógica para agregar un nuevo servicio.
-  }
-
-  ngAfterViewInit(): void {
-    this.setupToggleButtons();
-  }
-
-  private setupToggleButtons(): void {
-    const sidebar = this.elRef.nativeElement.querySelector('.sidebar');
-    const toggleButtons = sidebar.querySelectorAll('.toggle-submenu');
-
-    const closeAllSubmenus = () => {
-      sidebar.querySelectorAll('.submenu').forEach((submenu: HTMLElement) => {
-        this.renderer.setStyle(submenu, 'display', 'none');
-      });
-      toggleButtons.forEach((button: HTMLElement) => {
-        this.renderer.removeClass(button, 'active');
-      });
-    };
-
-    toggleButtons.forEach((button: HTMLElement) => {
-      this.renderer.listen(button, 'click', (e: Event) => {
-        e.preventDefault();
-        const submenu = button.nextElementSibling as HTMLElement;
-
-        if (submenu.style.display === 'block') {
-          this.renderer.setStyle(submenu, 'display', 'none');
-          this.renderer.removeClass(button, 'active');
-        } else {
-          closeAllSubmenus();
-          this.renderer.setStyle(submenu, 'display', 'block');
-          this.renderer.addClass(button, 'active');
-        }
-      });
-    });
-
-    this.renderer.listen('document', 'click', (e: Event) => {
-      if (!sidebar.contains(e.target as Node)) {
-        closeAllSubmenus();
-      }
-    });
   }
 }
