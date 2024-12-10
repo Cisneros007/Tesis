@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,35 +7,37 @@ import { Router } from '@angular/router';
   styleUrls: ['./envio-crear.component.css']
 })
 export class EnvioCrearComponent {
-  encomiendaForm: FormGroup;
+finalizeEnvio() {
+throw new Error('Method not implemented.');
+}
+  // Form Data
+  remitenteNombre = '';
+  remitenteTelefono = '';
+  remitenteDireccion = '';
+  destinatarioNombre = '';
+  destinatarioTelefono = '';
+  destinatarioDireccion = '';
+  paqueteDescripcion = '';
+  paquetePeso = 0;
+  paqueteValor = 0;
+  servicioDomicilio = 'no';
+  costoServicioDomicilio = 0;
+
+  // Component State
   currentStep = 1;
   stepsCompleted = [false, false, false, false];
   showReceipt = false;
   trackingCode = '';
   password = '';
-  today = new Date(); // Añadimos la variable today
+  today = new Date();
+  
   distritos = [
-    'Miraflores', 'San Isidro', 'Surco', 'Lima Centro', 'Barranco', 'Callao', 'San Borja', 'San Miguel', 
-    'La Molina', 'Chorrillos', 'Villa El Salvador', 'La Victoria', 'Ate', 'Comas', 'San Juan de Lurigancho'
+    'Miraflores', 'San Isidro', 'Surco', 'Lima Centro', 'Barranco', 'Callao', 
+    'San Borja', 'San Miguel', 'La Molina', 'Chorrillos', 'Villa El Salvador', 
+    'La Victoria', 'Ate', 'Comas', 'San Juan de Lurigancho'
   ];
-  preciosDistritos: any;
 
-  constructor(private fb: FormBuilder, private router: Router) {
-    this.encomiendaForm = this.fb.group({
-      remitenteNombre: ['', Validators.required],
-      remitenteTelefono: ['', Validators.required],
-      remitenteDireccion: ['', Validators.required],
-      destinatarioNombre: ['', Validators.required],
-      destinatarioTelefono: ['', Validators.required],
-      destinatarioDireccion: ['', Validators.required],
-      paqueteDescripcion: ['', Validators.required],
-      paquetePeso: ['', Validators.required],
-      paqueteValor: ['', Validators.required],
-      servicioDomicilio: ['no', Validators.required],
-      costoServicioDomicilio: [''],
-      manipulacionEspecial: [false]
-    });
-  }
+  constructor(private router: Router) {}
 
   generateTrackingCode(): string {
     return 'ENV' + Math.random().toString(36).substr(2, 8).toUpperCase();
@@ -60,56 +61,44 @@ export class EnvioCrearComponent {
   }
 
   isStepValid(): boolean {
-    const controls = this.encomiendaForm.controls;
     switch (this.currentStep) {
       case 1:
-        return controls['remitenteNombre'].valid &&
-          controls['remitenteTelefono'].valid &&
-          controls['remitenteDireccion'].valid;
+        return this.remitenteNombre.trim() !== '' &&
+               this.remitenteTelefono.trim() !== '' &&
+               this.remitenteDireccion.trim() !== '';
       case 2:
-        return controls['destinatarioNombre'].valid &&
-          controls['destinatarioTelefono'].valid &&
-          controls['destinatarioDireccion'].valid;
+        return this.destinatarioNombre.trim() !== '' &&
+               this.destinatarioTelefono.trim() !== '' &&
+               this.destinatarioDireccion.trim() !== '';
       case 3:
-        return controls['paqueteDescripcion'].valid &&
-          controls['paquetePeso'].valid &&
-          controls['paqueteValor'].valid;
+        return this.paqueteDescripcion.trim() !== '' &&
+               this.paquetePeso > 0 &&
+               this.paqueteValor > 0;
       default:
         return true;
     }
   }
 
-  getStepClass(step: number): string {
-    if (this.stepsCompleted[step - 1]) {
-      return 'completed';
-    } else if (step === this.currentStep) {
-      return 'active';
-    }
-    return '';
-  }
-
   onSubmit() {
-    if (this.encomiendaForm.valid) {
+    if (this.isStepValid()) {
       this.trackingCode = this.generateTrackingCode();
       this.password = this.generatePassword();
-      this.today = new Date(); // Actualizamos la fecha al momento de generar la boleta
+      this.today = new Date();
       this.showReceipt = true;
     }
   }
-  
- // Método para actualizar el costo del servicio a domicilio
- actualizarCostoServicioDomicilio(distrito: string) {
-  if (this.encomiendaForm.value.servicioDomicilio === 'si' && distrito) {
-    this.encomiendaForm.patchValue({
-      costoServicioDomicilio: this.preciosDistritos[distrito] || 0
-    });
-  }
-}
+
   goToDashboard() {
     this.router.navigate(['/dashboard']);
   }
 
   imprimirBoleta() {
     window.print();
+  }
+
+  calcularTotal(): number {
+    return this.servicioDomicilio === 'si' 
+      ? this.paqueteValor + this.costoServicioDomicilio 
+      : this.paqueteValor;
   }
 }

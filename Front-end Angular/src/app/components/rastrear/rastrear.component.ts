@@ -12,7 +12,7 @@ export class RastrearComponent {
   };
 
   showTrackingInfo = false;
-  origin: [number, number] = [-12.1167, -76.9967]; // Surco coordinates
+  origin: [number, number] = [-39.1167, -76.9967]; // Surco coordinates
   destination: [number, number] = [-12.2167, -76.9417]; // Villa El Salvador coordinates
   currentLocation: [number, number] = [0, 0];
   routeProgress = 0;
@@ -21,7 +21,7 @@ export class RastrearComponent {
   informacionEnvio = {
     fechaRegistro: '2024-11-09',
     fechaEntrega: '2024-11-15',
-    origen: 'Surco, Lima',
+    origen: 'Tecsup, Lima',
     destino: 'Villa El Salvador, Lima',
     estado: 'en-ruta',
     numeroRastreo: 'LIM-VES-001',
