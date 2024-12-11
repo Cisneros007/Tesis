@@ -73,7 +73,6 @@ export class ServiciosComponent implements OnInit {
   servicioSeleccionadoTerrestre: TransportService | null = null;
   servicioSeleccionadoAereo: TransportService | null = null;
 
-
   ngOnInit(): void {}
 
   verDetallesTerrestre(servicio: TransportService): void {

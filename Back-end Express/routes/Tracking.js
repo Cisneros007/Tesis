@@ -39,5 +39,25 @@ router.get('/', (req, res) => {
     res.json(results); // Devuelve todos los trackings
   });
 });
+// Agregar un registro de seguimiento
+router.post('/tracking', async (req, res) => {
+  try {
+    const tracking = await Tracking.create(req.body);
+    res.status(201).json(tracking);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
+// Obtener seguimiento por encomienda
+router.get('/tracking/:idEncomienda', async (req, res) => {
+  try {
+    const tracking = await Tracking.findAll({
+      where: { idEncomienda: req.params.idEncomienda },
+    });
+    res.json(tracking);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 module.exports = router;

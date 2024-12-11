@@ -1,204 +1,189 @@
-<div class="flex flex-col items-center p-12">
-    <div class="mx-auto bg-white rounded-lg shadow-lg p-12 w-full max-w-4xl">
-        <!-- Step Indicator -->
-        <div class="flex items-center justify-between mb-12">
-            <!-- Step 1 -->
-            <div class="relative flex items-center">
-                <div class="relative flex items-center">
-                    <div class="h-10 w-10 rounded-full flex items-center justify-center border-2 transition-all duration-300"
-                        [ngClass]="{'bg-blue-600 border-blue-600 text-white': currentStep >= 1, 'bg-white border-gray-300 text-gray-700': currentStep < 1}">
-                        1
-                    </div>
-                    <div class="absolute left-1/2 -translate-x-1/2 top-12 text-sm font-medium text-gray-700">Remitente</div>
-                </div>
-                <div class="h-1 flex-1 bg-gray-300 transition-all duration-300"
-                    [ngClass]="{'bg-blue-600': currentStep > 1}">
-                </div>
-            </div>
-          
-            <!-- Remaining step indicators similar to previous implementation -->
-        </div>
+<div class="container mx-auto p-8 bg-white shadow-2xl rounded-lg max-w-4xl">
+  <h2 class="text-4xl font-bold text-center text-indigo-600 mb-8">Crear Encomienda</h2>
+  
+  <form [formGroup]="envioForm" (ngSubmit)="crearEncomienda()">
+    <!-- Paso 1: Datos del Remitente -->
+    <div class="bg-indigo-50 p-6 rounded-lg shadow-lg mb-8">
+      <h3 class="text-3xl font-semibold text-gray-700 mb-4">Datos del Remitente</h3>
 
-        <!-- Step 1: Sender Details -->
-        <div *ngIf="currentStep === 1" class="bg-white rounded-lg p-6 mb-8">
-            <h3 class="text-blue-700 mb-4 text-xl font-bold">Paso 1: Datos del Remitente</h3>
-            <div class="mb-4">
-                <label class="block mb-2 font-medium text-gray-700">Nombre del Remitente</label>
-                <input type="text" 
-                    [(ngModel)]="remitenteNombre" 
-                    placeholder="Ingrese el nombre completo" 
-                    class="w-full p-3 border border-gray-300 rounded-md">
-            </div>
-            <div class="mb-4">
-                <label class="block mb-2 font-medium text-gray-700">Teléfono</label>
-                <input type="tel" 
-                    [(ngModel)]="remitenteTelefono" 
-                    placeholder="Ej. +51 999 888 777" 
-                    class="w-full p-3 border border-gray-300 rounded-md">
-            </div>
-            <div class="mb-4">
-                <label class="block mb-2 font-medium text-gray-700">Distrito de Recogida</label>
-                <select 
-                    [(ngModel)]="remitenteDireccion" 
-                    class="w-full p-3 border border-gray-300 rounded-md">
-                    <option value="" disabled>Seleccione un Distrito</option>
-                    <option *ngFor="let distrito of distritos" [value]="distrito">
-                        {{distrito}}
-                    </option>
-                </select>
-            </div>
-            <div class="flex justify-between mt-6">
-                <button (click)="goToDashboard()" 
-                    class="bg-gray-600 text-white py-2 px-4 rounded-md">
-                    Regresar a Inicio
-                </button>
-                <button (click)="nextStep()" 
-                    class="bg-blue-600 text-white py-2 px-4 rounded-md">
-                    Siguiente
-                </button>
-            </div>
+      <!-- Nombre del Remitente -->
+      <div class="form-group mb-4">
+        <label for="remitenteNombre" class="block text-sm font-semibold text-gray-600">Nombre del Remitente</label>
+        <input
+          id="remitenteNombre"
+          type="text"
+          class="form-control w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          formControlName="remitenteNombre"
+          placeholder="Ingrese el nombre del remitente"
+        />
+        <div *ngIf="envioForm.get('remitenteNombre')?.invalid && envioForm.get('remitenteNombre')?.touched" class="text-red-500 text-xs mt-2">
+          El nombre del remitente es obligatorio.
         </div>
+      </div>
 
-        <!-- Step 2: Recipient Details -->
-        <div *ngIf="currentStep === 2" class="bg-white rounded-lg p-6 mb-8">
-            <h3 class="text-blue-700 mb-4 text-xl font-bold">Paso 2: Datos del Destinatario</h3>
-            <div class="mb-4">
-                <label class="block mb-2 font-medium text-gray-700">Nombre del Destinatario</label>
-                <input type="text" 
-                    [(ngModel)]="destinatarioNombre" 
-                    placeholder="Ingrese el nombre completo" 
-                    class="w-full p-3 border border-gray-300 rounded-md">
-            </div>
-            <div class="mb-4">
-                <label class="block mb-2 font-medium text-gray-700">Teléfono</label>
-                <input type="tel" 
-                    [(ngModel)]="destinatarioTelefono" 
-                    placeholder="Ej. +51 999 888 777" 
-                    class="w-full p-3 border border-gray-300 rounded-md">
-            </div>
-            <div class="mb-4">
-                <label class="block mb-2 font-medium text-gray-700">Distrito de Entrega</label>
-                <select 
-                    [(ngModel)]="destinatarioDireccion" 
-                    class="w-full p-3 border border-gray-300 rounded-md">
-                    <option value="" disabled>Seleccione un Distrito</option>
-                    <option *ngFor="let distrito of distritos" [value]="distrito">
-                        {{distrito}}
-                    </option>
-                </select>
-            </div>
-            <div class="flex justify-between mt-6">
-                <button (click)="prevStep()" 
-                    class="bg-gray-600 text-white py-2 px-4 rounded-md">
-                    Anterior
-                </button>
-                <button (click)="nextStep()" 
-                    class="bg-blue-600 text-white py-2 px-4 rounded-md">
-                    Siguiente
-                </button>
-            </div>
-        </div>
-
-        <!-- Step 3: Package Details -->
-        <div *ngIf="currentStep === 3" class="bg-white rounded-lg p-6 mb-8">
-            <h3 class="text-blue-700 mb-4 text-xl font-bold">Paso 3: Información del Paquete</h3>
-            <div class="mb-4">
-                <label class="block mb-2 font-medium text-gray-700">Descripción del Paquete</label>
-                <input type="text" 
-                    [(ngModel)]="paqueteDescripcion" 
-                    placeholder="Ingrese una breve descripción" 
-                    class="w-full p-3 border border-gray-300 rounded-md">
-            </div>
-            <div class="mb-4">
-                <label class="block mb-2 font-medium text-gray-700">Peso (kg)</label>
-                <input type="number" 
-                    [(ngModel)]="paquetePeso" 
-                    placeholder="Ingrese el peso del paquete" 
-                    class="w-full p-3 border border-gray-300 rounded-md">
-            </div>
-            <div class="mb-4">
-                <label class="block mb-2 font-medium text-gray-700">Valor del Paquete (S/)</label>
-                <input type="number" 
-                    [(ngModel)]="paqueteValor" 
-                    placeholder="Ingrese el valor del paquete" 
-                    class="w-full p-3 border border-gray-300 rounded-md">
-            </div>
-            <div class="mb-4">
-                <label class="block mb-2 font-medium text-gray-700">Servicio a Domicilio</label>
-                <div class="flex items-center space-x-4">
-                    <label class="flex items-center">
-                        <input type="radio" 
-                            [(ngModel)]="servicioDomicilio" 
-                            value="si" 
-                            class="form-radio text-blue-600">
-                        <span class="ml-2">Sí</span>
-                    </label>
-                    <label class="flex items-center">
-                        <input type="radio" 
-                            [(ngModel)]="servicioDomicilio" 
-                            value="no" 
-                            class="form-radio text-blue-600">
-                        <span class="ml-2">No</span>
-                    </label>
-                </div>
-                <div *ngIf="servicioDomicilio === 'si'" class="mt-4">
-                    <label class="block mb-2 font-medium text-gray-700">Costo del Servicio a Domicilio (S/)</label>
-                    <input type="number" 
-                        [(ngModel)]="costoServicioDomicilio" 
-                        placeholder="Ingrese el costo" 
-                        class="w-full p-3 border border-gray-300 rounded-md">
-                </div>
-            </div>
-            <div class="flex justify-between mt-6">
-                <button (click)="prevStep()" 
-                    class="bg-gray-600 text-white py-2 px-4 rounded-md">
-                    Anterior
-                </button>
-                <button (click)="nextStep()" 
-                    class="bg-blue-600 text-white py-2 px-4 rounded-md">
-                    Siguiente
-                </button>
-            </div>
-        </div>
-
-        <!-- Step 4: Confirmation -->
-        <div *ngIf="currentStep === 4" class="bg-white rounded-lg p-6 mb-8">
-            <h3 class="text-blue-700 mb-4 text-xl font-bold">Paso 4: Confirmación</h3>
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white rounded-lg shadow-md mb-4">
-                    <thead>
-                        <tr class="bg-blue-100 text-gray-700 font-semibold">
-                            <th class="py-3 px-6 text-left">Detalle</th>
-                            <th class="py-3 px-6 text-left">Información</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b">
-                            <td class="py-3 px-6 font-medium text-gray-700">Remitente</td>
-                            <td class="py-3 px-6">{{remitenteNombre}} - {{remitenteTelefono}} - {{remitenteDireccion}}</td>
-                        </tr>
-                        <tr class="border-b">
-                            <td class="py-3 px-6 font-medium text-gray-700">Destinatario</td>
-                            <td class="py-3 px-6">{{destinatarioNombre}} - {{destinatarioTelefono}} - {{destinatarioDireccion}}</td>
-                        </tr>
-                        <tr class="border-b">
-                            <td class="py-3 px-6 font-medium text-gray-700">Paquete</td>
-                            <td class="py-3 px-6">{{paqueteDescripcion}} - {{paquetePeso}} kg - S/ {{paqueteValor}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="flex justify-between">
-                    <button (click)="prevStep()" 
-                        class="bg-gray-600 text-white py-2 px-4 rounded-md">
-                        Anterior
-                    </button>
-                    <button (click)="finalizeEnvio()" 
-                        class="bg-green-600 text-white py-2 px-4 rounded-md">
-                        Confirmar Envío
-                    </button>
-                </div>
-            </div>
-        </div>
-
+      <!-- Teléfono del Remitente -->
+      <div class="form-group mb-4">
+        <label for="remitenteTelefono" class="block text-sm font-semibold text-gray-600">Teléfono del Remitente (Opcional)</label>
+        <input
+          id="remitenteTelefono"
+          type="text"
+          class="form-control w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          formControlName="remitenteTelefono"
+          placeholder="Ingrese el teléfono del remitente"
+        />
+      </div>
     </div>
+
+    <!-- Paso 2: Datos del Destinatario -->
+    <div class="bg-indigo-50 p-6 rounded-lg shadow-lg mb-8">
+      <h3 class="text-3xl font-semibold text-gray-700 mb-4">Datos del Destinatario</h3>
+
+      <!-- Nombre del Destinatario -->
+      <div class="form-group mb-4">
+        <label for="destinatarioNombre" class="block text-sm font-semibold text-gray-600">Nombre del Destinatario</label>
+        <input
+          id="destinatarioNombre"
+          type="text"
+          class="form-control w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          formControlName="destinatarioNombre"
+          placeholder="Ingrese el nombre del destinatario"
+        />
+        <div *ngIf="envioForm.get('destinatarioNombre')?.invalid && envioForm.get('destinatarioNombre')?.touched" class="text-red-500 text-xs mt-2">
+          El nombre del destinatario es obligatorio.
+        </div>
+      </div>
+
+      <!-- Teléfono del Destinatario -->
+      <div class="form-group mb-4">
+        <label for="destinatarioTelefono" class="block text-sm font-semibold text-gray-600">Teléfono del Destinatario (Opcional)</label>
+        <input
+          id="destinatarioTelefono"
+          type="text"
+          class="form-control w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          formControlName="destinatarioTelefono"
+          placeholder="Ingrese el teléfono del destinatario"
+        />
+      </div>
+    </div>
+
+    <!-- Paso 3: Datos de Envío -->
+    <div class="bg-indigo-50 p-6 rounded-lg shadow-lg mb-8">
+      <h3 class="text-3xl font-semibold text-gray-700 mb-4">Datos de Envío</h3>
+
+      <!-- Descripción del Paquete -->
+      <div class="form-group mb-4">
+        <label for="paqueteDescripcion" class="block text-sm font-semibold text-gray-600">Descripción del Paquete (Opcional)</label>
+        <textarea
+          id="paqueteDescripcion"
+          class="form-control w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          formControlName="paqueteDescripcion"
+          placeholder="Descripción del paquete"
+        ></textarea>
+      </div>
+
+      <!-- Peso del Paquete -->
+      <div class="form-group mb-4">
+        <label for="paquetePeso" class="block text-sm font-semibold text-gray-600">Peso del Paquete (kg)</label>
+        <input
+          id="paquetePeso"
+          type="number"
+          class="form-control w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          formControlName="paquetePeso"
+          placeholder="Ingrese el peso del paquete"
+        />
+        <div *ngIf="envioForm.get('paquetePeso')?.invalid && envioForm.get('paquetePeso')?.touched" class="text-red-500 text-xs mt-2">
+          El peso es obligatorio y debe ser un número positivo.
+        </div>
+      </div>
+
+      <!-- Valor del Paquete -->
+      <div class="form-group mb-4">
+        <label for="paqueteValor" class="block text-sm font-semibold text-gray-600">Valor del Paquete</label>
+        <input
+          id="paqueteValor"
+          type="number"
+          class="form-control w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          formControlName="paqueteValor"
+          placeholder="Ingrese el valor del paquete"
+        />
+        <div *ngIf="envioForm.get('paqueteValor')?.invalid && envioForm.get('paqueteValor')?.touched" class="text-red-500 text-xs mt-2">
+          El valor es obligatorio y debe ser un número positivo.
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 4: Confirmación de Envío -->
+    <div class="bg-indigo-50 p-6 rounded-lg shadow-lg mb-8">
+      <h3 class="text-3xl font-semibold text-gray-700 mb-4">Confirmación de Envío</h3>
+
+      <!-- ¿Requiere servicio a domicilio? -->
+      <div class="form-group flex items-center mb-4">
+        <label for="servicioDomicilio" class="block text-sm font-semibold text-gray-600 mr-4">¿Requiere servicio a domicilio?</label>
+        <input
+          type="checkbox"
+          formControlName="servicioDomicilio"
+          class="h-5 w-5 text-indigo-600 border-gray-300 rounded"
+        />
+      </div>
+
+      <!-- Costo del servicio a domicilio -->
+      <div class="form-group mb-4" *ngIf="envioForm.get('servicioDomicilio')?.value">
+        <label for="costoServicioDomicilio" class="block text-sm font-semibold text-gray-600">Costo del Servicio a Domicilio</label>
+        <input
+          id="costoServicioDomicilio"
+          type="number"
+          class="form-control w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          formControlName="costoServicioDomicilio"
+          placeholder="Ingrese el costo del servicio a domicilio"
+        />
+      </div>
+
+      <!-- Selección de Agencia de Origen -->
+      <div class="form-group mb-4">
+        <label for="origenAgencia" class="block text-sm font-semibold text-gray-600">Agencia de Origen</label>
+        <select
+          id="origenAgencia"
+          formControlName="origenAgencia"
+          class="form-control w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+        >
+          <option value="">Seleccione la agencia de origen</option>
+          <option *ngFor="let agencia of agencias" [value]="agencia.id">
+            {{ agencia.nombre }}
+          </option>
+        </select>
+        <div *ngIf="envioForm.get('origenAgencia')?.invalid && envioForm.get('origenAgencia')?.touched" class="text-red-500 text-xs mt-2">
+          La agencia de origen es obligatoria.
+        </div>
+      </div>
+
+      <!-- Selección de Agencia de Destino -->
+      <div class="form-group mb-4">
+        <label for="destinoAgencia" class="block text-sm font-semibold text-gray-600">Agencia de Destino</label>
+        <select
+          id="destinoAgencia"
+          formControlName="destinoAgencia"
+          class="form-control w-full p-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+        >
+          <option value="">Seleccione la agencia de destino</option>
+          <option *ngFor="let agencia of agencias" [value]="agencia.id">
+            {{ agencia.nombre }}
+          </option>
+        </select>
+        <div *ngIf="envioForm.get('destinoAgencia')?.invalid && envioForm.get('destinoAgencia')?.touched" class="text-red-500 text-xs mt-2">
+          La agencia de destino es obligatoria.
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón de Enviar -->
+    <div class="form-group mt-6">
+      <button
+        type="submit"
+        class="w-full p-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-300"
+        [disabled]="envioForm.invalid"
+      >
+        Crear Encomienda
+      </button>
+    </div>
+  </form>
 </div>

@@ -25,6 +25,8 @@ import { EmpleadoDashboardComponent } from './componentsEmpleado/empleado-dashbo
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  // Rutas del administrador
+
   { path: 'sign-up', component: SignUpComponent },
   { path: 'admin-dashboard', component: DashboardAdminComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
   { path: 'rutas-horarios', component: RutasHorariosComponent, canActivate: [AuthGuard], data: { roles: ['admin'] }  },
@@ -32,6 +34,9 @@ const routes: Routes = [
   { path: 'agencias-admin', component: AgenciasAdminComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
   { path: 'envio-historial', component: EnvioHistorialComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
   { path: 'flota-info', component: FlotaInfoComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
+ 
+    // Rutas del empleado
+
   { path: 'empleado-dashboard', component: EmpleadoDashboardComponent, canActivate: [AuthGuard], data: { roles: ['empleado'] }  },
 
   { path: 'envio-crear', component: EnvioCrearComponent, canActivate: [AuthGuard] },
@@ -44,8 +49,6 @@ const routes: Routes = [
   { path: 'comunicate', component: ComunicateComponent, canActivate: [AuthGuard] },
   { path: 'company-info', component: CompanyInfoComponent, canActivate: [AuthGuard] },
   { path: 'user-profile', component:  UserProfileComponent, canActivate: [AuthGuard] },
-  { path: 'agencias-admin', component: AgenciasAdminComponent, canActivate: [AuthGuard] },
-  { path: 'servicios', component: ServiciosComponent, canActivate: [AuthGuard] },
   { path: 'traking', component: TrackingComponent, canActivate: [AuthGuard] },
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
 

@@ -1,104 +1,75 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EncomiendasService } from '../../services-cliente/encomiendas.service';  // Asegúrate de que la ruta sea correcta
+import { Encomienda } from '../../models-cliente/encomiendas.model';  // Asegúrate de que la ruta sea correcta
+import { AgenciasService } from '../../services-cliente/agencias.service';  // Importar el servicio de Agencias
 
 @Component({
   selector: 'app-envio-crear',
   templateUrl: './envio-crear.component.html',
-  styleUrls: ['./envio-crear.component.css']
+  styleUrls: ['./envio-crear.component.css'],
 })
-export class EnvioCrearComponent {
-finalizeEnvio() {
+export class EnvioCrearComponent implements OnInit {
+getAgenciaNombre(arg0: any) {
 throw new Error('Method not implemented.');
 }
-  // Form Data
-  remitenteNombre = '';
-  remitenteTelefono = '';
-  remitenteDireccion = '';
-  destinatarioNombre = '';
-  destinatarioTelefono = '';
-  destinatarioDireccion = '';
-  paqueteDescripcion = '';
-  paquetePeso = 0;
-  paqueteValor = 0;
-  servicioDomicilio = 'no';
-  costoServicioDomicilio = 0;
+  envioForm: FormGroup;
+  agencias: any[] = [];  // Para almacenar las agencias de la API
 
-  // Component State
-  currentStep = 1;
-  stepsCompleted = [false, false, false, false];
-  showReceipt = false;
-  trackingCode = '';
-  password = '';
-  today = new Date();
+  constructor(
+    private formBuilder: FormBuilder,
+    private encomiendasService: EncomiendasService,
+    private agenciasService: AgenciasService  // Inyectar el servicio de Agencias
+  ) {
+    // Inicializar el formulario
+    this.envioForm = this.formBuilder.group({
+      remitenteNombre: ['', Validators.required],
+      remitenteTelefono: [''],
+      destinatarioNombre: ['', Validators.required],
+      destinatarioTelefono: [''],
+      paqueteDescripcion: [''],
+      paquetePeso: ['', [Validators.required, Validators.min(0)]],
+      paqueteValor: ['', [Validators.required, Validators.min(0)]],
+      servicioDomicilio: [false],
+      costoServicioDomicilio: [''],
+      fechaCreacion: [new Date()],
+      origenAgencia: ['', Validators.required],  // Campo de agencia de origen
+      destinoAgencia: ['', Validators.required],  // Campo de agencia de destino
+    });
+  }
+
+  ngOnInit(): void {
+    // Obtener la lista de agencias desde el servicio
+    this.agenciasService.getAgencias().subscribe(
+      (data) => {
+        this.agencias = data;  // Asignar las agencias a la variable
+      },
+      (error) => {
+        console.error('Error al cargar las agencias:', error);
+        alert('Error al cargar las agencias');
+      }
+    );
+  }
+
+  // Método para crear la encomienda
+  crearEncomienda(): void {
+    if (this.envioForm.valid) {
+      const encomienda: Encomienda = this.envioForm.value;
+      
+      this.encomiendasService.crearEncomienda(encomienda).subscribe(
+        (response) => {
+          console.log('Encomienda creada:', response);
+          alert('Encomienda creada correctamente');
+        },
+        (error) => {
+          console.error('Error al crear encomienda:', error);
+          alert('Error al crear la encomienda');
+          console.error('Error details:', error); // Mostrar detalles del error
+        }
+      );
+    } else {
+      alert('Por favor, complete todos los campos requeridos.');
+    }
+  }
   
-  distritos = [
-    'Miraflores', 'San Isidro', 'Surco', 'Lima Centro', 'Barranco', 'Callao', 
-    'San Borja', 'San Miguel', 'La Molina', 'Chorrillos', 'Villa El Salvador', 
-    'La Victoria', 'Ate', 'Comas', 'San Juan de Lurigancho'
-  ];
-
-  constructor(private router: Router) {}
-
-  generateTrackingCode(): string {
-    return 'ENV' + Math.random().toString(36).substr(2, 8).toUpperCase();
-  }
-
-  generatePassword(): string {
-    return Math.random().toString(36).substr(2, 8).toUpperCase();
-  }
-
-  nextStep() {
-    if (this.currentStep < 4 && this.isStepValid()) {
-      this.stepsCompleted[this.currentStep - 1] = true;
-      this.currentStep++;
-    }
-  }
-
-  prevStep() {
-    if (this.currentStep > 1) {
-      this.currentStep--;
-    }
-  }
-
-  isStepValid(): boolean {
-    switch (this.currentStep) {
-      case 1:
-        return this.remitenteNombre.trim() !== '' &&
-               this.remitenteTelefono.trim() !== '' &&
-               this.remitenteDireccion.trim() !== '';
-      case 2:
-        return this.destinatarioNombre.trim() !== '' &&
-               this.destinatarioTelefono.trim() !== '' &&
-               this.destinatarioDireccion.trim() !== '';
-      case 3:
-        return this.paqueteDescripcion.trim() !== '' &&
-               this.paquetePeso > 0 &&
-               this.paqueteValor > 0;
-      default:
-        return true;
-    }
-  }
-
-  onSubmit() {
-    if (this.isStepValid()) {
-      this.trackingCode = this.generateTrackingCode();
-      this.password = this.generatePassword();
-      this.today = new Date();
-      this.showReceipt = true;
-    }
-  }
-
-  goToDashboard() {
-    this.router.navigate(['/dashboard']);
-  }
-
-  imprimirBoleta() {
-    window.print();
-  }
-
-  calcularTotal(): number {
-    return this.servicioDomicilio === 'si' 
-      ? this.paqueteValor + this.costoServicioDomicilio 
-      : this.paqueteValor;
-  }
 }

@@ -7,9 +7,10 @@
     <!-- Formulario para agregar una nueva agencia -->
     <div class="new-agencia-form bg-red-100 p-5 rounded-lg mb-5">
       <h2 class="text-2xl text-gray-700 mb-3">Agregar Nueva Agencia</h2>
-      <input [(ngModel)]="newAgencia.name" placeholder="Nombre" class="w-full p-2 mb-2 rounded border">
-      <input [(ngModel)]="newAgencia.address" placeholder="Dirección" class="w-full p-2 mb-2 rounded border">
-      <input [(ngModel)]="newAgencia.phone" placeholder="Teléfono" class="w-full p-2 mb-2 rounded border">
+      <input [(ngModel)]="newAgencia.nombre" placeholder="Nombre" class="w-full p-2 mb-2 rounded border">
+      <input [(ngModel)]="newAgencia.direccion" placeholder="Dirección" class="w-full p-2 mb-2 rounded border">
+      <input [(ngModel)]="newAgencia.latitude" placeholder="Latitud" class="w-full p-2 mb-2 rounded border">
+      <input [(ngModel)]="newAgencia.longitude" placeholder="Longitud" class="w-full p-2 mb-2 rounded border">
       <input [(ngModel)]="newAgencia.email" placeholder="Email" class="w-full p-2 mb-2 rounded border">
       <button (click)="addAgencia()" 
               class="bg-green-600 text-white py-2 rounded w-full hover:bg-green-700 transition-colors">Agregar Agencia</button>
@@ -20,9 +21,8 @@
       <div class="agencia-card bg-white border border-gray-300 rounded-lg shadow-md p-5 transition-transform transform hover:scale-105 hover:shadow-xl"
            *ngFor="let agencia of filteredAgencias">
         
-        <h2 class="text-2xl text-blue-800 mb-2">{{ agencia.name }}</h2>
-        <p class="text-gray-600">{{ agencia.address }}</p>
-        <p class="text-gray-700"><strong>Teléfono:</strong> {{ agencia.phone }}</p>
+        <h2 class="text-2xl text-blue-800 mb-2">{{ agencia.nombre }}</h2>
+        <p class="text-gray-600">{{ agencia.direccion }}</p>
         <p class="text-gray-700"><strong>Email:</strong> {{ agencia.email }}</p>
         
         <button (click)="openEditModal(agencia)" 
@@ -37,10 +37,12 @@
   <div *ngIf="showModalEdit" class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
     <div class="modal-content bg-white p-5 rounded-lg shadow-lg w-96">
       <h2 class="text-2xl text-gray-700 mb-3">Editar Agencia</h2>
-      <input [(ngModel)]="editingAgencia!.name" placeholder="Nombre" class="w-full p-2 mb-2 rounded border">
-      <input [(ngModel)]="editingAgencia!.address" placeholder="Dirección" class="w-full p-2 mb-2 rounded border">
-      <input [(ngModel)]="editingAgencia!.phone" placeholder="Teléfono" class="w-full p-2 mb-2 rounded border">
+      <input [(ngModel)]="editingAgencia!.nombre" placeholder="Nombre" class="w-full p-2 mb-2 rounded border">
+      <input [(ngModel)]="editingAgencia!.direccion" placeholder="Dirección" class="w-full p-2 mb-2 rounded border">
+      <input [(ngModel)]="editingAgencia!.latitude" placeholder="Latitud" class="w-full p-2 mb-2 rounded border">
+      <input [(ngModel)]="editingAgencia!.longitude" placeholder="Longitud" class="w-full p-2 mb-2 rounded border">
       <input [(ngModel)]="editingAgencia!.email" placeholder="Email" class="w-full p-2 mb-2 rounded border">
+      <input [(ngModel)]="editingAgencia!.image" placeholder="imagen" class="w-full p-2 mb-2 rounded border">
       <button (click)="saveAgencia()" 
               class="bg-green-600 text-white py-2 rounded w-full hover:bg-green-700 transition-colors">Guardar Cambios</button>
       <button (click)="closeEditModal()" 
@@ -52,7 +54,7 @@
   <div *ngIf="showDeleteAlert" class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
     <div class="alert-content bg-white p-5 rounded-lg shadow-lg w-80">
       <h3 class="text-xl text-gray-800 mb-4">¿Estás seguro de que deseas eliminar esta agencia?</h3>
-      <p class="text-gray-700 mb-4"><strong>{{ agenciaToDelete?.name }}</strong></p>
+      <p class="text-gray-700 mb-4"><strong>{{ agenciaToDelete?.nombre }}</strong></p>
       <button (click)="confirmDelete()" 
               class="bg-red-600 text-white py-2 rounded w-full hover:bg-red-700 transition-colors">Eliminar</button>
       <button (click)="closeDeleteAlert()" 

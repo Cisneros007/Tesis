@@ -1,11 +1,8 @@
 <app-headeradmin></app-headeradmin>
 
 <div class="flex h-screen pt-16 bg-gray-100">
-  <!-- Sidebar -->
-  <app-sidebar></app-sidebar>
-
   <!-- Contenido principal -->
-  <div class="flex-grow ml-64 p-8 bg-white rounded-lg shadow-lg">
+  <div class="flex-grow p-8 bg-white rounded-lg shadow-lg">
     <h2 class="text-2xl font-semibold text-indigo-600 mb-6">Rutas y Horarios</h2>
 
     <!-- Tabla de Rutas -->
@@ -20,7 +17,7 @@
             <th class="py-3 px-4">Hora de Llegada</th>
             <th class="py-3 px-4">Duración</th>
             <th class="py-3 px-4">Acciones</th>
-          </tr>z
+          </tr>
         </thead>
         <tbody>
           <tr *ngFor="let ruta of rutas" class="border-b hover:bg-gray-50">
@@ -30,11 +27,11 @@
             <td class="py-3 px-4">{{ ruta.horaLlegada }}</td>
             <td class="py-3 px-4">{{ ruta.duracion }}</td>
             <td class="py-3 px-4">
-              <button (click)="verDetallesRuta(ruta)" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded mr-2">
-                <i class="fas fa-edit"></i> Editar
+              <button (click)="abrirModalEditarRuta(ruta)" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded mr-2">
+                Editar
               </button>
-              <button (click)="eliminarRuta(ruta)" class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded">
-                <i class="fas fa-trash"></i> Eliminar
+              <button (click)="abrirModalEliminarRuta(ruta)" class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded">
+                Eliminar
               </button>
             </td>
           </tr>
@@ -63,16 +60,19 @@
             <td class="py-3 px-4">{{ envio.fechaEnvio }}</td>
             <td class="py-3 px-4">{{ envio.horaEnvio }}</td>
             <td class="py-3 px-4">
-              <span [ngClass]="{'text-orange-500 font-bold': envio.estado === 'Pendiente', 'text-green-500 font-bold': envio.estado === 'Completado'}">
+              <span [ngClass]="{
+                'text-orange-500 font-bold': envio.estado === 'Pendiente',
+                'text-green-500 font-bold': envio.estado === 'Completado'
+              }">
                 {{ envio.estado }}
               </span>
             </td>
             <td class="py-3 px-4">
-              <button (click)="verDetallesEnvio(envio)" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded mr-2">
-                <i class="fas fa-edit"></i> Editar
+              <button (click)="abrirModalEditarEnvio(envio)" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded mr-2">
+                Editar
               </button>
-              <button (click)="eliminarEnvio(envio)" class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded">
-                <i class="fas fa-trash"></i> Eliminar
+              <button (click)="abrirModalEliminarEnvio(envio)" class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded">
+                Eliminar
               </button>
             </td>
           </tr>
@@ -82,12 +82,158 @@
 
     <!-- Botones de Acción -->
     <div class="flex gap-4">
-      <button (click)="agregarRuta()" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded">
+      <button (click)="abrirModalAgregarRuta()" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded">
         Agregar Ruta
       </button>
-      <button (click)="agregarEnvio()" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded">
+      <button (click)="abrirModalAgregarEnvio()" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded">
         Agregar Envío
       </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Agregar Ruta -->
+<div *ngIf="mostrarModalAgregarRuta" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+    <h3 class="text-lg font-bold mb-4">Agregar Ruta</h3>
+    <form (submit)="agregarRuta()">
+      <div class="mb-4">
+        <label for="ruta" class="block text-sm font-medium text-gray-700">Ruta</label>
+        <input id="ruta" type="text" [(ngModel)]="nuevaRuta.ruta" name="ruta" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="mb-4">
+        <label for="horaSalida" class="block text-sm font-medium text-gray-700">Hora de Salida</label>
+        <input id="horaSalida" type="time" [(ngModel)]="nuevaRuta.horaSalida" name="horaSalida" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="mb-4">
+        <label for="horaLlegada" class="block text-sm font-medium text-gray-700">Hora de Llegada</label>
+        <input id="horaLlegada" type="time" [(ngModel)]="nuevaRuta.horaLlegada" name="horaLlegada" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="mb-4">
+        <label for="duracion" class="block text-sm font-medium text-gray-700">Duración</label>
+        <input id="duracion" type="text" [(ngModel)]="nuevaRuta.duracion" name="duracion" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="flex justify-end gap-2">
+        <button type="button" (click)="cerrarModalAgregarRuta()" class="bg-gray-400 hover:bg-gray-500 text-white py-2 px-4 rounded">Cancelar</button>
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Editar Ruta -->
+<div *ngIf="mostrarModalEditarRuta" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+    <h3 class="text-lg font-bold mb-4">Editar Ruta</h3>
+    <form (submit)="guardarCambiosRuta()">
+      <div class="mb-4">
+        <label for="ruta" class="block text-sm font-medium text-gray-700">Ruta</label>
+        <input id="ruta" type="text" [(ngModel)]="rutaSeleccionada.ruta" name="ruta" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="mb-4">
+        <label for="horaSalida" class="block text-sm font-medium text-gray-700">Hora de Salida</label>
+        <input id="horaSalida" type="time" [(ngModel)]="rutaSeleccionada.horaSalida" name="horaSalida" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="mb-4">
+        <label for="horaLlegada" class="block text-sm font-medium text-gray-700">Hora de Llegada</label>
+        <input id="horaLlegada" type="time" [(ngModel)]="rutaSeleccionada.horaLlegada" name="horaLlegada" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="mb-4">
+        <label for="duracion" class="block text-sm font-medium text-gray-700">Duración</label>
+        <input id="duracion" type="text" [(ngModel)]="rutaSeleccionada.duracion" name="duracion" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="flex justify-end gap-2">
+        <button type="button" (click)="cerrarModalEditarRuta()" class="bg-gray-400 hover:bg-gray-500 text-white py-2 px-4 rounded">Cancelar</button>
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Eliminar Ruta -->
+<div *ngIf="mostrarModalEliminarRuta" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-80">
+    <h3 class="text-lg font-bold mb-4">Eliminar Ruta</h3>
+    <p>¿Estás seguro de que deseas eliminar esta ruta?</p>
+    <div class="flex justify-end gap-2 mt-6">
+      <button type="button" (click)="cerrarModalEliminarRuta()" class="bg-gray-400 hover:bg-gray-500 text-white py-2 px-4 rounded">Cancelar</button>
+      <button type="button" (click)="confirmarEliminarRuta()" class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded">Eliminar</button>
+    </div>
+  </div>
+</div>
+<!-- Modal Agregar Envío -->
+<div *ngIf="mostrarModalAgregarEnvio" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+    <h3 class="text-lg font-bold mb-4">Agregar Envío</h3>
+    <form (submit)="guardarNuevoEnvio()">
+      <div class="mb-4">
+        <label for="envio" class="block text-sm font-medium text-gray-700">Envío</label>
+        <input id="envio" type="text" [(ngModel)]="nuevoEnvio.envio" name="envio" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="mb-4">
+        <label for="fechaEnvio" class="block text-sm font-medium text-gray-700">Fecha de Envío</label>
+        <input id="fechaEnvio" type="date" [(ngModel)]="nuevoEnvio.fechaEnvio" name="fechaEnvio" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="mb-4">
+        <label for="horaEnvio" class="block text-sm font-medium text-gray-700">Hora de Envío</label>
+        <input id="horaEnvio" type="time" [(ngModel)]="nuevoEnvio.horaEnvio" name="horaEnvio" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="mb-4">
+        <label for="estado" class="block text-sm font-medium text-gray-700">Estado</label>
+        <select id="estado" [(ngModel)]="nuevoEnvio.estado" name="estado" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+          <option value="Pendiente">Pendiente</option>
+          <option value="Completado">Completado</option>
+        </select>
+      </div>
+      <div class="flex justify-end gap-2">
+        <button type="button" (click)="cerrarModalAgregarEnvio()" class="bg-gray-400 hover:bg-gray-500 text-white py-2 px-4 rounded">Cancelar</button>
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Editar Envío -->
+<div *ngIf="mostrarModalEditarEnvio" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+    <h3 class="text-lg font-bold mb-4">Editar Envío</h3>
+    <form (submit)="guardarCambiosEnvio()">
+      <div class="mb-4">
+        <label for="envio" class="block text-sm font-medium text-gray-700">Envío</label>
+        <input id="envio" type="text" [(ngModel)]="envioSeleccionado.envio" name="envio" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="mb-4">
+        <label for="fechaEnvio" class="block text-sm font-medium text-gray-700">Fecha de Envío</label>
+        <input id="fechaEnvio" type="date" [(ngModel)]="envioSeleccionado.fechaEnvio" name="fechaEnvio" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="mb-4">
+        <label for="horaEnvio" class="block text-sm font-medium text-gray-700">Hora de Envío</label>
+        <input id="horaEnvio" type="time" [(ngModel)]="envioSeleccionado.horaEnvio" name="horaEnvio" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+      </div>
+      <div class="mb-4">
+        <label for="estado" class="block text-sm font-medium text-gray-700">Estado</label>
+        <select id="estado" [(ngModel)]="envioSeleccionado.estado" name="estado" required class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm">
+          <option value="Pendiente">Pendiente</option>
+          <option value="Completado">Completado</option>
+        </select>
+      </div>
+      <div class="flex justify-end gap-2">
+        <button type="button" (click)="cerrarModalEditarEnvio()" class="bg-gray-400 hover:bg-gray-500 text-white py-2 px-4 rounded">Cancelar</button>
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Eliminar Envío -->
+<div *ngIf="mostrarModalEliminarEnvio" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-80">
+    <h3 class="text-lg font-bold mb-4">Eliminar Envío</h3>
+    <p>¿Estás seguro de que deseas eliminar este envío?</p>
+    <div class="flex justify-end gap-2 mt-6">
+      <button type="button" (click)="cerrarModalEliminarEnvio()" class="bg-gray-400 hover:bg-gray-500 text-white py-2 px-4 rounded">Cancelar</button>
+      <button type="button" (click)="confirmarEliminarEnvio()" class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded">Eliminar</button>
     </div>
   </div>
 </div>

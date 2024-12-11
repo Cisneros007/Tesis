@@ -10,8 +10,20 @@ export class EnviosService {
 
   constructor(private http: HttpClient) { }
 
-  // Método para obtener todos los envíos
-  getEnvios(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  getEnvios(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
+
+  agregarEnvio(envio: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, envio); // Cambia la URL según tu API
+  }
+
+  editarEnvio(envio: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${envio.id}`, envio); // Cambia la URL según tu API
+  }
+
+  eliminarEnvio(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`); // Cambia la URL según tu API
+
+}
 }

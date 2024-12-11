@@ -1,9 +1,9 @@
 <app-header class="fixed top-0 left-0 w-full z-50 shadow-lg bg-white"></app-header>
 
-<div class="container mx-auto px-10 py-8 bg-gray-100 mt-10">
+<div class="container mx-auto px-10 py-8 bg-gray-100 mt-16">
   <div class="max-w-7xl mx-auto">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-lg shadow-lg mb-8 overflow-hidden mt-4">
+    <section class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-lg shadow-lg mb-8">
       <div class="px-6 py-8 text-center">
         <h1 class="text-4xl font-bold mb-4">Servicios de Transporte Integral</h1>
         <p class="text-xl mb-6">Soluciones logísticas personalizadas para cada necesidad</p>
@@ -14,61 +14,22 @@
     </section>
 
     <!-- Servicios Terrestres -->
-        <!-- Servicios Terrestres -->
     <section class="mb-12">
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-3xl font-semibold text-gray-800">Servicios Terrestres</h2>
-      </div>
-
+      <h2 class="text-3xl font-semibold text-gray-800 mb-6">Servicios Terrestres</h2>
       <div class="grid md:grid-cols-3 gap-6">
         <div 
           *ngFor="let servicio of serviciosTerrestres" 
           class="bg-white rounded-lg shadow-md p-6 transform transition hover:scale-105 hover:shadow-xl">
           <div class="flex items-center mb-4">
-            <div class="bg-blue-100 p-3 rounded-full mr-4">
-              <i class="fas fa-truck text-blue-600 text-2xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-800">{{ servicio.nombre }}</h3>
+            <i class="fas fa-truck text-blue-600 text-2xl"></i>
+            <h3 class="text-xl font-bold text-gray-800 ml-4">{{ servicio.nombre }}</h3>
           </div>
           <p class="text-gray-600 mb-4">{{ servicio.descripcion }}</p>
-          <div class="flex justify-between items-center">
-            <span class="text-sm text-gray-500">Capacidad: {{ servicio.capacidad }}</span>
-            <button 
-              (click)="verDetallesTerrestre(servicio)"
-              class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600 transition">
-              Detalles
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- Servicios Aéreos -->
-    <section>
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-3xl font-semibold text-gray-800">Servicios Aéreos</h2>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-6">
-        <div 
-          *ngFor="let servicio of serviciosAereos" 
-          class="bg-white rounded-lg shadow-md p-6 transform transition hover:scale-105 hover:shadow-xl">
-          <div class="flex items-center mb-4">
-            <div class="bg-green-100 p-3 rounded-full mr-4">
-              <i class="fas fa-plane text-green-600 text-2xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-800">{{ servicio.nombre }}</h3>
-          </div>
-          <p class="text-gray-600 mb-4">{{ servicio.descripcion }}</p>
-          <div class="flex justify-between items-center">
-            <span class="text-sm text-gray-500">Tarifa Base: ${{ servicio.tarifaBase }}</span>
-            <button 
-              (click)="verDetallesAereo(servicio)"
-              class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600 transition">
-              Detalles
-            </button>
-          </div>
+          <button 
+            (click)="verDetallesTerrestre(servicio)"
+            class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600 transition">
+            Detalles
+          </button>
         </div>
       </div>
     </section>
@@ -80,16 +41,34 @@
       <div class="bg-white rounded-lg p-8 max-w-md w-full">
         <h3 class="text-2xl font-bold mb-4">{{ servicioSeleccionadoTerrestre.nombre }}</h3>
         <p class="text-gray-700 mb-4">{{ servicioSeleccionadoTerrestre.descripcion }}</p>
-        <div class="flex justify-between">
-          <span class="text-sm text-gray-500">Capacidad: {{ servicioSeleccionadoTerrestre.capacidad }}</span>
+        <button 
+          (click)="cerrarDetalles()"
+          class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+          Cerrar
+        </button>
+      </div>
+    </div>
+
+    <!-- Servicios Aéreos -->
+    <section>
+      <h2 class="text-3xl font-semibold text-gray-800 mb-6">Servicios Aéreos</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div 
+          *ngFor="let servicio of serviciosAereos" 
+          class="bg-white rounded-lg shadow-md p-6 transform transition hover:scale-105 hover:shadow-xl">
+          <div class="flex items-center mb-4">
+            <i class="fas fa-plane text-green-600 text-2xl"></i>
+            <h3 class="text-xl font-bold text-gray-800 ml-4">{{ servicio.nombre }}</h3>
+          </div>
+          <p class="text-gray-600 mb-4">{{ servicio.descripcion }}</p>
           <button 
-            (click)="cerrarDetalles()"
-            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
-            Cerrar
+            (click)="verDetallesAereo(servicio)"
+            class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600 transition">
+            Detalles
           </button>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- Modal de Detalles (Aéreo) -->
     <div 
@@ -98,14 +77,11 @@
       <div class="bg-white rounded-lg p-8 max-w-md w-full">
         <h3 class="text-2xl font-bold mb-4">{{ servicioSeleccionadoAereo.nombre }}</h3>
         <p class="text-gray-700 mb-4">{{ servicioSeleccionadoAereo.descripcion }}</p>
-        <div class="flex justify-between">
-          <span class="text-sm text-gray-500">Tarifa Base: ${{ servicioSeleccionadoAereo.tarifaBase }}</span>
-          <button 
-            (click)="cerrarDetalles()"
-            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
-            Cerrar
-          </button>
-        </div>
+        <button 
+          (click)="cerrarDetalles()"
+          class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+          Cerrar
+        </button>
       </div>
     </div>
   </div>
